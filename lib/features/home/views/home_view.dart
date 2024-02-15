@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:tunefun_front/constants/image_constants.dart';
 import 'package:tunefun_front/constants/ui_constants.dart';
 import 'package:tunefun_front/theme/pallete.dart';
 
@@ -26,30 +28,25 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: UIConstants.appBar(),
+      body: IndexedStack(
+        index: _page,
+        children: UIConstants.bottomTapBarPages,
+      ),
       bottomNavigationBar: CupertinoTabBar(
         currentIndex: _page,
         onTap: onPageChanged,
-        backgroundColor: Pallete.backgroundColor,
-        items: const [
-          BottomNavigationBarItem(
+        backgroundColor: Pallete.bgMainColor,
+        items: [
+          const BottomNavigationBarItem(
             icon: Icon(
               Icons.home,
             ),
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.add,
-            ),
+            icon: SvgPicture.asset(ImageConstants.peopleOutlinedIcon),
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.people,
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person,
-            ),
+            icon: SvgPicture.asset(ImageConstants.profileOutlinedIcon),
           ),
         ],
       ),
