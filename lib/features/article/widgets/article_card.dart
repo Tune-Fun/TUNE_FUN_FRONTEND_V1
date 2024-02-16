@@ -7,7 +7,7 @@ import 'package:tunefun_front/theme/pallete.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class ArticleCard extends ConsumerWidget {
-  final Article article;
+  final ArticleModel article;
 
   const ArticleCard({
     Key? key,
@@ -101,8 +101,9 @@ class ArticleCard extends ConsumerWidget {
                       ),
                       child: Text(
                         timeago.format(
+                          // article.deletedAt.difference(article.createdAt),
                           article.createdAt,
-                          locale: 'en_short',
+                          locale: 'en',
                         ),
                         style: const TextStyle(
                           color: Pallete.textMainColor,

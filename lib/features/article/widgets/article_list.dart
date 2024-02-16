@@ -9,8 +9,8 @@ class ArticleList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    List<Article> articles = [
-      Article(
+    List<ArticleModel> articles = [
+      ArticleModel(
         id: 0,
         title: '백예린',
         uuid: '',
@@ -18,11 +18,11 @@ class ArticleList extends ConsumerWidget {
         votes: 339,
         likes: 506,
         articleType: '',
-        createdAt: DateTime.now(),
-        updatedAt: DateTime.now(),
+        createdAt: DateTime(2024, 1, 14),
+        updatedAt: DateTime(2024, 1, 14),
         deletedAt: DateTime.now(),
       ),
-      Article(
+      ArticleModel(
         id: 0,
         title: '로이킴',
         uuid: '',
@@ -30,11 +30,11 @@ class ArticleList extends ConsumerWidget {
         votes: 820,
         likes: 1234,
         articleType: '',
-        createdAt: DateTime.now(),
-        updatedAt: DateTime.now(),
+        createdAt: DateTime(2024, 1, 4),
+        updatedAt: DateTime(2024, 1, 4),
         deletedAt: DateTime.now(),
       ),
-      Article(
+      ArticleModel(
         id: 0,
         title: '에스파',
         uuid: '',
@@ -42,11 +42,11 @@ class ArticleList extends ConsumerWidget {
         votes: 9341,
         likes: 34642,
         articleType: '',
-        createdAt: DateTime.now(),
-        updatedAt: DateTime.now(),
+        createdAt: DateTime(2023, 12, 24),
+        updatedAt: DateTime(2023, 12, 24),
         deletedAt: DateTime.now(),
       ),
-      Article(
+      ArticleModel(
         id: 0,
         title: '박효신',
         uuid: '',
@@ -54,11 +54,11 @@ class ArticleList extends ConsumerWidget {
         votes: 254353,
         likes: 34626,
         articleType: '',
-        createdAt: DateTime.now(),
-        updatedAt: DateTime.now(),
+        createdAt: DateTime(2023, 10, 12),
+        updatedAt: DateTime(2023, 10, 12),
         deletedAt: DateTime.now(),
       ),
-      Article(
+      ArticleModel(
         id: 0,
         title: '수퍼비',
         uuid: '',
@@ -66,11 +66,11 @@ class ArticleList extends ConsumerWidget {
         votes: 9543,
         likes: 43566,
         articleType: '',
-        createdAt: DateTime.now(),
-        updatedAt: DateTime.now(),
+        createdAt: DateTime(2023, 8, 5),
+        updatedAt: DateTime(2023, 8, 5),
         deletedAt: DateTime.now(),
       ),
-      Article(
+      ArticleModel(
         id: 0,
         title: '크러쉬',
         uuid: '',
@@ -78,11 +78,11 @@ class ArticleList extends ConsumerWidget {
         votes: 45342,
         likes: 346695,
         articleType: '',
-        createdAt: DateTime.now(),
-        updatedAt: DateTime.now(),
+        createdAt: DateTime(2023, 12, 31),
+        updatedAt: DateTime(2023, 12, 31),
         deletedAt: DateTime.now(),
       ),
-      Article(
+      ArticleModel(
         id: 0,
         title: 'Coldplay',
         uuid: '',
@@ -90,8 +90,8 @@ class ArticleList extends ConsumerWidget {
         votes: 2464436,
         likes: 4566324,
         articleType: '',
-        createdAt: DateTime.now(),
-        updatedAt: DateTime.now(),
+        createdAt: DateTime(2023, 12, 25),
+        updatedAt: DateTime(2023, 12, 25),
         deletedAt: DateTime.now(),
       ),
     ];

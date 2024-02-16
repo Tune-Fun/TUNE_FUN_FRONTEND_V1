@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
 @immutable
-class Article {
+class ArticleModel {
   final int id;
   final String title;
   final String uuid;
@@ -16,7 +16,7 @@ class Article {
   final DateTime updatedAt;
   final DateTime deletedAt;
 
-  const Article({
+  const ArticleModel({
     required this.id,
     required this.title,
     required this.uuid,
@@ -29,7 +29,7 @@ class Article {
     required this.deletedAt,
   });
 
-  Article copyWith({
+  ArticleModel copyWith({
     int? id,
     String? title,
     String? uuid,
@@ -41,7 +41,7 @@ class Article {
     DateTime? updatedAt,
     DateTime? deletedAt,
   }) {
-    return Article(
+    return ArticleModel(
       id: id ?? this.id,
       title: title ?? this.title,
       uuid: uuid ?? this.uuid,
@@ -70,8 +70,8 @@ class Article {
     };
   }
 
-  factory Article.fromMap(Map<String, dynamic> map) {
-    return Article(
+  factory ArticleModel.fromMap(Map<String, dynamic> map) {
+    return ArticleModel(
       id: map['id'] as int,
       title: map['title'] as String,
       uuid: map['uuid'] as String,
@@ -87,8 +87,8 @@ class Article {
 
   String toJson() => json.encode(toMap());
 
-  factory Article.fromJson(String source) =>
-      Article.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory ArticleModel.fromJson(String source) =>
+      ArticleModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -96,7 +96,7 @@ class Article {
   }
 
   @override
-  bool operator ==(covariant Article other) {
+  bool operator ==(covariant ArticleModel other) {
     if (identical(this, other)) return true;
 
     return other.id == id &&
