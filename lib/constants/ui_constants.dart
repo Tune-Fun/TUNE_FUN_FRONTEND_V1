@@ -28,6 +28,12 @@ class UIConstants {
   static List<Widget> bottomTapBarPages = [
     const ArticleList(),
     const Text(
+      'Add',
+      style: TextStyle(
+        color: Pallete.textMainColor,
+      ),
+    ),
+    const Text(
       'People',
       style: TextStyle(
         color: Pallete.textMainColor,

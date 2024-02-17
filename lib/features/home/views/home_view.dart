@@ -17,8 +17,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String iconState = '';
   int _page = 0;
+  String iconState = '';
 
   void onPageChanged(int index) {
     setState(() {
@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  void onButtonClicked(String state) {
+  void onIconStateChanged(String state) {
     setState(() {
       iconState = state;
     });
@@ -36,60 +36,34 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: UIConstants.appBar(),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    onButtonClicked('search');
-                  },
-                  icon: SvgPicture.asset(
-                    ImageConstants.searchIcon,
-                    height: 18,
-                    width: 18,
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    onButtonClicked('sort');
-                  },
-                  icon: SvgPicture.asset(
-                    ImageConstants.sortIcon,
-                    height: 18,
-                    width: 12,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: IndexedStack(
-              index: _page,
-              children: UIConstants.bottomTapBarPages,
-            ),
-          ),
-        ],
+      body: IndexedStack(
+        index: _page,
+        children: UIConstants.bottomTapBarPages,
       ),
       bottomNavigationBar: CupertinoTabBar(
         currentIndex: _page,
         onTap: onPageChanged,
         backgroundColor: Pallete.bgMainColor,
-        items: [
-          const BottomNavigationBarItem(
+        items: const [
+          BottomNavigationBarItem(
             icon: Icon(
               Icons.home,
             ),
           ),
           BottomNavigationBarItem(
-            icon: SvgPicture.asset(ImageConstants.peopleOutlinedIcon),
+            icon: Icon(
+              Icons.add,
+            ),
           ),
           BottomNavigationBarItem(
-            icon: SvgPicture.asset(ImageConstants.profileOutlinedIcon),
+            icon: Icon(
+              Icons.people,
+            ),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.person,
+            ),
           ),
         ],
       ),
