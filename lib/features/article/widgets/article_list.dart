@@ -5,7 +5,7 @@ import 'package:tunefun_front/constants/constants.dart';
 import 'package:tunefun_front/features/article/widgets/article_card.dart';
 import 'package:tunefun_front/features/home/widgets/search_text_field.dart';
 import 'package:tunefun_front/models/models.dart';
-import 'package:tunefun_front/theme/pallete.dart';
+import 'package:tunefun_front/theme/theme.dart';
 
 class ArticleList extends ConsumerStatefulWidget {
   const ArticleList({Key? key}) : super(key: key);

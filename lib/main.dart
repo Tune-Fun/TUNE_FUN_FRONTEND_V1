@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tunefun_front/features/home/views/home_view.dart';
-import 'package:tunefun_front/theme/app_theme.dart';
+import 'package:tunefun_front/theme/theme.dart';
 
 void main() {
   runApp(const MyApp());

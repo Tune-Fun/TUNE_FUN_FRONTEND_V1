@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:tunefun_front/constants/image_constants.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tunefun_front/constants/constants.dart';
 import 'package:tunefun_front/models/models.dart';
-import 'package:tunefun_front/theme/pallete.dart';
+import 'package:tunefun_front/theme/theme.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class ArticleCard extends ConsumerWidget {

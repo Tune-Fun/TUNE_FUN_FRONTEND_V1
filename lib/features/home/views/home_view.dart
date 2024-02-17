@@ -1,10 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:tunefun_front/constants/image_constants.dart';
-import 'package:tunefun_front/constants/ui_constants.dart';
-import 'package:tunefun_front/features/home/widgets/search_text_field.dart';
-import 'package:tunefun_front/theme/pallete.dart';
+import 'package:tunefun_front/constants/constants.dart';
+import 'package:tunefun_front/theme/theme.dart';
 
 class HomeScreen extends StatefulWidget {
   static MaterialPageRoute route() => MaterialPageRoute(
