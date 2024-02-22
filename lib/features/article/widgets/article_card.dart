@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tunefun_front/constants/constants.dart';
+import 'package:tunefun_front/features/auth/views/login_view.dart';
 import 'package:tunefun_front/models/models.dart';
 import 'package:tunefun_front/theme/theme.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -16,8 +17,15 @@ class ArticleCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    void onArticleClicked() {
+      Navigator.push(
+        context,
+        LoginScreen.route(),
+      );
+    }
+
     return GestureDetector(
-      onTap: () {},
+      onTap: onArticleClicked,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
         child: Container(
