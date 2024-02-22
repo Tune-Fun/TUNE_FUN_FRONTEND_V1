@@ -1,5 +1,6 @@
 class ImageConstants {
   static const String _svgsPath = 'assets/images';
+  static const String alarmIcon = '$_svgsPath/alarm.svg';
   static const String searchIcon = '$_svgsPath/search.svg';
   static const String sortIcon = '$_svgsPath/sort.svg';
   static const String voteIcon = '$_svgsPath/vote.svg';
