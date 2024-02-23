@@ -4,7 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tunefun_front/common/common.dart';
 import 'package:tunefun_front/constants/constants.dart';
 import 'package:tunefun_front/features/auth/views/signup_main_view.dart';
-import 'package:tunefun_front/features/auth/widgets/auth_field.dart';
 import 'package:tunefun_front/theme/pallete.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
@@ -18,13 +17,14 @@ class LoginScreen extends ConsumerStatefulWidget {
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
   final appbar = UIConstants.appBar();
-  final usernameController = TextEditingController();
+  final userIdController = TextEditingController();
   final passwordController = TextEditingController();
+  bool buttonState = false;
 
   @override
   void dispose() {
     super.dispose();
-    usernameController.dispose();
+    userIdController.dispose();
     passwordController.dispose();
   }
 
@@ -38,16 +38,59 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
-                AuthField(
-                  controller: usernameController,
-                  hintText: '아이디',
+                TextFormField(
+                  controller: userIdController,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                      borderSide: const BorderSide(
+                        color: Pallete.textSubColor,
+                        width: 3,
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                      borderSide: const BorderSide(
+                        color: Pallete.textSubColor,
+                        width: 3,
+                      ),
+                    ),
+                    contentPadding: const EdgeInsets.all(22),
+                    hintText: '아이디',
+                    hintStyle: const TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
                 ),
                 const SizedBox(
                   height: 25,
                 ),
-                AuthField(
+                TextFormField(
                   controller: passwordController,
-                  hintText: '비밀번호',
+                  keyboardType: TextInputType.text,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                      borderSide: const BorderSide(
+                        color: Pallete.textSubColor,
+                        width: 3,
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                      borderSide: const BorderSide(
+                        color: Pallete.textSubColor,
+                        width: 3,
+                      ),
+                    ),
+                    contentPadding: const EdgeInsets.all(22),
+                    hintText: '비밀번호',
+                    hintStyle: const TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
                 ),
                 const SizedBox(
                   height: 45,
@@ -116,9 +159,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
                 Align(
                   alignment: Alignment.center,
-                  child: SquareButton(
-                    onTap: () {},
-                    label: '로그인',
+                  child: GreenSquareButton(
+                    onTap: () {
+                      setState(() {
+                        buttonState = true;
+                      });
+                    },
+                    buttonState: buttonState,
+                    buttonText: '로그인',
                   ),
                 ),
               ],

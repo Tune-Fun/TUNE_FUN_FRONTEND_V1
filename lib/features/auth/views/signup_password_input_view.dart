@@ -1,36 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import 'package:tunefun_front/common/common.dart';
 import 'package:tunefun_front/constants/constants.dart';
+import 'package:tunefun_front/features/auth/views/signup_user_state_select_view.dart';
 import 'package:tunefun_front/theme/theme.dart';
 
 var logger = Logger();
 
-class SignupPasswordScreen extends StatefulWidget {
+class SignupPasswordInputScreen extends StatefulWidget {
   final TextEditingController emailController;
   final TextEditingController userIdController;
 
-  const SignupPasswordScreen({
+  const SignupPasswordInputScreen({
     super.key,
     required this.emailController,
     required this.userIdController,
   });
 
   @override
-  State<SignupPasswordScreen> createState() => _SignupPasswordScreenState();
+  State<SignupPasswordInputScreen> createState() =>
+      _SignupPasswordInputScreenState();
 }
 
-class _SignupPasswordScreenState extends State<SignupPasswordScreen> {
+class _SignupPasswordInputScreenState extends State<SignupPasswordInputScreen> {
   final appbar = UIConstants.appBar();
   late TextEditingController emailController;
   late TextEditingController userIdController;
   final passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  bool buttonState = false;
 
   @override
   void initState() {
     super.initState();
     emailController = widget.emailController;
     userIdController = widget.userIdController;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    passwordController.dispose();
   }
 
   @override
@@ -113,29 +123,32 @@ class _SignupPasswordScreenState extends State<SignupPasswordScreen> {
                   ),
                   const SizedBox(height: 35),
                   Center(
-                    child: InkWell(
-                      onTap: () {
-                        if (_formKey.currentState!.validate()) {
-                          // 폼 유효성 검사
-                          // 여기에 다음 단계로 넘어가는 로직 작성
-                          // 아이디 입력 스크린으로 이동
-                          // 중요! 사용자가 입력한 이메일도 같이 넘겨줘야 한다.
-                        }
-                      },
-                      child: const Chip(
-                        label: Text(
-                          '다음',
-                          style: TextStyle(
-                            color: Pallete.greenColor,
-                            fontSize: 16,
-                          ),
-                        ),
-                        backgroundColor: Pallete.bgMainColor,
-                        labelPadding: EdgeInsets.symmetric(
-                          horizontal: 120,
-                          vertical: 5,
-                        ),
-                        side: BorderSide(color: Pallete.greenColor),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 120,
+                        vertical: 5,
+                      ),
+                      child: GreenSquareButton(
+                        onTap: () {
+                          if (_formKey.currentState!.validate()) {
+                            setState(() {
+                              buttonState = true;
+                            });
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    SignupUserStateSelectScreen(
+                                  emailController: emailController,
+                                  userIdController: userIdController,
+                                  passwordController: passwordController,
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                        buttonState: buttonState,
+                        buttonText: '다음',
                       ),
                     ),
                   ),

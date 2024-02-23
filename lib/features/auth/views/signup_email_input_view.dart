@@ -1,38 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
-import 'package:tunefun_front/constants/ui_constants.dart';
-import 'package:tunefun_front/features/auth/views/signup_password_view.dart';
+import 'package:tunefun_front/common/green_square_button.dart';
+import 'package:tunefun_front/constants/constants.dart';
+import 'package:tunefun_front/features/auth/views/signup_userid_input_view.dart';
 import 'package:tunefun_front/theme/theme.dart';
 
-var logger = Logger();
-
-class SignupUserIdScreen extends StatefulWidget {
-  final TextEditingController emailController;
-
-  const SignupUserIdScreen({
-    super.key,
-    required this.emailController,
-  });
+class SignupEmailInputScreen extends StatefulWidget {
+  static route() =>
+      MaterialPageRoute(builder: (context) => const SignupEmailInputScreen());
+  const SignupEmailInputScreen({super.key});
 
   @override
-  State<SignupUserIdScreen> createState() => _SignupUserIdScreenState();
+  State<SignupEmailInputScreen> createState() => _SignupEmailInputScreenState();
 }
 
-class _SignupUserIdScreenState extends State<SignupUserIdScreen> {
+class _SignupEmailInputScreenState extends State<SignupEmailInputScreen> {
   final appbar = UIConstants.appBar();
-  final userIdController = TextEditingController();
-  late TextEditingController emailController;
-
-  @override
-  void initState() {
-    super.initState();
-    emailController = widget.emailController;
-  }
+  final emailController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  bool buttonState = false;
 
   @override
   void dispose() {
     super.dispose();
-    userIdController.dispose();
+    emailController.dispose();
   }
 
   @override
@@ -40,6 +30,7 @@ class _SignupUserIdScreenState extends State<SignupUserIdScreen> {
     return Scaffold(
       appBar: appbar,
       body: Form(
+        key: _formKey, // 폼 키 설정
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -61,7 +52,7 @@ class _SignupUserIdScreenState extends State<SignupUserIdScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    '아이디가 무엇인가요?',
+                    '이메일 주소가 무엇인가요?',
                     style: TextStyle(
                       color: Pallete.textMainColor,
                       fontSize: 15,
@@ -70,7 +61,7 @@ class _SignupUserIdScreenState extends State<SignupUserIdScreen> {
                   ),
                   const SizedBox(height: 12),
                   TextFormField(
-                    controller: userIdController,
+                    controller: emailController,
                     decoration: InputDecoration(
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.0),
@@ -87,45 +78,47 @@ class _SignupUserIdScreenState extends State<SignupUserIdScreen> {
                         ),
                       ),
                       contentPadding: const EdgeInsets.all(22),
-                      hintText: '아이디',
+                      hintText: '이메일',
                       hintStyle: const TextStyle(
                         fontSize: 18,
                       ),
                     ),
                     keyboardType: TextInputType.emailAddress,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return '이메일을 입력해주세요.';
+                      }
+                      if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                          .hasMatch(value)) {
+                        return '올바른 이메일 형식이 아닙니다.';
+                      }
+                      return null;
+                    },
                   ),
                   const SizedBox(height: 35),
                   Center(
-                    child: InkWell(
-                      onTap: () {
-                        // 폼 유효성 검사
-                        // 여기에 다음 단계로 넘어가는 로직 작성
-                        // 비밀번호 입력 스크린으로 이동
-                        // 중요! 사용자가 입력한 이메일, 아이디도 같이 넘겨줘야 한다.
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SignupPasswordScreen(
-                              emailController: emailController,
-                              userIdController: userIdController,
-                            ),
-                          ),
-                        );
-                      },
-                      child: const Chip(
-                        label: Text(
-                          '다음',
-                          style: TextStyle(
-                            color: Pallete.greenColor,
-                            fontSize: 16,
-                          ),
-                        ),
-                        backgroundColor: Pallete.bgMainColor,
-                        labelPadding: EdgeInsets.symmetric(
-                          horizontal: 120,
-                          vertical: 5,
-                        ),
-                        side: BorderSide(color: Pallete.greenColor),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 120,
+                        vertical: 5,
+                      ),
+                      child: GreenSquareButton(
+                        onTap: () {
+                          if (_formKey.currentState!.validate()) {
+                            setState(() {
+                              buttonState = true;
+                            });
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SignupUserIdInputScreen(
+                                    emailController: emailController),
+                              ),
+                            );
+                          }
+                        },
+                        buttonState: buttonState,
+                        buttonText: '다음',
                       ),
                     ),
                   ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
-import 'package:tunefun_front/features/auth/views/signup_email_view.dart';
-
+import 'package:tunefun_front/features/auth/views/signup_email_input_view.dart';
 import 'package:tunefun_front/theme/pallete.dart';
 
 var logger = Logger();
@@ -23,7 +22,7 @@ class EmailSignupButton extends StatelessWidget {
       ),
       child: GestureDetector(
         onTap: () {
-          Navigator.push(context, SignupEmailScreen.route());
+          Navigator.push(context, SignupEmailInputScreen.route());
         },
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 13),
