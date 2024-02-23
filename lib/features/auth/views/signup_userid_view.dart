@@ -6,21 +6,21 @@ import 'package:tunefun_front/theme/theme.dart';
 
 var logger = Logger();
 
-class SignupUsernameScreen extends StatefulWidget {
+class SignupUserIdScreen extends StatefulWidget {
   final TextEditingController emailController;
 
-  const SignupUsernameScreen({
+  const SignupUserIdScreen({
     super.key,
     required this.emailController,
   });
 
   @override
-  State<SignupUsernameScreen> createState() => _SignupUsernameScreenState();
+  State<SignupUserIdScreen> createState() => _SignupUserIdScreenState();
 }
 
-class _SignupUsernameScreenState extends State<SignupUsernameScreen> {
+class _SignupUserIdScreenState extends State<SignupUserIdScreen> {
   final appbar = UIConstants.appBar();
-  final usernameController = TextEditingController();
+  final userIdController = TextEditingController();
   late TextEditingController emailController;
 
   @override
@@ -32,7 +32,7 @@ class _SignupUsernameScreenState extends State<SignupUsernameScreen> {
   @override
   void dispose() {
     super.dispose();
-    usernameController.dispose();
+    userIdController.dispose();
   }
 
   @override
@@ -70,7 +70,7 @@ class _SignupUsernameScreenState extends State<SignupUsernameScreen> {
                   ),
                   const SizedBox(height: 12),
                   TextFormField(
-                    controller: usernameController,
+                    controller: userIdController,
                     decoration: InputDecoration(
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.0),
@@ -107,7 +107,7 @@ class _SignupUsernameScreenState extends State<SignupUsernameScreen> {
                           MaterialPageRoute(
                             builder: (context) => SignupPasswordScreen(
                               emailController: emailController,
-                              usernameController: usernameController,
+                              userIdController: userIdController,
                             ),
                           ),
                         );
