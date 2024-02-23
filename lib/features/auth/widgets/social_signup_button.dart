@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:logger/logger.dart';
+import 'package:tunefun_front/constants/image_constants.dart';
 import 'package:tunefun_front/core/enums/social_login_enum.dart';
 
 import 'package:tunefun_front/theme/pallete.dart';
@@ -51,6 +53,12 @@ class SocialSignupButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              SvgPicture.asset(
+                ImageConstants.profileOutlinedIcon,
+                height: 24,
+                width: 24,
+              ),
+              const SizedBox(width: 14),
               Text(buttonText),
             ],
           ),

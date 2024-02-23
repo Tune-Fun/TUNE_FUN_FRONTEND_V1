@@ -7,7 +7,7 @@ class ImageConstants {
   static const String likeFilledIcon = '$_svgsPath/like_filled.svg';
   static const String peopleOutlinedIcon = '$_svgsPath/people_outlined.svg';
   static const String profileOutlinedIcon = '$_svgsPath/profile_outlined.svg';
-  static const String facebookLogo = '$_svgsPath/facebook_logo.svg';
-  static const String googleLogo = '$_svgsPath/google_logo.svg';
-  static const String appleLogo = '$_svgsPath/apple_logo.svg';
+  static const String facebookIcon = '$_svgsPath/facebookIcon.svg';
+  static const String googleIcon = '$_svgsPath/googleIcon.svg';
+  static const String appleIcon = '$_svgsPath/appleIcon.svg';
 }
