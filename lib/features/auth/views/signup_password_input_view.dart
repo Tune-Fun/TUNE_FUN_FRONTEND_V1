@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:tunefun_front/common/common.dart';
 import 'package:tunefun_front/constants/constants.dart';
-import 'package:tunefun_front/features/auth/views/signup_user_state_select_view.dart';
+import 'package:tunefun_front/features/auth/views/signup_account_type_select_view.dart';
 import 'package:tunefun_front/theme/theme.dart';
 
 var logger = Logger();
 
 class SignupPasswordInputScreen extends StatefulWidget {
   final TextEditingController emailController;
-  final TextEditingController userIdController;
+  final TextEditingController usernameController;
 
   const SignupPasswordInputScreen({
     super.key,
     required this.emailController,
-    required this.userIdController,
+    required this.usernameController,
   });
 
   @override
@@ -25,7 +25,7 @@ class SignupPasswordInputScreen extends StatefulWidget {
 class _SignupPasswordInputScreenState extends State<SignupPasswordInputScreen> {
   final appbar = UIConstants.appBar();
   late TextEditingController emailController;
-  late TextEditingController userIdController;
+  late TextEditingController usernameController;
   final passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool buttonState = false;
@@ -34,7 +34,7 @@ class _SignupPasswordInputScreenState extends State<SignupPasswordInputScreen> {
   void initState() {
     super.initState();
     emailController = widget.emailController;
-    userIdController = widget.userIdController;
+    usernameController = widget.usernameController;
   }
 
   @override
@@ -138,9 +138,9 @@ class _SignupPasswordInputScreenState extends State<SignupPasswordInputScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    SignupUserStateSelectScreen(
+                                    SignupAccountTypeSelectScreen(
                                   emailController: emailController,
-                                  userIdController: userIdController,
+                                  usernameController: usernameController,
                                   passwordController: passwordController,
                                 ),
                               ),

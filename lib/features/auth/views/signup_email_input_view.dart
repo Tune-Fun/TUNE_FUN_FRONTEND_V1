@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tunefun_front/common/green_square_button.dart';
 import 'package:tunefun_front/constants/constants.dart';
-import 'package:tunefun_front/features/auth/views/signup_userid_input_view.dart';
+import 'package:tunefun_front/features/auth/views/signup_username_input_view.dart';
 import 'package:tunefun_front/theme/theme.dart';
 
 class SignupEmailInputScreen extends StatefulWidget {
@@ -111,7 +111,7 @@ class _SignupEmailInputScreenState extends State<SignupEmailInputScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => SignupUserIdInputScreen(
+                                builder: (context) => SignupUsernameInputScreen(
                                     emailController: emailController),
                               ),
                             );
