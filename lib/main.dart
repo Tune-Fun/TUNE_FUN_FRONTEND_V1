@@ -3,9 +3,10 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import 'package:tunefun_front/amplifyconfiguration.dart';
 import 'package:tunefun_front/features/home/views/home_view.dart';
+import 'package:tunefun_front/features/vote/views/vote_view.dart';
 import 'package:tunefun_front/theme/theme.dart';
-import 'amplifyconfiguration.dart';
 
 var logger = Logger();
 
@@ -36,7 +37,7 @@ class _MyAppState extends State<MyApp> {
       title: 'TuneFun',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.theme,
-      home: const HomeScreen(),
+      // home: const VoteDetailScreen(),
     );
   }
 
