@@ -8,6 +8,9 @@ import 'package:logger/logger.dart';
 import 'package:tunefun_front/features/firebase/test/fcm_view.dart';
 import 'package:tunefun_front/features/home/views/home_view.dart';
 import 'package:tunefun_front/firebase_options.dart';
+import 'package:tunefun_front/amplifyconfiguration.dart';
+import 'package:tunefun_front/features/home/views/home_view.dart';
+import 'package:tunefun_front/features/vote/views/vote_view.dart';
 import 'package:tunefun_front/theme/theme.dart';
 
 var logger = Logger();
@@ -50,6 +53,7 @@ class _MyAppState extends State<MyApp> {
       theme: AppTheme.theme,
       home: const HomeScreen(),
       // home: const FcmTestScreen(),
+      // home: const VoteDetailScreen(),
     );
   }
 }
