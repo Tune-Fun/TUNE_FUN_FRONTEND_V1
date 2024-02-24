@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:tunefun_front/common/common.dart';
 import 'package:tunefun_front/constants/constants.dart';
+import 'package:tunefun_front/features/auth/views/signup_username_input_view.dart';
 import 'package:tunefun_front/theme/theme.dart';
 
 var logger = Logger();
@@ -38,6 +39,7 @@ class _SignupUserStateSelectScreenState
     emailController = widget.emailController;
     userIdController = widget.userIdController;
     passwordController = widget.passwordController;
+    userType = '';
   }
 
   @override
@@ -171,6 +173,17 @@ class _SignupUserStateSelectScreenState
                         // logger.i(userIdController.text);
                         // logger.i(passwordController.text);
                         // logger.i(userType);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SignupUserNameInputScreen(
+                              emailController: emailController,
+                              userIdController: userIdController,
+                              passwordController: passwordController,
+                              userType: userType,
+                            ),
+                          ),
+                        );
                       },
                       buttonState: buttonState,
                       buttonText: '다음',
