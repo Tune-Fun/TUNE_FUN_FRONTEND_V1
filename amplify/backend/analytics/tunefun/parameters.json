@@ -1,0 +1,21 @@
+{
+    "appName": "tunefun",
+    "roleName": "pinpointLambdaRole9fa05f73",
+    "cloudformationPolicyName": "cloudformationPolicy9fa05f73",
+    "cloudWatchPolicyName": "cloudWatchPolicy9fa05f73",
+    "pinpointPolicyName": "pinpointPolicy9fa05f73",
+    "authPolicyName": "pinpoint_amplify_9fa05f73",
+    "unauthPolicyName": "pinpoint_amplify_9fa05f73",
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    }
+}
