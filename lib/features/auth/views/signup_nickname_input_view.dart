@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
-import 'package:tunefun_front/common/circle_check_button.dart';
 import 'package:tunefun_front/common/common.dart';
-import 'package:tunefun_front/constants/ui_constants.dart';
+import 'package:tunefun_front/constants/constants.dart';
 import 'package:tunefun_front/features/auth/controllers/auth_controller.dart';
+import 'package:tunefun_front/models/models.dart';
 import 'package:tunefun_front/theme/theme.dart';
 
 var logger = Logger();
@@ -38,6 +38,7 @@ class _SignupNickNameInputScreenState
   bool buttonState = false;
   bool termsOfService = false;
   bool privacyPolicy = false;
+  final _formKey = GlobalKey<FormState>();
 
   final nicknameController = TextEditingController();
 
@@ -50,23 +51,16 @@ class _SignupNickNameInputScreenState
     accountType = widget.accountType;
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    emailController.dispose();
-    usernameController.dispose();
-    passwordController.dispose();
-    nicknameController.dispose();
-  }
-
   void signUp() {
-    ref.read(authControllerProvider.notifier).signup(
-          email: emailController.text,
-          username: usernameController.text,
-          password: passwordController.text,
-          accountType: accountType,
-          nickname: nicknameController.text,
-        );
+    UserModel userModel = UserModel(
+      email: emailController.text,
+      username: usernameController.text,
+      password: passwordController.text,
+      nickname: nicknameController.text,
+      accountType: accountType,
+    );
+
+    ref.read(authControllerProvider.notifier).signup(userModel: userModel);
   }
 
   @override
@@ -74,6 +68,7 @@ class _SignupNickNameInputScreenState
     return Scaffold(
       appBar: appbar,
       body: Form(
+        key: _formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -127,6 +122,12 @@ class _SignupNickNameInputScreenState
                       ),
                     ),
                     keyboardType: TextInputType.text,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return '이름을 입력해주세요';
+                      }
+                      return null;
+                    },
                   ),
                   const SizedBox(
                     height: 5,
@@ -286,13 +287,16 @@ class _SignupNickNameInputScreenState
                           horizontal: 120, vertical: 5),
                       child: GreenSquareButton(
                         onTap: () {
-                          setState(() {
-                            buttonState = true;
-                          });
+                          if (_formKey.currentState!.validate()) {
+                            setState(() {
+                              buttonState = true;
+                            });
 
-                          // 이제 회원가입 진행하면 된다.
-                          // api 연결
-                          signUp();
+                            // 이제 회원가입 진행하면 된다.
+                            // api 연결
+                            signUp();
+                            Loader();
+                          }
                         },
                         buttonState: buttonState,
                         buttonText: '계정 만들기',

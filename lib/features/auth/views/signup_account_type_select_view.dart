@@ -87,7 +87,8 @@ class _SignupAccountTypeSelectScreenState
                         onTap: () {
                           // 일반 사용자 버튼이 눌렸을 때의 로직
                           setState(() {
-                            accountType = 'normal';
+                            accountType =
+                                accountType == 'normal' ? '' : 'normal';
                           });
                         },
                         child: Container(
@@ -122,7 +123,8 @@ class _SignupAccountTypeSelectScreenState
                         onTap: () {
                           // 아티스트 사용자 버튼이 눌렸을 때의 로직
                           setState(() {
-                            accountType = 'artist';
+                            accountType =
+                                accountType == 'artist' ? '' : 'artist';
                           });
                         },
                         child: Container(
@@ -162,28 +164,25 @@ class _SignupAccountTypeSelectScreenState
                         horizontal: 120, vertical: 5),
                     child: GreenSquareButton(
                       onTap: () {
-                        setState(() {
-                          buttonState = true;
-                        });
-                        // 다음 페이지로 이동
-                        // 사용자 이름(닉네임) 입력 및 약관 동의
-                        // 화면번호 : 12500
-                        // parameter: emailController, usernameController, passwordController, accountType
-                        // logger.i(emailController.text);
-                        // logger.i(usernameController.text);
-                        // logger.i(passwordController.text);
-                        // logger.i(accountType);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SignupNickNameInputScreen(
-                              emailController: emailController,
-                              usernameController: usernameController,
-                              passwordController: passwordController,
-                              accountType: accountType,
+                        if (accountType.isNotEmpty) {
+                          setState(() {
+                            buttonState = true;
+                          });
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SignupNickNameInputScreen(
+                                emailController: emailController,
+                                usernameController: usernameController,
+                                passwordController: passwordController,
+                                accountType: accountType,
+                              ),
                             ),
-                          ),
-                        );
+                          );
+                        } else {
+                          showSnackBar(context, '사용자 유형을 선택해야 합니다.');
+                        }
                       },
                       buttonState: buttonState,
                       buttonText: '다음',

@@ -38,12 +38,6 @@ class _SignupPasswordInputScreenState extends State<SignupPasswordInputScreen> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-    passwordController.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appbar,
