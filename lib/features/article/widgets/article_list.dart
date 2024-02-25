@@ -37,6 +37,16 @@ class _ArticleListState extends ConsumerState<ArticleList> {
               children: [
                 IconButton(
                   onPressed: () {
+                    onIconStateChanged('alarm');
+                  },
+                  icon: SvgPicture.asset(
+                    ImageConstants.alarmIcon,
+                    height: 18,
+                    width: 18,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
                     onIconStateChanged('search');
                   },
                   icon: SvgPicture.asset(
