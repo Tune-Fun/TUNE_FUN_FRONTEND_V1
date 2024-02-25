@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "tunefunfront_identitypool_600e5811",
+    "identityPoolName": "tunefun8d92d8eb_identitypool_8d92d8eb",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "tunefu01851f95",
-    "userPoolName": "tunefunfront_userpool_01851f95",
+    "resourceNameTruncated": "tunefu8d92d8eb",
+    "userPoolName": "tunefun8d92d8eb_userpool_8d92d8eb",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -31,13 +31,19 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "tunefu01851f95_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "tunefu8d92d8eb_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
+    "sharedId": "8d92d8eb",
+    "resourceName": "tunefun8d92d8eb",
     "authSelections": "identityPoolAndUserPool",
-    "resourceName": "tunefunfront",
-    "sharedId": "600e5811",
-    "serviceName": "Cognito",
     "useDefault": "default",
+    "usernameAttributes": [
+      "email"
+    ],
+    "userPoolGroupList": [],
+    "serviceName": "Cognito",
+    "usernameCaseSensitive": false,
+    "useEnabledMfas": true,
     "authRoleArn": {
       "Fn::GetAtt": [
         "AuthRole",
@@ -51,10 +57,6 @@
       ]
     },
     "breakCircularDependency": true,
-    "useEnabledMfas": true,
-    "dependsOn": [],
-    "hostedUI": false,
-    "userPoolGroupList": [],
-    "authProviders": []
+    "dependsOn": []
   }
 }

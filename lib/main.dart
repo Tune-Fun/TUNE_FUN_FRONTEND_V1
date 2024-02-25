@@ -11,7 +11,7 @@ import 'amplifyconfiguration.dart';
 var logger = Logger();
 
 void main() {
-  runApp(ProviderScope(child: MyApp()));
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatefulWidget {

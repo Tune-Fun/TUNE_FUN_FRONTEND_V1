@@ -1,22 +1,22 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-tunefunfront-dev-114021-authRole",
-      "UnauthRoleArn": "arn:aws:iam::381491967258:role/amplify-tunefunfront-dev-114021-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::381491967258:role/amplify-tunefunfront-dev-114021-authRole",
-      "Region": "ap-southeast-2",
-      "DeploymentBucketName": "amplify-tunefunfront-dev-114021-deployment",
-      "UnauthRoleName": "amplify-tunefunfront-dev-114021-unauthRole",
-      "StackName": "amplify-tunefunfront-dev-114021",
-      "StackId": "arn:aws:cloudformation:ap-southeast-2:381491967258:stack/amplify-tunefunfront-dev-114021/905a3f30-d062-11ee-9b53-06d87b80aab5",
-      "AmplifyAppId": "d1dvmoviddi6bb"
+      "AuthRoleName": "amplify-tunefun-dev-165406-authRole",
+      "UnauthRoleArn": "arn:aws:iam::381491967258:role/amplify-tunefun-dev-165406-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::381491967258:role/amplify-tunefun-dev-165406-authRole",
+      "Region": "ap-northeast-2",
+      "DeploymentBucketName": "amplify-tunefun-dev-165406-deployment",
+      "UnauthRoleName": "amplify-tunefun-dev-165406-unauthRole",
+      "StackName": "amplify-tunefun-dev-165406",
+      "StackId": "arn:aws:cloudformation:ap-northeast-2:381491967258:stack/amplify-tunefun-dev-165406/0db868a0-d3b3-11ee-bab8-0244845500b3",
+      "AmplifyAppId": "d2ad0k3yfhd9x8"
     },
     "categories": {
       "auth": {
-        "tunefunfront": {}
+        "tunefun8d92d8eb": {}
       },
       "analytics": {
-        "tunefunfront": {}
+        "tunefun": {}
       }
     }
   }

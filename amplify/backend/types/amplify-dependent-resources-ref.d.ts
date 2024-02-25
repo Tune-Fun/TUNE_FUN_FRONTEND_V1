@@ -1,13 +1,13 @@
 export type AmplifyDependentResourcesAttributes = {
   "analytics": {
-    "tunefunfront": {
+    "tunefun": {
       "Id": "string",
       "Region": "string",
       "appName": "string"
     }
   },
   "auth": {
-    "tunefunfront": {
+    "tunefun8d92d8eb": {
       "AppClientID": "string",
       "AppClientIDWeb": "string",
       "IdentityPoolId": "string",

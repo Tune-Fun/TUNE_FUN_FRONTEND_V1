@@ -1,12 +1,13 @@
 {
   "analytics": {
-    "tunefunfront": {
+    "tunefun": {
       "providerPlugin": "awscloudformation",
       "service": "Pinpoint"
     }
   },
   "auth": {
-    "tunefunfront": {
+    "tunefun8d92d8eb": {
+      "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
         "mfaConfiguration": "OFF",
@@ -21,14 +22,15 @@
           "EMAIL"
         ],
         "socialProviders": [],
-        "usernameAttributes": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
         "verificationMechanisms": [
           "EMAIL"
         ]
       },
       "providerPlugin": "awscloudformation",
-      "service": "Cognito",
-      "serviceType": "managed"
+      "service": "Cognito"
     }
   }
 }
