@@ -4,7 +4,7 @@ import 'package:logger/logger.dart';
 import 'package:tunefun_front/common/common.dart';
 import 'package:tunefun_front/constants/constants.dart';
 import 'package:tunefun_front/features/auth/controllers/auth_controller.dart';
-import 'package:tunefun_front/models/models.dart';
+import 'package:tunefun_front/features/auth/views/login_view.dart';
 import 'package:tunefun_front/theme/theme.dart';
 
 var logger = Logger();
@@ -52,19 +52,20 @@ class _SignupNickNameInputScreenState
   }
 
   void signUp() {
-    UserModel userModel = UserModel(
-      email: emailController.text,
-      username: usernameController.text,
-      password: passwordController.text,
-      nickname: nicknameController.text,
-      accountType: accountType,
-    );
-
-    ref.read(authControllerProvider.notifier).signup(userModel: userModel);
+    ref.read(authControllerProvider.notifier).signup(
+          email: emailController.text,
+          username: usernameController.text,
+          password: passwordController.text,
+          nickname: nicknameController.text,
+          accountType: accountType,
+          context: context,
+        );
   }
 
   @override
   Widget build(BuildContext context) {
+    final isLoading = ref.watch(authControllerProvider);
+
     return Scaffold(
       appBar: appbar,
       body: Form(
@@ -295,7 +296,12 @@ class _SignupNickNameInputScreenState
                             // 이제 회원가입 진행하면 된다.
                             // api 연결
                             signUp();
-                            Loader();
+
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              LoginScreen.route(),
+                              (route) => false,
+                            );
                           }
                         },
                         buttonState: buttonState,
