@@ -1,17 +1,6 @@
 import 'package:tunefun_front/models/article_model.dart';
-import 'package:tunefun_front/models/user_model.dart';
 
 class DummyData {
-  static List<UserModel> users = [
-    const UserModel(
-      email: 'test@test.com',
-      username: 'test',
-      password: 'abcdefg1!',
-      nickname: 'kim',
-      accountType: 'normal',
-    ),
-  ];
-
   static List<ArticleModel> articles = [
     ArticleModel(
       id: 0,
