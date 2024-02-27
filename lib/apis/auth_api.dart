@@ -20,7 +20,7 @@ abstract class IAuthAPI {
     required String accountType,
   });
 
-  FutureEither<UserModel> login({
+  FutureEither<ArticleModel> login({
     required String username,
     required String password,
   });
@@ -60,7 +60,7 @@ class AuthAPI extends IAuthAPI {
   }
 
   @override
-  FutureEither<UserModel> login({
+  FutureEither<ArticleModel> login({
     required String username,
     required String password,
   }) {

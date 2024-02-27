@@ -44,13 +44,29 @@ class AuthController extends StateNotifier<bool> {
     res.fold(
       (l) => showSnackBar(context, l.message),
       (r) async {
-        UserModel userModel = UserModel(
-          email: email,
-          username: username,
-          password: password,
-          nickname: nickname,
-          accountType: accountType,
-        );
+        // AccountModel accountModel = AccountModel(
+        //     id: ,
+        //     uuid: uuid,
+        //     username: username,
+        //     password: password,
+        //     email: email,
+        //     nickname: nickname,
+        //     roles: roles,
+        //     lastLoginAt: lastLoginAt,
+        //     lastLogOutAt: lastLogOutAt,
+        //     emailVerifiedAt: emailVerifiedAt,
+        //     withDrawlAt: withDrawlAt,
+        //     deletedAt: deletedAt,
+        //     isAccountNonExpired: isAccountNonExpired,
+        //     isAccountNonLocked: isAccountNonLocked,
+        //     isCredentialsNonExpired: isCredentialsNonExpired,
+        //     isEnabled: isEnabled,
+        //     voteProgressNotification: voteProgressNotification,
+        //     voteEndNotification: voteEndNotification,
+        //     voteDeliveryNotification: voteDeliveryNotification,
+        //     createdAt: createdAt,
+        //     updatedAt: updatedAt,
+        // );
 
         // repository에 전달해주고
         // 사용자 데이터를 DB에 저장해주는 코드를 추가해준다.

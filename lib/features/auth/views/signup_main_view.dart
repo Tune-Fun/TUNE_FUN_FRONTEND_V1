@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tunefun_front/constants/constants.dart';
-import 'package:tunefun_front/core/enums/social_login_enum.dart';
+import 'package:tunefun_front/core/enums/enums.dart';
 import 'package:tunefun_front/features/auth/widgets/email_signup_button.dart';
 import 'package:tunefun_front/features/auth/widgets/social_signup_button.dart';
 import 'package:tunefun_front/theme/theme.dart';
@@ -39,9 +39,9 @@ class _SignUpScreenState extends ConsumerState<SignUpMainScreen> {
             height: 70,
           ),
           EmailSignupButton(text: '가입하기'),
-          SocialSignupButton(text: 'Google', type: SocialLoginType.google),
-          SocialSignupButton(text: 'Apple', type: SocialLoginType.apple),
-          SocialSignupButton(text: 'Facebook', type: SocialLoginType.facebook),
+          SocialSignupButton(text: 'Google', type: OAuthType.google),
+          SocialSignupButton(text: 'Apple', type: OAuthType.apple),
+          SocialSignupButton(text: 'Facebook', type: OAuthType.facebook),
         ],
       ),
     );
