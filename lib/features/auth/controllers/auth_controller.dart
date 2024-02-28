@@ -14,6 +14,11 @@ final authControllerProvider =
   );
 });
 
+final currentUserAccountProvider = FutureProvider((ref) {
+  final authController = ref.watch(authControllerProvider.notifier);
+  return authController.currentUserAccount();
+});
+
 class AuthController extends StateNotifier<bool> {
   final AuthAPI _authAPI;
 
@@ -71,6 +76,39 @@ class AuthController extends StateNotifier<bool> {
         // repository에 전달해주고
         // 사용자 데이터를 DB에 저장해주는 코드를 추가해준다.
       },
+    );
+  }
+
+  Future<AccountModel?> currentUserAccount() => _authAPI.currentUserAccount();
+
+  Future<void> verifyEmail(
+      {required String email,
+      required String confirmationCode,
+      required BuildContext context}) async {
+    state = true;
+
+    final res = await _authAPI.verifyEmail(
+        email: email, confirmationCode: confirmationCode);
+
+    state = false;
+
+    res.fold(
+      (l) => showSnackBar(context, l.message),
+      (r) async {},
+    );
+  }
+
+  Future<void> resendConfirmationCode(
+      {required String email, required BuildContext context}) async {
+    state = true;
+
+    final res = await _authAPI.resendConfirmationCode(email: email);
+
+    state = false;
+
+    res.fold(
+      (l) => showSnackBar(context, l.message),
+      (r) async {},
     );
   }
 }
