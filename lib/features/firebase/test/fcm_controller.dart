@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
@@ -49,7 +50,6 @@ class FCMController {
     const NotificationDetails notificationDetails = NotificationDetails(
         android: androidNotificationDetails,
         iOS: DarwinNotificationDetails(badgeNumber: 1));
-
     await flutterLocalNotificationsPlugin.show(
         0, 'test title', 'test body', notificationDetails);
   }
@@ -57,5 +57,6 @@ class FCMController {
 
 getDeviceToken() async {
   final fcmToken = await FirebaseMessaging.instance.getToken();
+  print(fcmToken);
   return fcmToken;
 }

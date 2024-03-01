@@ -1,4 +1,6 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:tunefun_front/features/firebase/test/fcm_controller.dart';
 
 class FcmTestScreen extends StatefulWidget {
@@ -9,11 +11,34 @@ class FcmTestScreen extends StatefulWidget {
 }
 
 class _FcmTestScreenState extends State<FcmTestScreen> {
+  var messageString = "";
   @override
   void initState() {
-    FCMController.init();
-    Future.delayed(const Duration(seconds: 3),
-        FCMController.requestNotificationPermission());
+    // foreground
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      RemoteNotification? notification = message.notification;
+
+      if (notification != null) {
+        FlutterLocalNotificationsPlugin().show(
+          notification.hashCode,
+          notification.title,
+          notification.body,
+          const NotificationDetails(
+            android: AndroidNotificationDetails(
+              'high_importance_channel',
+              'high_importance_notification',
+              importance: Importance.max,
+            ),
+          ),
+        );
+
+        setState(() {
+          messageString = message.notification!.body!;
+
+          print("Foreground 메시지 수신: $messageString");
+        });
+      }
+    });
     super.initState();
   }
 
