@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tunefun_front/features/vote/widgets/vote_card.dart';
 
-class BottomButtons extends StatelessWidget {
-  final bool isClicked;
-  const BottomButtons({required this.isClicked, super.key});
+class BottomButtons extends ConsumerWidget {
+  const BottomButtons({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isClicked = ref.watch(clickedIndexProvider) == null ? false : true;
     final buttonHeight = MediaQuery.of(context).size.height * 0.1;
     return SizedBox(
       height: buttonHeight,
