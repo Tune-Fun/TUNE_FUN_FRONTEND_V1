@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tunefun_front/constants/ui_constants.dart';
 import 'package:tunefun_front/features/vote/widgets/bottom_buttons.dart';
 import 'package:tunefun_front/features/vote/widgets/dotted_box.dart';
+import 'package:tunefun_front/features/vote/widgets/vote_card.dart';
 import 'package:tunefun_front/theme/pallete.dart';
-
-final selectedListItemProvider = StateProvider<int?>((ref) => null);
 
 class VoteDetailScreen extends StatefulWidget {
   const VoteDetailScreen({super.key});
@@ -22,8 +20,6 @@ final dummyData = [
 ];
 
 class _VoteDetailScreenState extends State<VoteDetailScreen> {
-  int? clickedIndex;
-  bool isClicked = false;
   @override
   Widget build(BuildContext context) {
     print('rebuild');
@@ -116,29 +112,14 @@ class _VoteDetailScreenState extends State<VoteDetailScreen> {
                         shrinkWrap: true,
                         itemCount: dummyData.length,
                         itemBuilder: ((context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                if (clickedIndex == index) {
-                                  isClicked = false;
-                                  clickedIndex = null;
-                                  return;
-                                }
-                                isClicked = true;
-                                clickedIndex = index;
-                              });
-                            },
-                            child: ListTile(
-                              title: Text(dummyData[index]),
-                              trailing: clickedIndex == index
-                                  ? const Icon(Icons.check)
-                                  : null,
-                            ),
+                          return VoteCard(
+                            index: index,
+                            data: dummyData[index],
                           );
                         }))
                   ]),
             )),
-            BottomButtons(isClicked: isClicked)
+            BottomButtons()
           ],
         ),
       ),
