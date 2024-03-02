@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class BottomButtons extends StatelessWidget {
-  const BottomButtons({super.key});
+  final bool isClicked;
+  const BottomButtons({required this.isClicked, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +24,12 @@ class BottomButtons extends StatelessWidget {
           ),
           ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  minimumSize: Size(150, 40),
+                  minimumSize: const Size(150, 40),
                   backgroundColor: Colors.green,
                   shape: BeveledRectangleBorder(
                       borderRadius: BorderRadius.circular(5))),
               onPressed: () {},
-              child: Text("노래검색"))
+              child: isClicked ? const Text("투표하기") : const Text("노래검색"))
         ],
       ),
     );
