@@ -46,6 +46,7 @@ dependencies:
   amplify_analytics_pinpoint: ^1.6.3
   amplify_auth_cognito: ^1.6.2
   logger: ^2.0.2+1
+  dotted_border: ^2.1.0
 
 dev_dependencies:
   flutter_test:
