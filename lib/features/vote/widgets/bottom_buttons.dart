@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tunefun_front/features/vote/viewModel/view_model.dart';
+import 'package:tunefun_front/features/vote/widgets/tune_track.dart';
 import 'package:tunefun_front/features/vote/widgets/vote_card.dart';
 
 class BottomButtons extends ConsumerWidget {
@@ -30,7 +32,26 @@ class BottomButtons extends ConsumerWidget {
                   backgroundColor: Colors.green,
                   shape: BeveledRectangleBorder(
                       borderRadius: BorderRadius.circular(5))),
-              onPressed: () {},
+              onPressed: () {
+                isClicked
+                    ? print("vote")
+                    : showModalBottomSheet(
+                        isScrollControlled: true,
+                        shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.zero),
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Padding(
+                            padding: MediaQuery.of(context).viewInsets,
+                            child:
+                                const TuneTrackContainer(buttonType: "search"),
+                          );
+                        }).then((value) {
+                        print(value);
+                      }).whenComplete(() {
+                        ref.watch(voteViewModelProvider).isExist = false;
+                      });
+              },
               child: isClicked ? const Text("투표하기") : const Text("노래검색"))
         ],
       ),
