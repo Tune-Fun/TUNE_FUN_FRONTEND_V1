@@ -10,6 +10,7 @@ class BottomButtons extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isClicked = ref.watch(clickedIndexProvider) == null ? false : true;
+    final viewModel = ref.watch(voteViewModelProvider.notifier);
     final buttonHeight = MediaQuery.of(context).size.height * 0.1;
     return SizedBox(
       height: buttonHeight,
@@ -47,9 +48,12 @@ class BottomButtons extends ConsumerWidget {
                                 const TuneTrackContainer(buttonType: "search"),
                           );
                         }).then((value) {
-                        print(value);
-                      }).whenComplete(() {
                         ref.watch(voteViewModelProvider).isExist = false;
+                      }).whenComplete(() {
+                        viewModel.scrollController.animateTo(
+                            viewModel.resultSongIndex * 60.0,
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.easeOut);
                       });
               },
               child: isClicked ? const Text("투표하기") : const Text("노래검색"))
