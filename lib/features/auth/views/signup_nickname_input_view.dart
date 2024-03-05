@@ -297,11 +297,13 @@ class _SignupNickNameInputScreenState
                             // api 연결
                             signUp();
 
-                            Navigator.pushAndRemoveUntil(
-                              context,
-                              LoginScreen.route(),
-                              (route) => false,
-                            );
+                            if (isLoading == true) {
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                LoginScreen.route(),
+                                (route) => false,
+                              );
+                            }
                           }
                         },
                         buttonState: buttonState,

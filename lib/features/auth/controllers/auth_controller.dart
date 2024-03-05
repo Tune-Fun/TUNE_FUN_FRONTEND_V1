@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 import 'package:tunefun_front/apis/apis.dart';
 import 'package:tunefun_front/common/common.dart';
 import 'package:tunefun_front/models/models.dart';
+
+import 'package:http/http.dart' as http;
 
 var logger = Logger();
 
@@ -34,7 +38,7 @@ class AuthController extends StateNotifier<bool> {
     required String accountType,
     required BuildContext context,
   }) async {
-    state = true;
+    // state = true;
 
     final res = await _authAPI.signup(
       email: email,
@@ -44,11 +48,15 @@ class AuthController extends StateNotifier<bool> {
       accountType: accountType,
     );
 
-    state = false;
+    // state = false;
 
     res.fold(
-      (l) => showSnackBar(context, l.message),
+      (l) {
+        showSnackBar(context, l.message);
+        logger.e(l.message);
+      },
       (r) async {
+        logger.d(res);
         // AccountModel accountModel = AccountModel(
         //     id: ,
         //     uuid: uuid,

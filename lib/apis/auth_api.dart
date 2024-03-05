@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:logger/logger.dart';
 import 'package:tunefun_front/core/core.dart';
 import 'package:tunefun_front/models/models.dart';
+import 'package:http/http.dart' as http;
+import 'package:tunefun_front/constants/constants.dart';
 
 var logger = Logger();
 
@@ -12,7 +16,7 @@ final authAPIProvider = Provider((ref) {
 });
 
 abstract class IAuthAPI {
-  FutureEither<void> signup({
+  FutureEither<http.Response> signup({
     required String email,
     required String username,
     required String password,
@@ -38,8 +42,13 @@ abstract class IAuthAPI {
 }
 
 class AuthAPI extends IAuthAPI {
+  Map<String, String> headers = {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  };
+
   @override
-  FutureEither<void> signup({
+  FutureEither<http.Response> signup({
     required String email,
     required String username,
     required String password,
@@ -47,22 +56,27 @@ class AuthAPI extends IAuthAPI {
     required String accountType,
   }) async {
     try {
-      final userAttributes = {AuthUserAttributeKey.name: username};
-
-      final account = await Amplify.Auth.signUp(
-        username: email,
-        password: password,
-        options: SignUpOptions(
-          userAttributes: userAttributes,
-        ),
+      final url = Uri.parse(UrlConstants.registerURL);
+      final body = {
+        "username": username,
+        "password": password,
+        "email": email,
+        "nickname": nickname,
+        "notification": {
+          "vote_progress_notification": true,
+          "vote_end_notification": true,
+          "vote_delivery_notification": true
+        }
+      };
+      http.Response response = await http.post(
+        url,
+        body: jsonEncode(body),
+        headers: headers,
       );
 
-      logger.d(account);
-      return right(null);
-    } on AuthException catch (e, stackTrace) {
-      logger.e(e);
+      logger.d(json.decode(response.body));
 
-      return left(Failure(e.message, stackTrace));
+      return right(response);
     } catch (e, stackTrace) {
       return left(
         Failure(e.toString(), stackTrace),
@@ -119,16 +133,6 @@ class AuthAPI extends IAuthAPI {
 
   @override
   Future<AccountModel?> currentUserAccount() async {
-    try {
-      final account = await Amplify.Auth.getCurrentUser();
-      logger.i(account);
-    } on AuthException catch (e) {
-      safePrint('Could not retrieve current user: ${e.message}');
-      return null;
-    } catch (e) {
-      logger.e(e);
-      return null;
-    }
     return null;
   }
 }
