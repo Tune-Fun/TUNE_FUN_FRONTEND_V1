@@ -44,7 +44,6 @@ dependencies:
   amplify_flutter: ^1.6.1
   amplify_core: ^1.6.3
   amplify_analytics_pinpoint: ^1.6.3
-  amplify_auth_cognito: ^1.6.2
   logger: ^2.0.2+1
   firebase_core: ^2.24.2
   firebase_messaging: ^14.7.10

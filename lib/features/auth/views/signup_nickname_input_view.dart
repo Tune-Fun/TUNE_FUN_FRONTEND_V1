@@ -52,12 +52,11 @@ class _SignupNickNameInputScreenState
   }
 
   void signUp() {
-    ref.read(authControllerProvider.notifier).signup(
+    ref.watch(authControllerProvider.notifier).signup(
           email: emailController.text,
           username: usernameController.text,
           password: passwordController.text,
           nickname: nicknameController.text,
-          accountType: accountType,
           context: context,
         );
   }

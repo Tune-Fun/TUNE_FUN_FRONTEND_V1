@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:logger/logger.dart';
@@ -21,10 +22,9 @@ abstract class IAuthAPI {
     required String username,
     required String password,
     required String nickname,
-    required String accountType,
   });
 
-  FutureEither<AccountModel> login({
+  FutureEither<http.Response> login({
     required String username,
     required String password,
   });
@@ -53,7 +53,6 @@ class AuthAPI extends IAuthAPI {
     required String username,
     required String password,
     required String nickname,
-    required String accountType,
   }) async {
     try {
       final url = Uri.parse(UrlConstants.registerURL);
@@ -74,8 +73,6 @@ class AuthAPI extends IAuthAPI {
         headers: headers,
       );
 
-      logger.d(json.decode(response.body));
-
       return right(response);
     } catch (e, stackTrace) {
       return left(
@@ -85,11 +82,35 @@ class AuthAPI extends IAuthAPI {
   }
 
   @override
-  FutureEither<AccountModel> login({
+  FutureEither<http.Response> login({
     required String username,
     required String password,
-  }) {
-    throw UnimplementedError();
+  }) async {
+    try {
+      final url = Uri.parse(UrlConstants.loginURL);
+      final fcmToken = await FirebaseMessaging.instance.getToken();
+      final deviceToken = await FirebaseMessaging.instance.getToken();
+      final body = {
+        "username": username,
+        "password": password,
+        "device": {
+          "fcm_token": fcmToken,
+          "device_token": deviceToken,
+        }
+      };
+
+      http.Response response = await http.post(
+        url,
+        body: jsonEncode(body),
+        headers: headers,
+      );
+
+      return right(response);
+    } catch (e, stackTrace) {
+      return left(
+        Failure(e.toString(), stackTrace),
+      );
+    }
   }
 
   @override

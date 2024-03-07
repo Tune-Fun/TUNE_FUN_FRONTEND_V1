@@ -25,22 +25,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.6"
-  amplify_auth_cognito:
-    dependency: "direct main"
-    description:
-      name: amplify_auth_cognito
-      sha256: eacaa1a1562cb97331f2da64cc86ca058021424f3f93cbd15ed67df3c2fb0d41
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.6.2"
-  amplify_auth_cognito_dart:
-    dependency: transitive
-    description:
-      name: amplify_auth_cognito_dart
-      sha256: b976501c04fc8255af4e82133ebdd9fa4a01d172f82476aac6e53af0c591b649
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.10.9"
   amplify_core:
     dependency: "direct main"
     description:
@@ -527,14 +511,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
-  oauth2:
-    dependency: transitive
-    description:
-      name: oauth2
-      sha256: c4013ef62be37744efdc0861878fd9e9285f34db1f9e331cc34100d7674feb42
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.2"
   os_detect:
     dependency: transitive
     description:

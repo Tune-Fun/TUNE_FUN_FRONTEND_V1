@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tunefun_front/common/common.dart';
 import 'package:tunefun_front/constants/constants.dart';
+import 'package:tunefun_front/features/auth/controllers/auth_controller.dart';
 import 'package:tunefun_front/features/auth/views/signup_main_view.dart';
 import 'package:tunefun_front/theme/pallete.dart';
 
@@ -17,15 +20,23 @@ class LoginScreen extends ConsumerStatefulWidget {
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
   final appbar = UIConstants.appBar();
-  final userIdController = TextEditingController();
+  final usernameController = TextEditingController();
   final passwordController = TextEditingController();
   bool buttonState = false;
 
   @override
   void dispose() {
     super.dispose();
-    userIdController.dispose();
+    usernameController.dispose();
     passwordController.dispose();
+  }
+
+  void logIn() {
+    ref.watch(authControllerProvider.notifier).login(
+          username: usernameController.text,
+          password: passwordController.text,
+          context: context,
+        );
   }
 
   @override
@@ -39,7 +50,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             child: Column(
               children: [
                 TextFormField(
-                  controller: userIdController,
+                  controller: usernameController,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
@@ -164,6 +175,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       setState(() {
                         buttonState = true;
                       });
+
+                      logIn();
                     },
                     buttonState: buttonState,
                     buttonText: '로그인',

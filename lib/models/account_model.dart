@@ -9,156 +9,158 @@ export 'account_model.dart';
 
 @immutable
 class AccountModel {
-  final int id;
-  final String uuid;
   final String username;
   final String password;
   final String email;
   final String nickname;
-  final String roles;
-  final DateTime lastLoginAt;
-  final DateTime lastLogOutAt;
-  final DateTime emailVerifiedAt;
-  final DateTime withDrawlAt;
-  final DateTime deletedAt;
-  final bool isAccountNonExpired;
-  final bool isAccountNonLocked;
-  final bool isCredentialsNonExpired;
-  final bool isEnabled;
-  final bool voteProgressNotification;
-  final bool voteEndNotification;
-  final bool voteDeliveryNotification;
-  final DateTime createdAt;
-  final DateTime updatedAt;
-
-  const AccountModel({
-    required this.id,
-    required this.uuid,
+  final bool? voteProgressNotification;
+  final bool? voteEndNotification;
+  final bool? voteDeliveryNotification;
+  final List<String>? roles;
+  final String? accessToken;
+  final String? refreshToken;
+  final DateTime? lastLoginAt;
+  final DateTime? lastLogoutAt;
+  final String? profileImageUrl;
+  final DateTime? emailVerifiedAt;
+  final DateTime? withdrawalAt;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+  final DateTime? deletedAt;
+  AccountModel({
     required this.username,
     required this.password,
     required this.email,
     required this.nickname,
-    required this.roles,
-    required this.lastLoginAt,
-    required this.lastLogOutAt,
-    required this.emailVerifiedAt,
-    required this.withDrawlAt,
-    required this.deletedAt,
-    required this.isAccountNonExpired,
-    required this.isAccountNonLocked,
-    required this.isCredentialsNonExpired,
-    required this.isEnabled,
-    required this.voteProgressNotification,
-    required this.voteEndNotification,
-    required this.voteDeliveryNotification,
-    required this.createdAt,
-    required this.updatedAt,
+    this.voteProgressNotification,
+    this.voteEndNotification,
+    this.voteDeliveryNotification,
+    this.roles,
+    this.accessToken,
+    this.refreshToken,
+    this.lastLoginAt,
+    this.lastLogoutAt,
+    this.profileImageUrl,
+    this.emailVerifiedAt,
+    this.withdrawalAt,
+    this.createdAt,
+    this.updatedAt,
+    this.deletedAt,
   });
 
   AccountModel copyWith({
-    int? id,
-    String? uuid,
     String? username,
     String? password,
     String? email,
     String? nickname,
-    String? roles,
-    DateTime? lastLoginAt,
-    DateTime? lastLogOutAt,
-    DateTime? emailVerifiedAt,
-    DateTime? withDrawlAt,
-    DateTime? deletedAt,
-    bool? isAccountNonExpired,
-    bool? isAccountNonLocked,
-    bool? isCredentialsNonExpired,
-    bool? isEnabled,
     bool? voteProgressNotification,
     bool? voteEndNotification,
     bool? voteDeliveryNotification,
+    List<String>? roles,
+    String? accessToken,
+    String? refreshToken,
+    DateTime? lastLoginAt,
+    DateTime? lastLogoutAt,
+    String? profileImageUrl,
+    DateTime? emailVerifiedAt,
+    DateTime? withdrawalAt,
     DateTime? createdAt,
     DateTime? updatedAt,
+    DateTime? deletedAt,
   }) {
     return AccountModel(
-      id: id ?? this.id,
-      uuid: uuid ?? this.uuid,
       username: username ?? this.username,
       password: password ?? this.password,
       email: email ?? this.email,
       nickname: nickname ?? this.nickname,
-      roles: roles ?? this.roles,
-      lastLoginAt: lastLoginAt ?? this.lastLoginAt,
-      lastLogOutAt: lastLogOutAt ?? this.lastLogOutAt,
-      emailVerifiedAt: emailVerifiedAt ?? this.emailVerifiedAt,
-      withDrawlAt: withDrawlAt ?? this.withDrawlAt,
-      deletedAt: deletedAt ?? this.deletedAt,
-      isAccountNonExpired: isAccountNonExpired ?? this.isAccountNonExpired,
-      isAccountNonLocked: isAccountNonLocked ?? this.isAccountNonLocked,
-      isCredentialsNonExpired:
-          isCredentialsNonExpired ?? this.isCredentialsNonExpired,
-      isEnabled: isEnabled ?? this.isEnabled,
       voteProgressNotification:
           voteProgressNotification ?? this.voteProgressNotification,
       voteEndNotification: voteEndNotification ?? this.voteEndNotification,
       voteDeliveryNotification:
           voteDeliveryNotification ?? this.voteDeliveryNotification,
+      roles: roles ?? this.roles,
+      accessToken: accessToken ?? this.accessToken,
+      refreshToken: refreshToken ?? this.refreshToken,
+      lastLoginAt: lastLoginAt ?? this.lastLoginAt,
+      lastLogoutAt: lastLogoutAt ?? this.lastLogoutAt,
+      profileImageUrl: profileImageUrl ?? this.profileImageUrl,
+      emailVerifiedAt: emailVerifiedAt ?? this.emailVerifiedAt,
+      withdrawalAt: withdrawalAt ?? this.withdrawalAt,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
-      'uuid': uuid,
       'username': username,
       'password': password,
       'email': email,
       'nickname': nickname,
-      'roles': roles,
-      'lastLoginAt': lastLoginAt.millisecondsSinceEpoch,
-      'lastLogOutAt': lastLogOutAt.millisecondsSinceEpoch,
-      'emailVerifiedAt': emailVerifiedAt.millisecondsSinceEpoch,
-      'withDrawlAt': withDrawlAt.millisecondsSinceEpoch,
-      'deletedAt': deletedAt.millisecondsSinceEpoch,
-      'isAccountNonExpired': isAccountNonExpired,
-      'isAccountNonLocked': isAccountNonLocked,
-      'isCredentialsNonExpired': isCredentialsNonExpired,
-      'isEnabled': isEnabled,
       'voteProgressNotification': voteProgressNotification,
       'voteEndNotification': voteEndNotification,
       'voteDeliveryNotification': voteDeliveryNotification,
-      'createdAt': createdAt.millisecondsSinceEpoch,
-      'updatedAt': updatedAt.millisecondsSinceEpoch,
+      'roles': roles,
+      'accessToken': accessToken,
+      'refreshToken': refreshToken,
+      'lastLoginAt': lastLoginAt?.millisecondsSinceEpoch,
+      'lastLogoutAt': lastLogoutAt?.millisecondsSinceEpoch,
+      'profileImageUrl': profileImageUrl,
+      'emailVerifiedAt': emailVerifiedAt?.millisecondsSinceEpoch,
+      'withdrawalAt': withdrawalAt?.millisecondsSinceEpoch,
+      'createdAt': createdAt?.millisecondsSinceEpoch,
+      'updatedAt': updatedAt?.millisecondsSinceEpoch,
+      'deletedAt': deletedAt?.millisecondsSinceEpoch,
     };
   }
 
   factory AccountModel.fromMap(Map<String, dynamic> map) {
     return AccountModel(
-      id: map['id'] as int,
-      uuid: map['uuid'] as String,
       username: map['username'] as String,
       password: map['password'] as String,
       email: map['email'] as String,
       nickname: map['nickname'] as String,
-      roles: map['roles'] as String,
-      lastLoginAt:
-          DateTime.fromMillisecondsSinceEpoch(map['lastLoginAt'] as int),
-      lastLogOutAt:
-          DateTime.fromMillisecondsSinceEpoch(map['lastLogOutAt'] as int),
-      emailVerifiedAt:
-          DateTime.fromMillisecondsSinceEpoch(map['emailVerifiedAt'] as int),
-      withDrawlAt:
-          DateTime.fromMillisecondsSinceEpoch(map['withDrawlAt'] as int),
-      deletedAt: DateTime.fromMillisecondsSinceEpoch(map['deletedAt'] as int),
-      isAccountNonExpired: map['isAccountNonExpired'] as bool,
-      isAccountNonLocked: map['isAccountNonLocked'] as bool,
-      isCredentialsNonExpired: map['isCredentialsNonExpired'] as bool,
-      isEnabled: map['isEnabled'] as bool,
-      voteProgressNotification: map['voteProgressNotification'] as bool,
-      voteEndNotification: map['voteEndNotification'] as bool,
-      voteDeliveryNotification: map['voteDeliveryNotification'] as bool,
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
-      updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt'] as int),
+      voteProgressNotification: map['voteProgressNotification'] != null
+          ? map['voteProgressNotification'] as bool
+          : null,
+      voteEndNotification: map['voteEndNotification'] != null
+          ? map['voteEndNotification'] as bool
+          : null,
+      voteDeliveryNotification: map['voteDeliveryNotification'] != null
+          ? map['voteDeliveryNotification'] as bool
+          : null,
+      roles: map['roles'] != null
+          ? List<String>.from((map['roles'] as List<String>))
+          : null,
+      accessToken:
+          map['accessToken'] != null ? map['accessToken'] as String : null,
+      refreshToken:
+          map['refreshToken'] != null ? map['refreshToken'] as String : null,
+      lastLoginAt: map['lastLoginAt'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['lastLoginAt'] as int)
+          : null,
+      lastLogoutAt: map['lastLogoutAt'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['lastLogoutAt'] as int)
+          : null,
+      profileImageUrl: map['profileImageUrl'] != null
+          ? map['profileImageUrl'] as String
+          : null,
+      emailVerifiedAt: map['emailVerifiedAt'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['emailVerifiedAt'] as int)
+          : null,
+      withdrawalAt: map['withdrawalAt'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['withdrawalAt'] as int)
+          : null,
+      createdAt: map['createdAt'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int)
+          : null,
+      updatedAt: map['updatedAt'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['updatedAt'] as int)
+          : null,
+      deletedAt: map['deletedAt'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['deletedAt'] as int)
+          : null,
     );
   }
 
@@ -169,58 +171,52 @@ class AccountModel {
 
   @override
   String toString() {
-    return 'AccountModel(id: $id, uuid: $uuid, username: $username, password: $password, email: $email, nickname: $nickname, roles: $roles, lastLoginAt: $lastLoginAt, lastLogOutAt: $lastLogOutAt, emailVerifiedAt: $emailVerifiedAt, withDrawlAt: $withDrawlAt, deletedAt: $deletedAt, isAccountNonExpired: $isAccountNonExpired, isAccountNonLocked: $isAccountNonLocked, isCredentialsNonExpired: $isCredentialsNonExpired, isEnabled: $isEnabled, voteProgressNotification: $voteProgressNotification, voteEndNotification: $voteEndNotification, voteDeliveryNotification: $voteDeliveryNotification, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'AccountModel(username: $username, password: $password, email: $email, nickname: $nickname, voteProgressNotification: $voteProgressNotification, voteEndNotification: $voteEndNotification, voteDeliveryNotification: $voteDeliveryNotification, roles: $roles, accessToken: $accessToken, refreshToken: $refreshToken, lastLoginAt: $lastLoginAt, lastLogoutAt: $lastLogoutAt, profileImageUrl: $profileImageUrl, emailVerifiedAt: $emailVerifiedAt, withdrawalAt: $withdrawalAt, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt)';
   }
 
   @override
   bool operator ==(covariant AccountModel other) {
     if (identical(this, other)) return true;
 
-    return other.id == id &&
-        other.uuid == uuid &&
-        other.username == username &&
+    return other.username == username &&
         other.password == password &&
         other.email == email &&
         other.nickname == nickname &&
-        other.roles == roles &&
-        other.lastLoginAt == lastLoginAt &&
-        other.lastLogOutAt == lastLogOutAt &&
-        other.emailVerifiedAt == emailVerifiedAt &&
-        other.withDrawlAt == withDrawlAt &&
-        other.deletedAt == deletedAt &&
-        other.isAccountNonExpired == isAccountNonExpired &&
-        other.isAccountNonLocked == isAccountNonLocked &&
-        other.isCredentialsNonExpired == isCredentialsNonExpired &&
-        other.isEnabled == isEnabled &&
         other.voteProgressNotification == voteProgressNotification &&
         other.voteEndNotification == voteEndNotification &&
         other.voteDeliveryNotification == voteDeliveryNotification &&
+        listEquals(other.roles, roles) &&
+        other.accessToken == accessToken &&
+        other.refreshToken == refreshToken &&
+        other.lastLoginAt == lastLoginAt &&
+        other.lastLogoutAt == lastLogoutAt &&
+        other.profileImageUrl == profileImageUrl &&
+        other.emailVerifiedAt == emailVerifiedAt &&
+        other.withdrawalAt == withdrawalAt &&
         other.createdAt == createdAt &&
-        other.updatedAt == updatedAt;
+        other.updatedAt == updatedAt &&
+        other.deletedAt == deletedAt;
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^
-        uuid.hashCode ^
-        username.hashCode ^
+    return username.hashCode ^
         password.hashCode ^
         email.hashCode ^
         nickname.hashCode ^
-        roles.hashCode ^
-        lastLoginAt.hashCode ^
-        lastLogOutAt.hashCode ^
-        emailVerifiedAt.hashCode ^
-        withDrawlAt.hashCode ^
-        deletedAt.hashCode ^
-        isAccountNonExpired.hashCode ^
-        isAccountNonLocked.hashCode ^
-        isCredentialsNonExpired.hashCode ^
-        isEnabled.hashCode ^
         voteProgressNotification.hashCode ^
         voteEndNotification.hashCode ^
         voteDeliveryNotification.hashCode ^
+        roles.hashCode ^
+        accessToken.hashCode ^
+        refreshToken.hashCode ^
+        lastLoginAt.hashCode ^
+        lastLogoutAt.hashCode ^
+        profileImageUrl.hashCode ^
+        emailVerifiedAt.hashCode ^
+        withdrawalAt.hashCode ^
         createdAt.hashCode ^
-        updatedAt.hashCode;
+        updatedAt.hashCode ^
+        deletedAt.hashCode;
   }
 }
