@@ -9,8 +9,10 @@ import 'package:tunefun_front/core/core.dart';
 import 'package:tunefun_front/models/models.dart';
 import 'package:http/http.dart' as http;
 import 'package:tunefun_front/constants/constants.dart';
+import 'package:uuid/uuid.dart';
 
 var logger = Logger();
+var uuid = const Uuid();
 
 final authAPIProvider = Provider((ref) {
   return AuthAPI();
@@ -42,7 +44,7 @@ abstract class IAuthAPI {
 }
 
 class AuthAPI extends IAuthAPI {
-  Map<String, String> headers = {
+  final Map<String, String> headers = {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
   };
@@ -89,7 +91,8 @@ class AuthAPI extends IAuthAPI {
     try {
       final url = Uri.parse(UrlConstants.loginURL);
       final fcmToken = await FirebaseMessaging.instance.getToken();
-      final deviceToken = await FirebaseMessaging.instance.getToken();
+      final deviceToken = uuid.v4();
+
       final body = {
         "username": username,
         "password": password,
@@ -153,7 +156,5 @@ class AuthAPI extends IAuthAPI {
   }
 
   @override
-  Future<AccountModel?> currentUserAccount() async {
-    return null;
-  }
+  Future<AccountModel?> currentUserAccount() async {}
 }

@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 import 'package:tunefun_front/apis/apis.dart';
 import 'package:tunefun_front/common/common.dart';
+import 'package:tunefun_front/features/auth/views/login_view.dart';
+import 'package:tunefun_front/features/home/views/home_view.dart';
 import 'package:tunefun_front/models/models.dart';
 
 var logger = Logger();
@@ -18,16 +18,15 @@ final authControllerProvider =
   );
 });
 
-final currentUserAccountProvider = FutureProvider((ref) {
-  final authController = ref.watch(authControllerProvider.notifier);
-  return authController.currentUserAccount();
-});
+final currentUserAccountProvider =
+    StateProvider<AccountModel?>((ref) => const AccountModel());
 
 class AuthController extends StateNotifier<bool> {
   final AuthAPI _authAPI;
 
-  AuthController({required AuthAPI authAPI})
-      : _authAPI = authAPI,
+  AuthController({
+    required AuthAPI authAPI,
+  })  : _authAPI = authAPI,
         super(false);
 
   Future<void> signup({
@@ -37,7 +36,7 @@ class AuthController extends StateNotifier<bool> {
     required String nickname,
     required BuildContext context,
   }) async {
-    // state = true;
+    state = true;
 
     final response = await _authAPI.signup(
       email: email,
@@ -46,14 +45,13 @@ class AuthController extends StateNotifier<bool> {
       nickname: nickname,
     );
 
-    // state = false;
+    state = false;
 
     response.fold(
       (left) {
         logger.i('Error happened');
         final errorJson = json.decode(left.message);
         final errorMessage = errorJson['message'];
-        final errorCode = errorJson['code'];
         showSnackBar(context, errorMessage.toString());
         logger.e(errorMessage);
       },
@@ -61,14 +59,16 @@ class AuthController extends StateNotifier<bool> {
         final response = utf8.decode(right.bodyBytes);
         final responseJson = json.decode(response);
 
-        // success 200
-        // 처음 가입하는 회원
         if (right.statusCode == 200) {
-          final List<String> roles = responseJson['data']['roles'];
+          List<String> roles = [];
+          var rolesList = responseJson['data']['roles'];
+          rolesList.forEach((role) {
+            roles.add(role);
+          });
           final String accessToken = responseJson['data']['access_token'];
           final String refreshToken = responseJson['data']['refresh_token'];
 
-          AccountModel accountModel = AccountModel(
+          AccountModel account = AccountModel(
             username: username,
             password: password,
             email: email,
@@ -78,18 +78,19 @@ class AuthController extends StateNotifier<bool> {
             refreshToken: refreshToken,
           );
 
-          logger.i(accountModel);
+          showSnackBar(context, '회원가입 성공');
+          Navigator.push(context, LoginScreen.route());
         }
 
-        // failure 400
-        // 이미 가입한 회원
         if (right.statusCode == 400) {
           final message = responseJson['message'];
           showSnackBar(context, message);
         }
 
-        // repository에 전달해주고
-        // 사용자 데이터를 DB에 저장해주는 코드를 추가해준다.
+        if (right.statusCode == 500) {
+          final message = responseJson['message'];
+          showSnackBar(context, message);
+        }
       },
     );
   }
@@ -99,15 +100,18 @@ class AuthController extends StateNotifier<bool> {
     required String password,
     required BuildContext context,
   }) async {
+    state = false;
+
     final response =
         await _authAPI.login(username: username, password: password);
+
+    state = true;
 
     response.fold(
       (left) {
         logger.i('Error happened');
         final errorJson = json.decode(left.message);
         final errorMessage = errorJson['message'];
-        final errorCode = errorJson['code'];
         showSnackBar(context, errorMessage.toString());
         logger.e(errorMessage);
       },
@@ -115,12 +119,39 @@ class AuthController extends StateNotifier<bool> {
         final response = utf8.decode(right.bodyBytes);
         final responseJson = json.decode(response);
 
-        logger.d(responseJson);
+        if (right.statusCode == 200) {
+          List<String> roles = [];
+          var rolesList = responseJson['data']['roles'];
+          rolesList.forEach((role) {
+            roles.add(role);
+          });
+
+          final String accessToken = responseJson['data']['access_token'];
+          final String refreshToken = responseJson['data']['refresh_token'];
+
+          AccountModel account = AccountModel(
+            username: username,
+            roles: roles,
+            accessToken: accessToken,
+            refreshToken: refreshToken,
+          );
+
+          showSnackBar(context, '로그인 성공');
+          Navigator.push(context, HomeScreen.route());
+        }
+
+        if (right.statusCode == 400) {
+          final message = responseJson['message'];
+          showSnackBar(context, message);
+        }
+
+        if (right.statusCode == 500) {
+          final message = responseJson['message'];
+          showSnackBar(context, message);
+        }
       },
     );
   }
-
-  Future<AccountModel?> currentUserAccount() => _authAPI.currentUserAccount();
 
   Future<void> verifyEmail(
       {required String email,

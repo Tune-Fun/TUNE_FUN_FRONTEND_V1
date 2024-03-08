@@ -50,7 +50,6 @@ class _EmailVerifyScreenState extends ConsumerState<EmailVerifyScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final currentUser = ref.watch(currentUserAccountProvider);
     return Form(
       key: _formKey,
       child: Column(

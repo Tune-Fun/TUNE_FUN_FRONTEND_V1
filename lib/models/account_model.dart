@@ -9,10 +9,10 @@ export 'account_model.dart';
 
 @immutable
 class AccountModel {
-  final String username;
-  final String password;
-  final String email;
-  final String nickname;
+  final String? username;
+  final String? password;
+  final String? email;
+  final String? nickname;
   final bool? voteProgressNotification;
   final bool? voteEndNotification;
   final bool? voteDeliveryNotification;
@@ -27,11 +27,12 @@ class AccountModel {
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final DateTime? deletedAt;
-  AccountModel({
-    required this.username,
-    required this.password,
-    required this.email,
-    required this.nickname,
+
+  const AccountModel({
+    this.username,
+    this.password,
+    this.email,
+    this.nickname,
     this.voteProgressNotification,
     this.voteEndNotification,
     this.voteDeliveryNotification,
@@ -117,10 +118,10 @@ class AccountModel {
 
   factory AccountModel.fromMap(Map<String, dynamic> map) {
     return AccountModel(
-      username: map['username'] as String,
-      password: map['password'] as String,
-      email: map['email'] as String,
-      nickname: map['nickname'] as String,
+      username: map['username'] != null ? map['username'] as String : null,
+      password: map['password'] != null ? map['password'] as String : null,
+      email: map['email'] != null ? map['email'] as String : null,
+      nickname: map['nickname'] != null ? map['nickname'] as String : null,
       voteProgressNotification: map['voteProgressNotification'] != null
           ? map['voteProgressNotification'] as bool
           : null,

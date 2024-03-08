@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -42,151 +40,150 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appbar,
-      body: Center(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              children: [
-                TextFormField(
-                  controller: usernameController,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                      borderSide: const BorderSide(
-                        color: Pallete.textSubColor,
-                        width: 3,
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                      borderSide: const BorderSide(
-                        color: Pallete.textSubColor,
-                        width: 3,
-                      ),
-                    ),
-                    contentPadding: const EdgeInsets.all(22),
-                    hintText: '아이디',
-                    hintStyle: const TextStyle(
-                      fontSize: 18,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                TextFormField(
-                  controller: passwordController,
-                  keyboardType: TextInputType.text,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                      borderSide: const BorderSide(
-                        color: Pallete.textSubColor,
-                        width: 3,
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                      borderSide: const BorderSide(
-                        color: Pallete.textSubColor,
-                        width: 3,
-                      ),
-                    ),
-                    contentPadding: const EdgeInsets.all(22),
-                    hintText: '비밀번호',
-                    hintStyle: const TextStyle(
-                      fontSize: 18,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 45,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: () {},
-                      child: SvgPicture.asset(
-                        ImageConstants.profileOutlinedIcon,
-                        height: 40,
-                        width: 40,
-                      ),
-                    ),
-                    const SizedBox(width: 45),
-                    GestureDetector(
-                      onTap: () {},
-                      child: SvgPicture.asset(
-                        ImageConstants.profileOutlinedIcon,
-                        height: 40,
-                        width: 40,
-                      ),
-                    ),
-                    const SizedBox(width: 45),
-                    GestureDetector(
-                      onTap: () {},
-                      child: SvgPicture.asset(
-                        ImageConstants.profileOutlinedIcon,
-                        height: 40,
-                        width: 40,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.push(context, SignUpMainScreen.route());
-                      },
-                      child: const Text(
-                        '회원가입',
-                        style: TextStyle(
-                          color: Pallete.textMainColor,
+        appBar: appbar,
+        body: Center(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                children: [
+                  TextFormField(
+                    controller: usernameController,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                        borderSide: const BorderSide(
+                          color: Pallete.textSubColor,
+                          width: 3,
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 70,
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text(
-                        '아이디/비밀번호 찾기',
-                        style: TextStyle(
-                          color: Pallete.textMainColor,
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                        borderSide: const BorderSide(
+                          color: Pallete.textSubColor,
+                          width: 3,
                         ),
                       ),
+                      contentPadding: const EdgeInsets.all(22),
+                      hintText: '아이디',
+                      hintStyle: const TextStyle(
+                        fontSize: 18,
+                      ),
                     ),
-                  ],
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: GreenSquareButton(
-                    onTap: () {
-                      setState(() {
-                        buttonState = true;
-                      });
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  TextFormField(
+                    controller: passwordController,
+                    keyboardType: TextInputType.text,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                        borderSide: const BorderSide(
+                          color: Pallete.textSubColor,
+                          width: 3,
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                        borderSide: const BorderSide(
+                          color: Pallete.textSubColor,
+                          width: 3,
+                        ),
+                      ),
+                      contentPadding: const EdgeInsets.all(22),
+                      hintText: '비밀번호',
+                      hintStyle: const TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 45,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () {},
+                        child: SvgPicture.asset(
+                          ImageConstants.profileOutlinedIcon,
+                          height: 40,
+                          width: 40,
+                        ),
+                      ),
+                      const SizedBox(width: 45),
+                      GestureDetector(
+                        onTap: () {},
+                        child: SvgPicture.asset(
+                          ImageConstants.profileOutlinedIcon,
+                          height: 40,
+                          width: 40,
+                        ),
+                      ),
+                      const SizedBox(width: 45),
+                      GestureDetector(
+                        onTap: () {},
+                        child: SvgPicture.asset(
+                          ImageConstants.profileOutlinedIcon,
+                          height: 40,
+                          width: 40,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(context, SignUpMainScreen.route());
+                        },
+                        child: const Text(
+                          '회원가입',
+                          style: TextStyle(
+                            color: Pallete.textMainColor,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 70,
+                      ),
+                      TextButton(
+                        onPressed: () {},
+                        child: const Text(
+                          '아이디/비밀번호 찾기',
+                          style: TextStyle(
+                            color: Pallete.textMainColor,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: GreenSquareButton(
+                      onTap: () {
+                        setState(() {
+                          buttonState = true;
+                        });
 
-                      logIn();
-                    },
-                    buttonState: buttonState,
-                    buttonText: '로그인',
+                        logIn();
+                      },
+                      buttonState: buttonState,
+                      buttonText: '로그인',
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }

@@ -1,7 +1,4 @@
 PODS:
-  - amplify_auth_cognito (0.0.1):
-    - Flutter
-    - FlutterMacOS
   - amplify_secure_storage (0.0.1):
     - Flutter
   - CocoaAsyncSocket (7.6.5)
@@ -82,7 +79,6 @@ PODS:
   - PromisesObjC (2.3.1)
 
 DEPENDENCIES:
-  - amplify_auth_cognito (from `.symlinks/plugins/amplify_auth_cognito/darwin`)
   - amplify_secure_storage (from `.symlinks/plugins/amplify_secure_storage/ios`)
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
@@ -108,8 +104,6 @@ SPEC REPOS:
     - PromisesObjC
 
 EXTERNAL SOURCES:
-  amplify_auth_cognito:
-    :path: ".symlinks/plugins/amplify_auth_cognito/darwin"
   amplify_secure_storage:
     :path: ".symlinks/plugins/amplify_secure_storage/ios"
   device_info_plus:
@@ -132,7 +126,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/patrol/darwin"
 
 SPEC CHECKSUMS:
-  amplify_auth_cognito: 76b5a54f05f66f69966b468b8121a0dd33a32c70
   amplify_secure_storage: 501cbdac671a050090d48dfcc002d5637d3f4a55
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   device_info_plus: c6fb39579d0f423935b0c9ce7ee2f44b71b9fce6
