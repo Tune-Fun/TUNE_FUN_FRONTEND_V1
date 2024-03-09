@@ -26,7 +26,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
 
   @override
   Widget build(BuildContext context) {
-    final user = ref.watch(currentUserAccountProvider.notifier).state;
+    final user = ref.watch(userControllerProvider);
 
     logger.d(user);
 

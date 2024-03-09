@@ -15,18 +15,32 @@ final authControllerProvider =
     StateNotifierProvider<AuthController, bool>((ref) {
   return AuthController(
     authAPI: ref.watch(authAPIProvider),
+    userController: ref.watch(userControllerProvider.notifier),
   );
 });
 
-final currentUserAccountProvider =
-    StateProvider<AccountModel?>((ref) => const AccountModel());
+final userControllerProvider =
+    StateNotifierProvider<UserController, AccountModel?>((ref) {
+  return UserController(null);
+});
+
+class UserController extends StateNotifier<AccountModel?> {
+  UserController(AccountModel? state) : super(state);
+
+  Future<void> setCurrentUser(AccountModel accountModel) async {
+    state = accountModel;
+  }
+}
 
 class AuthController extends StateNotifier<bool> {
   final AuthAPI _authAPI;
+  final UserController _userController;
 
   AuthController({
     required AuthAPI authAPI,
+    required UserController userController,
   })  : _authAPI = authAPI,
+        _userController = userController,
         super(false);
 
   Future<void> signup({
@@ -59,6 +73,16 @@ class AuthController extends StateNotifier<bool> {
         final response = utf8.decode(right.bodyBytes);
         final responseJson = json.decode(response);
 
+        if (right.statusCode == 400) {
+          final message = responseJson['message'];
+          showSnackBar(context, message);
+        }
+
+        if (right.statusCode == 500) {
+          final message = responseJson['message'];
+          showSnackBar(context, message);
+        }
+
         if (right.statusCode == 200) {
           List<String> roles = [];
           var rolesList = responseJson['data']['roles'];
@@ -80,16 +104,7 @@ class AuthController extends StateNotifier<bool> {
 
           showSnackBar(context, '회원가입 성공');
           Navigator.push(context, LoginScreen.route());
-        }
-
-        if (right.statusCode == 400) {
-          final message = responseJson['message'];
-          showSnackBar(context, message);
-        }
-
-        if (right.statusCode == 500) {
-          final message = responseJson['message'];
-          showSnackBar(context, message);
+          await _userController.setCurrentUser(account);
         }
       },
     );
@@ -105,6 +120,17 @@ class AuthController extends StateNotifier<bool> {
     final response =
         await _authAPI.login(username: username, password: password);
 
+    // AccountModel accountModel = AccountModel(
+    //   username: "Mye9TSEMDJ8Yg",
+    //   roles: ["CLIENT_0"],
+    //   accessToken:
+    //       "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiQ0xJRU5UXzAiLCJ0b2tlblR5cGUiOiJCZWFyZXIiLCJqdGkiOiJlNjIzNTNmMS05MWJjLTQyOTktOTgzMC0xMzI3Mjg1M2YyMmUiLCJzdWIiOiJNeWU5VFNFTURKOFlnIiwiaWF0IjoxNzA5ODEzOTM3LCJuYmYiOjE3MDk4MTM5MzcsImV4cCI6MTcwOTgxNDExN30.Z4knoFWw6LhCsNgV0DMeF0jD6WNl-abR40Be3rASBxmArW43ih9nPQIagpo1ei1YviFoPDdJFzEn0DdWrYn-bg",
+    //   refreshToken:
+    //       "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiQ0xJRU5UXzAiLCJ0b2tlblR5cGUiOiJCZWFyZXIiLCJqdGkiOiIyNzZhYzg4Yi04ZGUzLTQ1MzgtYjYwOC1hMzg0ZDEzYjlhZjIiLCJzdWIiOiJNeWU5VFNFTURKOFlnIiwiaWF0IjoxNzA5ODEzOTM3LCJuYmYiOjE3MDk4MTM5MzcsImV4cCI6MTcxMjQwNTkzN30.6kw4WXaGqjBS7FmjKI7IXrCWnV0YJbyfo4xeiyUBUtHQdep9oi7uswIEiD0MyowAq0JLuXUD0hYJmrtw7lEcUg",
+    // );
+
+    // await _userController.setCurrentUser(accountModel);
+
     state = true;
 
     response.fold(
@@ -115,9 +141,19 @@ class AuthController extends StateNotifier<bool> {
         showSnackBar(context, errorMessage.toString());
         logger.e(errorMessage);
       },
-      (right) {
+      (right) async {
         final response = utf8.decode(right.bodyBytes);
         final responseJson = json.decode(response);
+
+        if (right.statusCode == 400) {
+          final message = responseJson['message'];
+          showSnackBar(context, message);
+        }
+
+        if (right.statusCode == 500) {
+          final message = responseJson['message'];
+          showSnackBar(context, message);
+        }
 
         if (right.statusCode == 200) {
           List<String> roles = [];
@@ -138,16 +174,7 @@ class AuthController extends StateNotifier<bool> {
 
           showSnackBar(context, '로그인 성공');
           Navigator.push(context, HomeScreen.route());
-        }
-
-        if (right.statusCode == 400) {
-          final message = responseJson['message'];
-          showSnackBar(context, message);
-        }
-
-        if (right.statusCode == 500) {
-          final message = responseJson['message'];
-          showSnackBar(context, message);
+          await _userController.setCurrentUser(account);
         }
       },
     );
