@@ -6,7 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:logger/logger.dart';
 import 'package:tunefun_front/core/core.dart';
-import 'package:tunefun_front/models/models.dart';
 import 'package:http/http.dart' as http;
 import 'package:tunefun_front/constants/constants.dart';
 import 'package:uuid/uuid.dart';
@@ -30,8 +29,6 @@ abstract class IAuthAPI {
     required String username,
     required String password,
   });
-
-  Future<AccountModel?> currentUserAccount();
 
   FutureEither<void> verifyEmail({
     required String email,
@@ -154,7 +151,4 @@ class AuthAPI extends IAuthAPI {
       );
     }
   }
-
-  @override
-  Future<AccountModel?> currentUserAccount() async {}
 }
