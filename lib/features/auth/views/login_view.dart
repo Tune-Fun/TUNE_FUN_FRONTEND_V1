@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -110,7 +112,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       GestureDetector(
                         onTap: () {},
                         child: SvgPicture.asset(
-                          ImageConstants.profileOutlinedIcon,
+                          ImageConstants.appleIcon,
                           height: 40,
                           width: 40,
                         ),
@@ -119,7 +121,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       GestureDetector(
                         onTap: () {},
                         child: SvgPicture.asset(
-                          ImageConstants.profileOutlinedIcon,
+                          ImageConstants.googleIcon,
                           height: 40,
                           width: 40,
                         ),
@@ -128,7 +130,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       GestureDetector(
                         onTap: () {},
                         child: SvgPicture.asset(
-                          ImageConstants.profileOutlinedIcon,
+                          ImageConstants.googleIcon,
                           height: 40,
                           width: 40,
                         ),

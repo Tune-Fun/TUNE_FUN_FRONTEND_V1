@@ -92,9 +92,9 @@ class _ArticleListState extends ConsumerState<ArticleList> {
                     onIconStateChanged('alarm');
                   },
                   icon: SvgPicture.asset(
-                    ImageConstants.alarmIcon,
-                    height: 18,
-                    width: 18,
+                    ImageConstants.notificationIcon,
+                    height: 25,
+                    width: 25,
                   ),
                 ),
                 IconButton(
@@ -103,8 +103,8 @@ class _ArticleListState extends ConsumerState<ArticleList> {
                   },
                   icon: SvgPicture.asset(
                     ImageConstants.searchIcon,
-                    height: 18,
-                    width: 18,
+                    height: 25,
+                    width: 25,
                   ),
                 ),
                 IconButton(

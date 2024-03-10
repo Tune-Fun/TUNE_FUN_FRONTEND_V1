@@ -137,7 +137,7 @@ class ArticleCard extends ConsumerWidget {
                         GestureDetector(
                           onTap: () {},
                           child: SvgPicture.asset(
-                            ImageConstants.voteIcon,
+                            ImageConstants.pollIcon,
                             height: 24,
                             width: 24,
                           ),
@@ -159,7 +159,7 @@ class ArticleCard extends ConsumerWidget {
                         GestureDetector(
                           onTap: () {},
                           child: SvgPicture.asset(
-                            ImageConstants.likeFilledIcon,
+                            ImageConstants.heartIcon,
                             height: 24,
                             width: 24,
                           ),

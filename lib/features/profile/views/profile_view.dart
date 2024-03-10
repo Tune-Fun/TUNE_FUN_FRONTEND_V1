@@ -28,8 +28,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
   Widget build(BuildContext context) {
     final user = ref.watch(userControllerProvider);
 
-    logger.d(user);
-
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -40,9 +38,10 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    "Name",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                  Text(
+                    '${user?.username}',
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 24),
                   ),
                   IconButton(
                     onPressed: () {},

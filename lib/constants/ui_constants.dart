@@ -29,12 +29,6 @@ class UIConstants {
 
   static List<Widget> bottomTapBarPages = [
     const ArticleList(),
-    // const Text(
-    //   'Add',
-    //   style: TextStyle(
-    //     color: Pallete.textMainColor,
-    //   ),
-    // ),
     const EmailVerifyScreen(),
     const Text(
       'People',
@@ -43,11 +37,5 @@ class UIConstants {
       ),
     ),
     const ProfileScreen(),
-    // const Text(
-    //   'Profile',
-    //   style: TextStyle(
-    //     color: Pallete.textMainColor,
-    //   ),
-    // )
   ];
 }
