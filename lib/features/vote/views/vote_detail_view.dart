@@ -5,7 +5,7 @@ import 'package:tunefun_front/features/vote/viewModel/view_model.dart';
 import 'package:tunefun_front/features/vote/widgets/bottom_buttons.dart';
 import 'package:tunefun_front/features/vote/widgets/add_song_box.dart';
 import 'package:tunefun_front/features/vote/widgets/gradient_container.dart';
-import 'package:tunefun_front/features/vote/widgets/vote_card.dart';
+import 'package:tunefun_front/features/vote/widgets/vote_box.dart';
 import 'package:tunefun_front/theme/pallete.dart';
 
 class VoteDetailScreen extends ConsumerWidget {
@@ -14,6 +14,7 @@ class VoteDetailScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final viewModel = ref.watch(voteViewModelProvider.notifier);
     final clickedIndex = ref.watch(clickedIndexProvider);
+    final searchProvider = ref.watch(voteViewModelProvider);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: UIConstants.appBar(),
@@ -54,7 +55,8 @@ class VoteDetailScreen extends ConsumerWidget {
               children: [
                 GradientContainer(
                     width: MediaQuery.of(context).size.width * 0.2,
-                    backgroundColor: Colors.redAccent,
+                    borderRadius: BorderRadius.circular(10),
+                    isfill: true,
                     child: Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: RichText(
@@ -96,7 +98,8 @@ class VoteDetailScreen extends ConsumerWidget {
             ),
             GradientContainer(
                 width: MediaQuery.of(context).size.width,
-                backgroundColor: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                isfill: false,
                 child: const Padding(
                   padding: EdgeInsets.all(16.0),
                   child: Text(
@@ -123,30 +126,30 @@ class VoteDetailScreen extends ConsumerWidget {
                   clipBehavior: Clip.hardEdge,
                   itemCount: viewModel.dummy.length + 1,
                   itemBuilder: ((context, index) {
-                    if (viewModel.dummy.length == index) {
-                      return const AddSongBox();
+                    if (index == 0) {
+                      return const Padding(
+                        padding: EdgeInsets.only(bottom: 15),
+                        child: AddSongBox(),
+                      );
                     }
                     return GestureDetector(
                       onTap: () {
                         ref.read(clickedIndexProvider.notifier).state =
-                            clickedIndex == index ? null : index;
+                            clickedIndex == index - 1 ? null : index - 1;
                       },
                       child: Padding(
-                        padding: const EdgeInsets.only(bottom: 15),
-                        child: GradientContainer(
-                          width: MediaQuery.of(context).size.width,
-                          backgroundColor: clickedIndex == index
-                              ? Colors.redAccent
-                              : Colors.white,
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: VoteBox(
-                              index: index,
-                              data: viewModel.dummy[index],
-                            ),
-                          ),
-                        ),
-                      ),
+                          padding: const EdgeInsets.only(bottom: 15),
+                          child: GradientContainer(
+                              width: MediaQuery.of(context).size.width,
+                              borderRadius: BorderRadius.circular(10),
+                              isfill: clickedIndex == index - 1 ? true : false,
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: VoteBox(
+                                  index: index - 1,
+                                  data: viewModel.dummy[index - 1],
+                                ),
+                              ))),
                     );
                   })),
             ),
