@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tunefun_front/features/vote/viewModel/view_model.dart';
-import 'package:tunefun_front/features/vote/widgets/vote_card.dart';
+import 'package:tunefun_front/features/vote/widgets/vote_box.dart';
 
 class TuneTrackContainer extends ConsumerStatefulWidget {
   final String buttonType;
@@ -27,33 +28,50 @@ class _TuneTrackContainerState extends ConsumerState<TuneTrackContainer> {
         child: Column(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                const Text(
-                  "노래검색",
-                  style: TextStyle(color: Colors.green, fontSize: 18),
+                const Expanded(flex: 1, child: SizedBox()),
+                const Expanded(
+                  flex: 2,
+                  child: Text(
+                    textAlign: TextAlign.center,
+                    "노래검색",
+                    style: TextStyle(
+                        color: Color.fromRGBO(17, 17, 17, 1),
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700),
+                  ),
                 ),
-                viewModel.isExist
-                    ? IconButton(
-                        onPressed: () {
-                          songTextController.text =
-                              ref.read(voteViewModelProvider.notifier).nextSong;
-                          ref.read(clickedIndexProvider.notifier).state =
-                              viewModel.resultSongIndex;
-                        },
-                        icon: const Icon(Icons.keyboard_arrow_left_outlined),
-                      )
-                    : const SizedBox(),
-                viewModel.isExist
-                    ? IconButton(
-                        onPressed: () {
-                          songTextController.text =
-                              ref.read(voteViewModelProvider.notifier).nextSong;
-                          ref.read(clickedIndexProvider.notifier).state =
-                              viewModel.resultSongIndex;
-                        },
-                        icon: const Icon(Icons.keyboard_arrow_right_outlined))
-                    : const SizedBox(),
+                Expanded(
+                    flex: 1,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            if (!viewModel.isExist) return;
+                            songTextController.text = ref
+                                .read(voteViewModelProvider.notifier)
+                                .nextSong;
+                            // ref.read(clickedIndexProvider.notifier).state =
+                            //     viewModel.resultSongIndex;
+                          },
+                          icon: const Icon(Icons.arrow_circle_left_outlined),
+                        ),
+                        IconButton(
+                            onPressed: () {
+                              if (!viewModel.isExist) return;
+                              songTextController.text = ref
+                                  .read(voteViewModelProvider.notifier)
+                                  .nextSong;
+                              // ref.read(clickedIndexProvider.notifier).state =
+                              //     viewModel.resultSongIndex;
+                            },
+                            icon:
+                                const Icon(Icons.arrow_circle_right_outlined)),
+                      ],
+                    )),
               ],
             ),
             const SizedBox(
@@ -65,50 +83,49 @@ class _TuneTrackContainerState extends ConsumerState<TuneTrackContainer> {
                 SizedBox(
                     width: boxWidth,
                     height: MediaQuery.of(context).size.height * 0.05,
-                    child: SizedBox(
-                      height: 50,
-                      child: TextFormField(
-                        controller: artistTextController,
-                        textAlign: TextAlign.center,
-                        decoration: const InputDecoration(
-                          hintText: "아티스트 이름",
-                          contentPadding: EdgeInsets.all(8),
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.green)),
-                          focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.green)),
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.red)),
-                        ),
-                        onFieldSubmitted: (value) {
-                          ref
-                              .read(voteViewModelProvider.notifier)
-                              .searchSongsByArtist(value);
-                          if (!ref
-                              .read(voteViewModelProvider.notifier)
-                              .isExist) {
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                      content: const Text(
-                                        "검색된 아티스트가 없습니다.",
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8)));
-                                });
-                            songTextController.clear();
-                          } else {
-                            artistTextController.text = value;
-                            viewModel.searchSongsByArtist(value);
-                            songTextController.text = viewModel.currentSong;
-                            ref.read(clickedIndexProvider.notifier).state =
-                                viewModel.resultSongIndex;
-                          }
-                        },
+                    child: TextFormField(
+                      controller: artistTextController,
+                      textAlign: TextAlign.center,
+                      decoration: const InputDecoration(
+                        filled: true,
+                        fillColor: Colors.redAccent,
+                        hintText: "아티스트 이름",
+                        contentPadding: EdgeInsets.all(8),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromRGBO(234, 234, 234, 1))),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromRGBO(234, 234, 234, 1))),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(width: 1)),
                       ),
+                      onFieldSubmitted: (value) {
+                        ref
+                            .read(voteViewModelProvider.notifier)
+                            .searchSongsByArtist(value);
+                        if (!ref.read(voteViewModelProvider.notifier).isExist) {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                    content: const Text(
+                                      "검색된 아티스트가 없습니다.",
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(8)));
+                              });
+                          songTextController.clear();
+                        } else {
+                          artistTextController.text = value;
+                          viewModel.searchSongsByArtist(value);
+                          songTextController.text = viewModel.currentSong;
+                          // ref.read(clickedIndexProvider.notifier).state =
+                          //     viewModel.resultSongIndex;
+                        }
+                      },
                     )),
                 SizedBox(
                   width: boxWidth,
@@ -117,41 +134,20 @@ class _TuneTrackContainerState extends ConsumerState<TuneTrackContainer> {
                     controller: songTextController,
                     textAlign: TextAlign.center,
                     decoration: const InputDecoration(
+                      filled: true,
+                      fillColor: Colors.redAccent,
                       hintText: "노래 제목",
                       contentPadding: EdgeInsets.all(8),
                       enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.green)),
+                          borderSide: BorderSide(
+                              color: Color.fromRGBO(234, 234, 234, 1))),
                       focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.green)),
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.red)),
+                          borderSide: BorderSide(
+                              color: Color.fromRGBO(234, 234, 234, 1))),
+                      border:
+                          OutlineInputBorder(borderSide: BorderSide(width: 1)),
                     ),
-                    onFieldSubmitted: (value) {
-                      // ref
-                      //     .read(voteViewModelProvider.notifier)
-                      //     .selectArtist(value);
-                      // if (ref
-                      //         .read(voteViewModelProvider.notifier)
-                      //         .selectedArtistIndex ==
-                      //     -1) {
-                      //   showDialog(
-                      //       context: context,
-                      //       builder: (context) {
-                      //         return AlertDialog(
-                      //             content: const Text(
-                      //               "검색된 아티스트가 없습니다.",
-                      //               textAlign: TextAlign.center,
-                      //             ),
-                      //             shape: RoundedRectangleBorder(
-                      //                 borderRadius: BorderRadius.circular(8)));
-                      //       });
-                      //   songTextController.clear();
-                      // } else {
-                      //   artistTextController.text = value;
-                      //   dynamic test = viewModel.searchSongsByArtist(value);
-                      //   print(test);
-                      // }
-                    },
+                    onFieldSubmitted: (value) {},
                   ),
                 ),
               ],
