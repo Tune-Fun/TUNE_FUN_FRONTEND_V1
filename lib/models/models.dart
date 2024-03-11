@@ -1,2 +1,11 @@
+export './account_model.dart';
 export './article_model.dart';
 export './vote_model.dart';
+export './inquiry_model.dart';
+export './social_account_model.dart';
+export './vote_paper_model.dart';
+export './follow_model.dart';
+export './report_model.dart';
+export './vote_choice_model.dart';
+export './otp_model.dart';
+export './terms_model.dart';

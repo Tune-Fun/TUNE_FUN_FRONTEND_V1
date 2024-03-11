@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:logger/logger.dart';
 import 'package:tunefun_front/constants/image_constants.dart';
-import 'package:tunefun_front/core/enums/social_login_enum.dart';
+import 'package:tunefun_front/core/enums/enums.dart';
 
 import 'package:tunefun_front/theme/pallete.dart';
 
@@ -10,7 +10,7 @@ var logger = Logger();
 
 class SocialSignupButton extends StatelessWidget {
   final String text;
-  final SocialLoginType type;
+  final OAuthType type;
 
   const SocialSignupButton({
     Key? key,
@@ -22,13 +22,13 @@ class SocialSignupButton extends StatelessWidget {
   Widget build(BuildContext context) {
     String buttonText;
     switch (type) {
-      case SocialLoginType.facebook:
+      case OAuthType.facebook:
         buttonText = '$text으로 계속하기';
         break;
-      case SocialLoginType.google:
+      case OAuthType.google:
         buttonText = '$text로 계속하기';
         break;
-      case SocialLoginType.apple:
+      case OAuthType.apple:
         buttonText = '$text로 계속하기';
         break;
       default:
@@ -41,7 +41,9 @@ class SocialSignupButton extends StatelessWidget {
         horizontal: 23,
       ),
       child: GestureDetector(
-        onTap: () {},
+        onTap: () {
+          logger.i('$text이 클릭됨!!!');
+        },
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 13),
           decoration: BoxDecoration(

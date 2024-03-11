@@ -42,6 +42,17 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
+# dotenv environment variable files
+.env
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
+
+# Ignore .env file in assets/config directory
+/assets/config
+/assets/config/.env
+
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
 amplify/.config/local-*

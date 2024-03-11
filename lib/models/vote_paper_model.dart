@@ -4,55 +4,47 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
 @immutable
-class ArticleModel {
+class VotePaperModel {
   final int id;
-  final String title;
   final String uuid;
-  final String content;
-  final int votes;
-  final int likes;
-  final String articleType;
   final String username;
+  final DateTime voteEndAt;
+  final bool option;
+  final DateTime deliveryAt;
   final DateTime createdAt;
   final DateTime updatedAt;
   final DateTime deletedAt;
 
-  const ArticleModel({
+  const VotePaperModel({
     required this.id,
-    required this.title,
     required this.uuid,
-    required this.content,
-    required this.votes,
-    required this.likes,
-    required this.articleType,
     required this.username,
+    required this.voteEndAt,
+    required this.option,
+    required this.deliveryAt,
     required this.createdAt,
     required this.updatedAt,
     required this.deletedAt,
   });
 
-  ArticleModel copyWith({
+  VotePaperModel copyWith({
     int? id,
-    String? title,
     String? uuid,
-    String? content,
-    int? votes,
-    int? likes,
-    String? articleType,
     String? username,
+    DateTime? voteEndAt,
+    bool? option,
+    DateTime? deliveryAt,
     DateTime? createdAt,
     DateTime? updatedAt,
     DateTime? deletedAt,
   }) {
-    return ArticleModel(
+    return VotePaperModel(
       id: id ?? this.id,
-      title: title ?? this.title,
       uuid: uuid ?? this.uuid,
-      content: content ?? this.content,
-      votes: votes ?? this.votes,
-      likes: likes ?? this.likes,
-      articleType: articleType ?? this.articleType,
       username: username ?? this.username,
+      voteEndAt: voteEndAt ?? this.voteEndAt,
+      option: option ?? this.option,
+      deliveryAt: deliveryAt ?? this.deliveryAt,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
       deletedAt: deletedAt ?? this.deletedAt,
@@ -62,29 +54,25 @@ class ArticleModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'title': title,
       'uuid': uuid,
-      'content': content,
-      'votes': votes,
-      'likes': likes,
-      'articleType': articleType,
       'username': username,
+      'voteEndAt': voteEndAt.millisecondsSinceEpoch,
+      'option': option,
+      'deliveryAt': deliveryAt.millisecondsSinceEpoch,
       'createdAt': createdAt.millisecondsSinceEpoch,
       'updatedAt': updatedAt.millisecondsSinceEpoch,
       'deletedAt': deletedAt.millisecondsSinceEpoch,
     };
   }
 
-  factory ArticleModel.fromMap(Map<String, dynamic> map) {
-    return ArticleModel(
+  factory VotePaperModel.fromMap(Map<String, dynamic> map) {
+    return VotePaperModel(
       id: map['id'] as int,
-      title: map['title'] as String,
       uuid: map['uuid'] as String,
-      content: map['content'] as String,
-      votes: map['votes'] as int,
-      likes: map['likes'] as int,
-      articleType: map['articleType'] as String,
       username: map['username'] as String,
+      voteEndAt: DateTime.fromMillisecondsSinceEpoch(map['voteEndAt'] as int),
+      option: map['option'] as bool,
+      deliveryAt: DateTime.fromMillisecondsSinceEpoch(map['deliveryAt'] as int),
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
       updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt'] as int),
       deletedAt: DateTime.fromMillisecondsSinceEpoch(map['deletedAt'] as int),
@@ -93,26 +81,24 @@ class ArticleModel {
 
   String toJson() => json.encode(toMap());
 
-  factory ArticleModel.fromJson(String source) =>
-      ArticleModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory VotePaperModel.fromJson(String source) =>
+      VotePaperModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
-    return 'ArticleModel(id: $id, title: $title, uuid: $uuid, content: $content, votes: $votes, likes: $likes, articleType: $articleType, username: $username, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt)';
+    return 'VotePaperModel(id: $id, uuid: $uuid, username: $username, voteEndAt: $voteEndAt, option: $option, deliveryAt: $deliveryAt, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt)';
   }
 
   @override
-  bool operator ==(covariant ArticleModel other) {
+  bool operator ==(covariant VotePaperModel other) {
     if (identical(this, other)) return true;
 
     return other.id == id &&
-        other.title == title &&
         other.uuid == uuid &&
-        other.content == content &&
-        other.votes == votes &&
-        other.likes == likes &&
-        other.articleType == articleType &&
         other.username == username &&
+        other.voteEndAt == voteEndAt &&
+        other.option == option &&
+        other.deliveryAt == deliveryAt &&
         other.createdAt == createdAt &&
         other.updatedAt == updatedAt &&
         other.deletedAt == deletedAt;
@@ -121,13 +107,11 @@ class ArticleModel {
   @override
   int get hashCode {
     return id.hashCode ^
-        title.hashCode ^
         uuid.hashCode ^
-        content.hashCode ^
-        votes.hashCode ^
-        likes.hashCode ^
-        articleType.hashCode ^
         username.hashCode ^
+        voteEndAt.hashCode ^
+        option.hashCode ^
+        deliveryAt.hashCode ^
         createdAt.hashCode ^
         updatedAt.hashCode ^
         deletedAt.hashCode;

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tunefun_front/common/common.dart';
 import 'package:tunefun_front/constants/constants.dart';
+import 'package:tunefun_front/features/auth/controllers/auth_controller.dart';
 import 'package:tunefun_front/features/auth/views/login_view.dart';
 import 'package:tunefun_front/models/models.dart';
 import 'package:tunefun_front/theme/theme.dart';
@@ -17,11 +19,18 @@ class ArticleCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isUser = ref.watch(authControllerProvider);
+
     void onArticleClicked() {
-      Navigator.push(
-        context,
-        LoginScreen.route(),
-      );
+      if (isUser == true) {
+        showSnackBar(context, '이미 로그인 했습니다!');
+        // 이제 투표 화면으로 이동하면 된다.
+      } else {
+        Navigator.push(
+          context,
+          LoginScreen.route(),
+        );
+      }
     }
 
     return GestureDetector(
@@ -128,7 +137,7 @@ class ArticleCard extends ConsumerWidget {
                         GestureDetector(
                           onTap: () {},
                           child: SvgPicture.asset(
-                            ImageConstants.voteIcon,
+                            ImageConstants.pollIcon,
                             height: 24,
                             width: 24,
                           ),
@@ -150,7 +159,7 @@ class ArticleCard extends ConsumerWidget {
                         GestureDetector(
                           onTap: () {},
                           child: SvgPicture.asset(
-                            ImageConstants.likeFilledIcon,
+                            ImageConstants.heartIcon,
                             height: 24,
                             width: 24,
                           ),

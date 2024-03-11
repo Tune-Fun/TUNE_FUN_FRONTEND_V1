@@ -18,10 +18,62 @@ class _ArticleListState extends ConsumerState<ArticleList> {
   List<ArticleModel> articles = DummyData.articles;
   String iconState = '';
 
+  @override
+  void initState() {
+    super.initState();
+    articles.sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
+  }
+
   void onIconStateChanged(String state) {
     setState(() {
       iconState = state;
     });
+  }
+
+  void onSortButtonClicked() {
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Center(
+            child: Text('정렬 기준 선택'),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    articles.sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
+                  });
+                  Navigator.pop(context);
+                },
+                child: const Text(
+                  '최신순',
+                  style: TextStyle(
+                    color: Pallete.textMainColor,
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    articles.sort((a, b) => b.votes.compareTo(a.votes));
+                  });
+                  Navigator.pop(context);
+                },
+                child: const Text(
+                  '투표순',
+                  style: TextStyle(
+                    color: Pallete.textMainColor,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -40,9 +92,9 @@ class _ArticleListState extends ConsumerState<ArticleList> {
                     onIconStateChanged('alarm');
                   },
                   icon: SvgPicture.asset(
-                    ImageConstants.alarmIcon,
-                    height: 18,
-                    width: 18,
+                    ImageConstants.notificationIcon,
+                    height: 25,
+                    width: 25,
                   ),
                 ),
                 IconButton(
@@ -51,13 +103,14 @@ class _ArticleListState extends ConsumerState<ArticleList> {
                   },
                   icon: SvgPicture.asset(
                     ImageConstants.searchIcon,
-                    height: 18,
-                    width: 18,
+                    height: 25,
+                    width: 25,
                   ),
                 ),
                 IconButton(
                   onPressed: () {
                     onIconStateChanged('sort');
+                    onSortButtonClicked();
                   },
                   icon: SvgPicture.asset(
                     ImageConstants.sortIcon,
@@ -73,6 +126,7 @@ class _ArticleListState extends ConsumerState<ArticleList> {
                 ? SearchTextField(
                     iconState: iconState,
                     onIconStateChanged: onIconStateChanged,
+                    articles: articles,
                   )
                 : SingleChildScrollView(
                     child: Column(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tunefun_front/constants/gradient_text.dart';
 import 'package:tunefun_front/features/article/widgets/article_list.dart';
+import 'package:tunefun_front/features/auth/views/email_verify_view.dart';
+import 'package:tunefun_front/features/profile/views/profile_view.dart';
 import 'package:tunefun_front/theme/pallete.dart';
 
 class UIConstants {
@@ -27,23 +29,13 @@ class UIConstants {
 
   static List<Widget> bottomTapBarPages = [
     const ArticleList(),
-    const Text(
-      'Add',
-      style: TextStyle(
-        color: Pallete.textMainColor,
-      ),
-    ),
+    const EmailVerifyScreen(),
     const Text(
       'People',
       style: TextStyle(
         color: Pallete.textMainColor,
       ),
     ),
-    const Text(
-      'Profile',
-      style: TextStyle(
-        color: Pallete.textMainColor,
-      ),
-    )
+    const ProfileScreen(),
   ];
 }

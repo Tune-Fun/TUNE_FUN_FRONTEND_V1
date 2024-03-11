@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
-import 'package:tunefun_front/common/green_square_button.dart';
+import 'package:tunefun_front/common/common.dart';
 import 'package:tunefun_front/constants/ui_constants.dart';
 import 'package:tunefun_front/features/auth/views/signup_password_input_view.dart';
 import 'package:tunefun_front/theme/theme.dart';
@@ -24,6 +24,7 @@ class _SignupUsernameInputScreenState extends State<SignupUsernameInputScreen> {
   final appbar = UIConstants.appBar();
   final usernameController = TextEditingController();
   late TextEditingController emailController;
+  final _formKey = GlobalKey<FormState>();
   bool buttonState = false;
 
   @override
@@ -33,16 +34,11 @@ class _SignupUsernameInputScreenState extends State<SignupUsernameInputScreen> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-    usernameController.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appbar,
       body: Form(
+        key: _formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -95,7 +91,13 @@ class _SignupUsernameInputScreenState extends State<SignupUsernameInputScreen> {
                         fontSize: 18,
                       ),
                     ),
-                    keyboardType: TextInputType.emailAddress,
+                    keyboardType: TextInputType.text,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return '아이디를 입력해주세요.';
+                      }
+                      return null;
+                    },
                   ),
                   const SizedBox(height: 35),
                   Center(
@@ -104,17 +106,19 @@ class _SignupUsernameInputScreenState extends State<SignupUsernameInputScreen> {
                           horizontal: 120, vertical: 5),
                       child: GreenSquareButton(
                         onTap: () {
-                          setState(() {
-                            buttonState = true;
-                          });
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SignupPasswordInputScreen(
-                                  emailController: emailController,
-                                  usernameController: usernameController),
-                            ),
-                          );
+                          if (_formKey.currentState!.validate()) {
+                            setState(() {
+                              buttonState = true;
+                            });
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SignupPasswordInputScreen(
+                                    emailController: emailController,
+                                    usernameController: usernameController),
+                              ),
+                            );
+                          }
                         },
                         buttonState: buttonState,
                         buttonText: '다음',
