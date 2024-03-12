@@ -14,7 +14,6 @@ class VoteDetailScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final viewModel = ref.watch(voteViewModelProvider.notifier);
     final clickedIndex = ref.watch(clickedIndexProvider);
-    final searchProvider = ref.watch(voteViewModelProvider);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: UIConstants.appBar(),
@@ -56,7 +55,7 @@ class VoteDetailScreen extends ConsumerWidget {
                 GradientContainer(
                     width: MediaQuery.of(context).size.width * 0.2,
                     borderRadius: BorderRadius.circular(10),
-                    isfill: true,
+                    type: "fill",
                     child: Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: RichText(
@@ -99,7 +98,7 @@ class VoteDetailScreen extends ConsumerWidget {
             GradientContainer(
                 width: MediaQuery.of(context).size.width,
                 borderRadius: BorderRadius.circular(10),
-                isfill: false,
+                type: "contentBox",
                 child: const Padding(
                   padding: EdgeInsets.all(16.0),
                   child: Text(
@@ -132,22 +131,24 @@ class VoteDetailScreen extends ConsumerWidget {
                         child: AddSongBox(),
                       );
                     }
+                    final itemIndex = index - 1;
                     return GestureDetector(
                       onTap: () {
                         ref.read(clickedIndexProvider.notifier).state =
-                            clickedIndex == index - 1 ? null : index - 1;
+                            clickedIndex == itemIndex ? null : itemIndex;
                       },
                       child: Padding(
                           padding: const EdgeInsets.only(bottom: 15),
                           child: GradientContainer(
                               width: MediaQuery.of(context).size.width,
                               borderRadius: BorderRadius.circular(10),
-                              isfill: clickedIndex == index - 1 ? true : false,
+                              type:
+                                  clickedIndex == itemIndex ? "fill" : "border",
                               child: Padding(
                                 padding: const EdgeInsets.all(12.0),
                                 child: VoteBox(
-                                  index: index - 1,
-                                  data: viewModel.dummy[index - 1],
+                                  index: itemIndex,
+                                  data: viewModel.dummy[itemIndex],
                                 ),
                               ))),
                     );
