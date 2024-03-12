@@ -10,16 +10,21 @@ class AddSongBox extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         showModalBottomSheet(
+            isScrollControlled: true,
             shape:
                 const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
             context: context,
             builder: (BuildContext context) {
-              return const TuneTrackContainer(buttonType: "add");
+              return Padding(
+                padding: MediaQuery.of(context).viewInsets,
+                child: const TuneTrackContainer(buttonType: "add"),
+              );
             });
       },
       child: GradientContainer(
         width: MediaQuery.of(context).size.width,
-        backgroundColor: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        type: "border",
         child: const Padding(
           padding: EdgeInsets.all(12.0),
           child: Row(

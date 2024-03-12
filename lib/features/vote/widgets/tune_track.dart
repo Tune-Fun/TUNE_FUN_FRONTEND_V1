@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tunefun_front/features/vote/viewModel/view_model.dart';
-import 'package:tunefun_front/features/vote/widgets/vote_box.dart';
 
 class TuneTrackContainer extends ConsumerStatefulWidget {
   final String buttonType;
@@ -85,10 +83,11 @@ class _TuneTrackContainerState extends ConsumerState<TuneTrackContainer> {
                     height: MediaQuery.of(context).size.height * 0.05,
                     child: TextFormField(
                       controller: artistTextController,
+                      textInputAction: TextInputAction.search,
                       textAlign: TextAlign.center,
                       decoration: const InputDecoration(
                         filled: true,
-                        fillColor: Colors.redAccent,
+                        fillColor: Color.fromRGBO(255, 242, 242, 1),
                         hintText: "아티스트 이름",
                         contentPadding: EdgeInsets.all(8),
                         enabledBorder: OutlineInputBorder(
@@ -96,7 +95,7 @@ class _TuneTrackContainerState extends ConsumerState<TuneTrackContainer> {
                                 color: Color.fromRGBO(234, 234, 234, 1))),
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: Color.fromRGBO(234, 234, 234, 1))),
+                                color: Color.fromRGBO(251, 92, 102, 1))),
                         border: OutlineInputBorder(
                             borderSide: BorderSide(width: 1)),
                       ),
@@ -132,10 +131,11 @@ class _TuneTrackContainerState extends ConsumerState<TuneTrackContainer> {
                   height: MediaQuery.of(context).size.height * 0.05,
                   child: TextFormField(
                     controller: songTextController,
+                    textInputAction: TextInputAction.search,
                     textAlign: TextAlign.center,
                     decoration: const InputDecoration(
                       filled: true,
-                      fillColor: Colors.redAccent,
+                      fillColor: Color.fromRGBO(255, 242, 242, 1),
                       hintText: "노래 제목",
                       contentPadding: EdgeInsets.all(8),
                       enabledBorder: OutlineInputBorder(
@@ -143,7 +143,7 @@ class _TuneTrackContainerState extends ConsumerState<TuneTrackContainer> {
                               color: Color.fromRGBO(234, 234, 234, 1))),
                       focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                              color: Color.fromRGBO(234, 234, 234, 1))),
+                              color: Color.fromRGBO(251, 92, 102, 1))),
                       border:
                           OutlineInputBorder(borderSide: BorderSide(width: 1)),
                     ),
