@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final voteViewModelProvider = ChangeNotifierProvider((ref) => VoteViewModel());
+final clickedIndexProvider = StateProvider<int?>((ref) => null);
 
 class VoteViewModel extends ChangeNotifier {
   List<Map<String, dynamic>> dummy = [
+    {"artist": "10cm", "song": "gogogo"},
     {"artist": "정승환", "song": "눈사람"},
     {"artist": "10cm", "song": "스토커"},
     {"artist": "이소정", "song": "우린 이제 남이니까"},
@@ -12,6 +14,7 @@ class VoteViewModel extends ChangeNotifier {
     {"artist": "노라조", "song": "형"},
     {"artist": "노라조", "song": "카레"}
   ];
+  final scrollController = ScrollController();
   List<dynamic> _currentSongs = [];
   int _searchSongIndex = -1;
   String get currentSong =>
