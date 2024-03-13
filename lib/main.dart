@@ -2,16 +2,17 @@ import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 import 'package:tunefun_front/amplifyconfiguration.dart';
-import 'package:tunefun_front/features/home/views/home_view.dart';
-import 'package:tunefun_front/features/vote/views/vote_view.dart';
+import 'package:tunefun_front/features/vote/views/vote_detail_view.dart';
+import 'package:tunefun_front/features/vote/views/vote_upload_view.dart';
 import 'package:tunefun_front/theme/theme.dart';
 
 var logger = Logger();
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -37,7 +38,7 @@ class _MyAppState extends State<MyApp> {
       title: 'TuneFun',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.theme,
-      // home: const VoteDetailScreen(),
+      home: VoteUploadScreen(),
     );
   }
 
