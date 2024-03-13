@@ -8,6 +8,11 @@ import 'package:logger/logger.dart';
 import 'package:tunefun_front/features/firebase/test/fcm_view.dart';
 import 'package:tunefun_front/features/home/views/home_view.dart';
 import 'package:tunefun_front/firebase_options.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logger/logger.dart';
+import 'package:tunefun_front/amplifyconfiguration.dart';
+import 'package:tunefun_front/features/vote/views/vote_detail_view.dart';
+import 'package:tunefun_front/features/vote/views/vote_upload_view.dart';
 import 'package:tunefun_front/theme/theme.dart';
 
 var logger = Logger();
