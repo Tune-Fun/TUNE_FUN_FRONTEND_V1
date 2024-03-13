@@ -26,8 +26,8 @@ class AccessTokenManager {
   }
 
   Future<String> _fetchAccessToken() async {
-    final clientId = dotenv.env["CLIENT_ID"];
-    final clientSecret = dotenv.env["CLIENT_SECRET"];
+    final clientId = dotenv.env["SPOTIFY_CLIENT_ID"];
+    final clientSecret = dotenv.env["SPOTIFY_CLIENT_SECRET"];
     String tokenUrl = UrlConstants.spotifyAccessTokenURL;
     final response = await http.post(
       Uri.parse(tokenUrl),
