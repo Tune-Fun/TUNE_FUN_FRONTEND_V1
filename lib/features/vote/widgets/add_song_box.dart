@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:tunefun_front/features/vote/widgets/gradient_container.dart';
 import 'package:tunefun_front/features/vote/widgets/tune_track.dart';
 
-class AddSongBox extends StatelessWidget {
-  const AddSongBox({super.key});
+class AddSongContainer extends StatelessWidget {
+  const AddSongContainer({super.key});
 
   @override
   Widget build(BuildContext context) {
