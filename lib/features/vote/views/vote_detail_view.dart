@@ -1,19 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tunefun_front/constants/ui_constants.dart';
-import 'package:tunefun_front/features/vote/viewModel/view_model.dart';
-import 'package:tunefun_front/features/vote/widgets/bottom_buttons.dart';
 import 'package:tunefun_front/features/vote/widgets/add_song_box.dart';
+import 'package:tunefun_front/features/vote/widgets/bottom_buttons.dart';
 import 'package:tunefun_front/features/vote/widgets/gradient_container.dart';
-import 'package:tunefun_front/features/vote/widgets/vote_box.dart';
 import 'package:tunefun_front/theme/pallete.dart';
 
-class VoteDetailScreen extends ConsumerWidget {
+List<Map<String, dynamic>> dummy = [
+  {"artist": "10cm", "song": "gogogo"},
+  {"artist": "정승환", "song": "눈사람"},
+  {"artist": "10cm", "song": "스토커"},
+  {"artist": "이소정", "song": "우린 이제 남이니까"},
+  {"artist": "10cm", "song": "폰서트"},
+  {"artist": "노라조", "song": "형"},
+  {"artist": "노라조", "song": "카레"}
+];
+
+class VoteDetailScreen extends StatefulWidget {
   const VoteDetailScreen({super.key});
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final viewModel = ref.watch(voteViewModelProvider.notifier);
-    final clickedIndex = ref.watch(clickedIndexProvider);
+  State<VoteDetailScreen> createState() => _VoteDetailScreenState();
+}
+
+class _VoteDetailScreenState extends State<VoteDetailScreen> {
+  int clickedIndex = -1;
+  bool isClicked = false;
+  ScrollController scrollController = ScrollController();
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: UIConstants.appBar(),
@@ -121,21 +135,24 @@ class VoteDetailScreen extends ConsumerWidget {
             ),
             Expanded(
               child: ListView.builder(
-                  controller: viewModel.scrollController,
+                  controller: scrollController,
                   clipBehavior: Clip.hardEdge,
-                  itemCount: viewModel.dummy.length + 1,
+                  itemCount: dummy.length + 1,
                   itemBuilder: ((context, index) {
                     if (index == 0) {
                       return const Padding(
                         padding: EdgeInsets.only(bottom: 15),
-                        child: AddSongBox(),
+                        child: AddSongContainer(),
                       );
                     }
                     final itemIndex = index - 1;
                     return GestureDetector(
                       onTap: () {
-                        ref.read(clickedIndexProvider.notifier).state =
-                            clickedIndex == itemIndex ? null : itemIndex;
+                        setState(() {
+                          clickedIndex =
+                              clickedIndex == itemIndex ? -1 : itemIndex;
+                          isClicked = clickedIndex == itemIndex ? true : false;
+                        });
                       },
                       child: Padding(
                           padding: const EdgeInsets.only(bottom: 15),
@@ -145,16 +162,55 @@ class VoteDetailScreen extends ConsumerWidget {
                               type:
                                   clickedIndex == itemIndex ? "fill" : "border",
                               child: Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: VoteBox(
-                                  index: itemIndex,
-                                  data: viewModel.dummy[itemIndex],
-                                ),
-                              ))),
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        dummy[itemIndex]["artist"],
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                            color: clickedIndex == itemIndex
+                                                ? const Color.fromRGBO(
+                                                    255, 255, 255, 1)
+                                                : const Color.fromRGBO(
+                                                    17, 17, 17, 1)),
+                                      ),
+                                      Text(
+                                        " - ",
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                            color: clickedIndex == itemIndex
+                                                ? const Color.fromRGBO(
+                                                    255, 255, 255, 1)
+                                                : const Color.fromRGBO(
+                                                    17, 17, 17, 1)),
+                                      ),
+                                      Text(
+                                        dummy[itemIndex]["song"],
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                            color: clickedIndex == itemIndex
+                                                ? const Color.fromRGBO(
+                                                    255, 255, 255, 1)
+                                                : const Color.fromRGBO(
+                                                    17, 17, 17, 1)),
+                                      ),
+                                      const Spacer(),
+                                      Icon(
+                                        Icons.check_circle_outline_outlined,
+                                        color: clickedIndex == itemIndex
+                                            ? Colors.white
+                                            : Colors.redAccent,
+                                      )
+                                    ],
+                                  )))),
                     );
                   })),
             ),
-            const BottomButtons()
+            BottomButtons(isClicked: isClicked)
           ],
         ),
       ),
