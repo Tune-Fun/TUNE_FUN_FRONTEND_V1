@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:tunefun_front/constants/url_constants.dart';
-import 'package:tunefun_front/features/vote/controller/token_controller.dart';
+import 'package:tunefun_front/features/vote/%08controller/token_controller.dart';
+import 'package:tunefun_front/features/vote/test/upload_test_model.dart';
 import 'package:tunefun_front/models/vote_paper_model.dart';
 
 class VoteDataSource {
@@ -17,11 +18,12 @@ class VoteDataSource {
     }
   }
 
-  uploadvote() async {
+  uploadvote(UploadTestModel uploadTestModel) async {
+    // final jsonData = uploadTestModel.toJson();
     final response = await http.post(Uri.parse(""));
   }
 
-  searchSongByArtist(String artist) async {
+  searchSong(String artist) async {
     final accessTokenManager = AccessTokenManager();
     final accessToken = await accessTokenManager.getAccessToken();
     final searchUrl = "${UrlConstants.spotifyURL}/search?q=$artist&type=track";

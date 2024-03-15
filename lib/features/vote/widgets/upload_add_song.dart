@@ -1,80 +1,135 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tunefun_front/features/vote/viewModel/upload_controller.dart';
+import 'package:tunefun_front/features/vote/%08controller/upload_controller.dart';
+import 'package:tunefun_front/features/vote/test/upload_test_model.dart';
 
 class UploadAddSongWidget extends ConsumerWidget {
   const UploadAddSongWidget({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final songs = ref.watch(songsProvider);
-    return Column(
+    List<SongInfo> songs = ref.watch(uploadSongListProvider);
+
+    return ListView(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       children: [
-        ...songs.asMap().entries.map((entry) {
-          int index = entry.key;
-          SongEntry songEntry = entry.value;
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        for (int i = 0; i < songs.length; i++)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                margin: const EdgeInsets.only(bottom: 10),
-                width: MediaQuery.of(context).size.width * 0.4,
-                height: MediaQuery.of(context).size.height * 0.05,
-                child: TextFormField(
-                  textAlign: TextAlign.center,
-                  controller: songEntry.artistController,
-                  decoration: const InputDecoration(
-                    hintText: '아티스트 이름',
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green)),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green)),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 8),
-              Container(
-                margin: const EdgeInsets.only(bottom: 10),
-                width: MediaQuery.of(context).size.width * 0.4,
-                height: MediaQuery.of(context).size.height * 0.05,
-                child: TextFormField(
-                  textAlign: TextAlign.center,
-                  controller: songEntry.songController,
-                  decoration: const InputDecoration(
-                    hintText: '노래 제목',
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green)),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green)),
-                  ),
-                ),
-              ),
-              if (songs.length > 2)
-                Expanded(
-                  child: IconButton(
-                    icon: const Icon(
-                      Icons.remove_circle,
-                      color: Colors.red,
+              Expanded(
+                  flex: 1,
+                  child: GestureDetector(
+                    onTap: () {
+                      showSearch(
+                        context: context,
+                        delegate: SongSearchDelegate((result) {
+                          var parts = result.split(' - ');
+                          ref
+                              .read(uploadSongListProvider.notifier)
+                              .updateSongEntry(i, parts[0], parts[1]);
+                        }),
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      margin: const EdgeInsets.only(bottom: 10),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(color: Colors.green)),
+                      child: Text(songs[i].artistName.isNotEmpty &&
+                              songs[i].songName.isNotEmpty
+                          ? '${songs[i].artistName} - ${songs[i].songName}'
+                          : '아티스트 명 또는 노래 제목 입력'),
                     ),
-                    onPressed: () =>
-                        ref.read(songsProvider.notifier).removeSongEntry(index),
-                  ),
+                  )),
+              if (songs.length > 2)
+                IconButton(
+                  onPressed: () => ref
+                      .read(uploadSongListProvider.notifier)
+                      .removeSongEntry(i),
+                  icon: const Icon(Icons.remove_circle),
                 ),
             ],
-          );
-        }).toList(),
-        Container(
-          margin: const EdgeInsets.only(top: 10),
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.green,
           ),
-          child: IconButton(
-            onPressed: () => ref.read(songsProvider.notifier).addSongEntry(),
-            icon: const Icon(Icons.add),
-          ),
+        IconButton(
+          onPressed: () =>
+              ref.read(uploadSongListProvider.notifier).addSongEntry(),
+          icon: const Icon(Icons.add_circle_outline_outlined),
         ),
       ],
     );
+  }
+}
+
+class SongSearchDelegate extends SearchDelegate {
+  final Function(String) onResultSelect;
+
+  SongSearchDelegate(this.onResultSelect);
+
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+        icon: const Icon(Icons.clear),
+        onPressed: () {
+          query = '';
+        },
+      ),
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      icon: const Icon(Icons.arrow_back),
+      onPressed: () {
+        close(context, null);
+      },
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    if (query.isEmpty) {
+      return const Center(child: Text("검색어를 입력해 주세요"));
+    }
+    return Consumer(
+      builder: (context, ref, child) {
+        return FutureBuilder<List<SongInfo>>(
+          future: ref.read(uploadSongListProvider.notifier).searchList(query),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Text('오류가 발생했습니다. ${snapshot.error}');
+            } else if (snapshot.hasData) {
+              final results = snapshot.data!;
+              return ListView.builder(
+                itemCount: results.length,
+                itemBuilder: (context, index) {
+                  final result = results[index];
+                  return ListTile(
+                    title: Text('${result.artistName} - ${result.songName}'),
+                    onTap: () {
+                      onResultSelect(
+                          '${result.artistName} - ${result.songName}');
+                      close(context, null);
+                    },
+                  );
+                },
+              );
+            } else {
+              return const Text('검색 결과가 없습니다.');
+            }
+          },
+        );
+      },
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    return const SizedBox();
   }
 }
