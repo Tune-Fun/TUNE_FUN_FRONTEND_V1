@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tunefun_front/features/vote/widgets/gradient_container.dart';
-import 'package:tunefun_front/features/vote/widgets/tune_track.dart';
+import 'package:tunefun_front/features/vote/presentation/widgets/gradient_container.dart';
+import 'package:tunefun_front/features/vote/presentation/widgets/tune_track.dart';
 
 class AddSongContainer extends StatelessWidget {
   const AddSongContainer({super.key});

@@ -1,1 +1,1 @@
-export './vote_repository.dart';
+export '../features/vote/data/repository/vote_repository.dart';

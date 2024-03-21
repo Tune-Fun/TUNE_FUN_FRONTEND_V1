@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tunefun_front/features/vote/viewModel/view_model.dart';
+import 'package:tunefun_front/features/vote/%08controller/view_model.dart';
 
 class TuneTrackContainer extends ConsumerStatefulWidget {
   final String buttonType;
@@ -41,30 +41,27 @@ class _TuneTrackContainerState extends ConsumerState<TuneTrackContainer> {
                   ),
                 ),
                 Expanded(
-                    flex: 1,
+                    flex: 0,
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         IconButton(
                           onPressed: () {
-                            if (!viewModel.isExist) return;
-                            songTextController.text = ref
-                                .read(voteViewModelProvider.notifier)
-                                .nextSong;
-                            // ref.read(clickedIndexProvider.notifier).state =
-                            //     viewModel.resultSongIndex;
+                            if (viewModel.filteredSongs.isEmpty) return;
+                            viewModel.showNextSong();
+                            songTextController.text = viewModel
+                                    .filteredSongs[viewModel.filteredSongIndex]
+                                ["song"];
                           },
                           icon: const Icon(Icons.arrow_circle_left_outlined),
                         ),
                         IconButton(
                             onPressed: () {
-                              if (!viewModel.isExist) return;
-                              songTextController.text = ref
-                                  .read(voteViewModelProvider.notifier)
-                                  .nextSong;
-                              // ref.read(clickedIndexProvider.notifier).state =
-                              //     viewModel.resultSongIndex;
+                              if (viewModel.filteredSongs.isEmpty) return;
+                              viewModel.showPreviousSong();
+                              songTextController.text = viewModel.filteredSongs[
+                                  viewModel.filteredSongIndex]["song"];
                             },
                             icon:
                                 const Icon(Icons.arrow_circle_right_outlined)),
@@ -82,6 +79,7 @@ class _TuneTrackContainerState extends ConsumerState<TuneTrackContainer> {
                     width: boxWidth,
                     height: MediaQuery.of(context).size.height * 0.05,
                     child: TextFormField(
+                      onTap: () => widget.buttonType == "add" ? null : null,
                       controller: artistTextController,
                       textInputAction: TextInputAction.search,
                       textAlign: TextAlign.center,
@@ -100,10 +98,8 @@ class _TuneTrackContainerState extends ConsumerState<TuneTrackContainer> {
                             borderSide: BorderSide(width: 1)),
                       ),
                       onFieldSubmitted: (value) {
-                        ref
-                            .read(voteViewModelProvider.notifier)
-                            .searchSongsByArtist(value);
-                        if (!ref.read(voteViewModelProvider.notifier).isExist) {
+                        viewModel.searchByArtist(artistTextController.text);
+                        if (viewModel.filteredSongs.isEmpty) {
                           showDialog(
                               context: context,
                               builder: (context) {
@@ -118,11 +114,8 @@ class _TuneTrackContainerState extends ConsumerState<TuneTrackContainer> {
                               });
                           songTextController.clear();
                         } else {
-                          artistTextController.text = value;
-                          viewModel.searchSongsByArtist(value);
-                          songTextController.text = viewModel.currentSong;
-                          // ref.read(clickedIndexProvider.notifier).state =
-                          //     viewModel.resultSongIndex;
+                          songTextController.text =
+                              viewModel.filteredSongs[0]["song"];
                         }
                       },
                     )),

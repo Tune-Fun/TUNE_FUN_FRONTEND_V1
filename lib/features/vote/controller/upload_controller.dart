@@ -1,7 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fpdart/fpdart.dart';
+import 'package:tunefun_front/core/failure.dart';
+import 'package:tunefun_front/features/vote/data/data_source/vote_data_source.dart';
+import 'package:tunefun_front/features/vote/domain/model/upload_test_model.dart';
 import 'package:tunefun_front/features/vote/test/search_mock.dart';
-import 'package:tunefun_front/features/vote/test/upload_test_model.dart';
-import 'package:tunefun_front/repository/vote_repository.dart';
 
 final uploadSongListProvider =
     StateNotifierProvider<UploadController, List<SongInfo>>(
@@ -39,20 +41,22 @@ class UploadController extends StateNotifier<List<SongInfo>> {
     }
   }
 
-  Future<List<SongInfo>> searchList(String query) async {
-    // 실제 검색 API 호출 시 사용
-    // final list = await voteDataSource.searchSong(query);
-
-    // mock data 사용
-    final list = searchMock;
-    List<SongInfo> resultList = list.map<SongInfo>((song) {
-      String artistName = song['artists'] != null && song['artists'].isNotEmpty
-          ? song['artists'][0]['name']
-          : 'Unknown Artist';
-      String songTitle = song['name'] ?? 'Unknown Title';
-      return SongInfo(artistName: artistName, songName: songTitle);
-    }).toList();
-    return resultList;
+  Future<Either<Failure, List<SongInfo>>> searchList(String query) async {
+    final result = await voteDataSource.searchSong(query);
+    return result.fold(
+      (failure) => Left(failure),
+      (tracks) {
+        final List<SongInfo> songInfos = tracks.map<SongInfo>((track) {
+          final String artistName =
+              track['artists'] != null && track['artists'].isNotEmpty
+                  ? track['artists'][0]['name']
+                  : 'Unknown Artist';
+          final String songTitle = track['name'] ?? 'Unknown Title';
+          return SongInfo(artistName: artistName, songName: songTitle);
+        }).toList();
+        return Right(songInfos);
+      },
+    );
   }
 
   void addSongEntry() {
