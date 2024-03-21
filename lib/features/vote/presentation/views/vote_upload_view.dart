@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tunefun_front/constants/ui_constants.dart';
 import 'package:tunefun_front/features/vote/%08controller/upload_controller.dart';
-import 'package:tunefun_front/features/vote/widgets/upload_add_song.dart';
+import 'package:tunefun_front/features/vote/presentation/widgets/upload_add_song.dart';
 
 class VoteUploadScreen extends ConsumerStatefulWidget {
   const VoteUploadScreen({super.key});
@@ -48,7 +49,7 @@ class VoteUploadScreenState extends ConsumerState<VoteUploadScreen> {
                   },
                   decoration: const InputDecoration(
                     filled: true,
-                    // fillColor: Color.fromRGBO(255, 242, 242, 1),
+                    fillColor: Colors.white,
                     contentPadding: EdgeInsets.all(8),
                     enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -69,7 +70,7 @@ class VoteUploadScreenState extends ConsumerState<VoteUploadScreen> {
                   decoration: const InputDecoration(
                     hintText: "문구를 작성하세요..",
                     filled: true,
-                    // fillColor: Color.fromRGBO(255, 242, 242, 1),
+                    fillColor: Colors.white,
                     contentPadding: EdgeInsets.all(8),
                     enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -187,7 +188,7 @@ class VoteUploadScreenState extends ConsumerState<VoteUploadScreen> {
                         );
                       }
                     },
-                    child: Text("업로드"))
+                    child: const Text("투표 게재"))
               ],
             ),
           ),

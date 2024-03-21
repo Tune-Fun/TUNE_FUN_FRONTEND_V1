@@ -1,8 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tunefun_front/constants/ui_constants.dart';
-import 'package:tunefun_front/features/vote/widgets/add_song_box.dart';
-import 'package:tunefun_front/features/vote/widgets/bottom_buttons.dart';
-import 'package:tunefun_front/features/vote/widgets/gradient_container.dart';
+import 'package:tunefun_front/features/vote/%08controller/view_model.dart';
+import 'package:tunefun_front/features/vote/presentation/widgets/add_song_box.dart';
+import 'package:tunefun_front/features/vote/presentation/widgets/bottom_buttons.dart';
+import 'package:tunefun_front/features/vote/presentation/widgets/gradient_container.dart';
 import 'package:tunefun_front/theme/pallete.dart';
 
 List<Map<String, dynamic>> dummy = [
@@ -15,19 +19,29 @@ List<Map<String, dynamic>> dummy = [
   {"artist": "노라조", "song": "카레"}
 ];
 
-class VoteDetailScreen extends StatefulWidget {
+class VoteDetailScreen extends ConsumerStatefulWidget {
   const VoteDetailScreen({super.key});
 
   @override
-  State<VoteDetailScreen> createState() => _VoteDetailScreenState();
+  ConsumerState<VoteDetailScreen> createState() => _VoteDetailScreenState();
 }
 
-class _VoteDetailScreenState extends State<VoteDetailScreen> {
+class _VoteDetailScreenState extends ConsumerState<VoteDetailScreen> {
   int clickedIndex = -1;
   bool isClicked = false;
   ScrollController scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
+    final voteViewModel = ref.watch(voteViewModelProvider);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      String searchSong =
+          voteViewModel.filteredSongs[voteViewModel.filteredSongIndex]["song"];
+      int songIndex = dummy.indexWhere((song) => song["song"] == searchSong);
+      if (songIndex != -1) {
+        scrollController.animateTo(songIndex * 40.0,
+            duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
+      }
+    });
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: UIConstants.appBar(),
