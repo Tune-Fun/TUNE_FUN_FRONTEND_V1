@@ -1,4 +1,4 @@
-platform :osx, '10.14'
+platform :osx, '13.0'
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
@@ -33,6 +33,10 @@ target 'Runner' do
   flutter_install_all_macos_pods File.dirname(File.realpath(__FILE__))
   target 'RunnerTests' do
     inherit! :search_paths
+  end
+
+  target 'RunnerUITests' do
+    inherit! :complete
   end
 end
 

@@ -40,7 +40,6 @@ dependencies:
   flutter_svg: ^2.0.9
   http: ^1.2.0
   fpdart: ^1.1.0
-  patrol: ^3.5.2
   amplify_flutter: ^1.6.1
   amplify_core: ^1.6.3
   amplify_analytics_pinpoint: ^1.6.3
@@ -49,6 +48,7 @@ dependencies:
   firebase_messaging: ^14.7.10
   flutter_local_notifications: ^16.3.2
   uuid: ^4.3.3
+  patrol: ^3.5.2
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +63,16 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  patrol_finders: ^2.0.2
+
+patrol:
+  app_name: tunefun_front
+  android:
+    package_name: com.example.tunefun_front
+  ios:
+    bundle_id: com.example.tunefunFront
+  macos:
+    bundle_id: com.example.tunefunFront.RunnerTests
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -1,12 +1,6 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:patrol/patrol.dart';
 import 'package:tunefun_front/constants/dummy_data.dart';
 import 'package:tunefun_front/features/article/widgets/article_card.dart';
 import 'package:tunefun_front/features/article/widgets/article_list.dart';
@@ -30,7 +24,6 @@ void main() {
       expect($('TuneFun'), findsWidgets);
       expect($(const HomeScreen()), findsOneWidget);
       expect($(const ArticleList()), findsWidgets);
-      final articles = DummyData.articles;
     },
   );
 }
