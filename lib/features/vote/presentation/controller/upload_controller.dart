@@ -1,24 +1,23 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:tunefun_front/core/failure.dart';
-import 'package:tunefun_front/features/vote/data/data_source/vote_data_source.dart';
+import 'package:get_it/get_it.dart';
+import 'package:tunefun_front/core/core.dart';
 import 'package:tunefun_front/features/vote/domain/model/upload_test_model.dart';
-import 'package:tunefun_front/features/vote/test/search_mock.dart';
+import 'package:tunefun_front/features/vote/domain/usecase/vote_usecase.dart';
 
-final uploadSongListProvider =
-    StateNotifierProvider<UploadController, List<SongInfo>>(
-        (ref) => UploadController());
+part 'vote_upload_state.dart';
 
-class UploadController extends StateNotifier<List<SongInfo>> {
-  UploadController()
-      : super([
-          SongInfo(artistName: '', songName: ''),
-          SongInfo(artistName: '', songName: '')
-        ]);
-  final VoteDataSource voteDataSource = VoteDataSource();
+final VoteUseCaseImpl _voteUseCase = GetIt.I<VoteUseCaseImpl>();
+final uploadProvider = StateNotifierProvider<UploadController, VoteUploadState>(
+    (ref) => UploadController(_voteUseCase));
+
+class UploadController extends StateNotifier<VoteUploadState> {
+  final VoteUseCaseImpl _songUseCase;
+  UploadController(this._songUseCase) : super(const VoteUploadInitial());
 
   void uploadVote(String title, String content, bool option,
       List<SongInfo> songs, DateTime createdAt) async {
+    final cleanedSongs = cleanEmptySongs(songs);
     final uploadModel = UploadTestModel(
       id: 'test id',
       uuid: 'test uuid',
@@ -26,7 +25,7 @@ class UploadController extends StateNotifier<List<SongInfo>> {
       title: title,
       content: content,
       options: option,
-      songInfo: option ? songs : [],
+      songInfo: option ? cleanedSongs : [],
       createdAt: createdAt,
       updatedAt: DateTime.now(),
       deletedAt: null,
@@ -34,30 +33,38 @@ class UploadController extends StateNotifier<List<SongInfo>> {
 
     try {
       print("success data form ${uploadModel.toJson()}");
-      // await voteDataSource.uploadvote(uploadModel);
     } catch (error) {
       //error
       print('err $error');
     }
   }
 
-  Future<Either<Failure, List<SongInfo>>> searchList(String query) async {
-    final result = await voteDataSource.searchSong(query);
-    return result.fold(
-      (failure) => Left(failure),
-      (tracks) {
-        final List<SongInfo> songInfos = tracks.map<SongInfo>((track) {
-          final String artistName =
-              track['artists'] != null && track['artists'].isNotEmpty
-                  ? track['artists'][0]['name']
-                  : 'Unknown Artist';
-          final String songTitle = track['name'] ?? 'Unknown Title';
-          return SongInfo(artistName: artistName, songName: songTitle);
-        }).toList();
-        return Right(songInfos);
-      },
-    );
+  List<SongInfo> cleanEmptySongs(List<SongInfo> songs) {
+    return songs
+        .where((song) => song.artistName.isNotEmpty && song.songName.isNotEmpty)
+        .toList();
   }
+
+  Future<void> searchList(String query) async {
+    final result = await _songUseCase.searchSong(query);
+    result.fold((l) {
+      state = VoteUploadError(l.toString());
+    }, (r) {
+      state = VoteUploadSuccess(r);
+    });
+  }
+}
+
+final songListProvider =
+    StateNotifierProvider<SongListController, List<SongInfo>>(
+        (ref) => SongListController());
+
+class SongListController extends StateNotifier<List<SongInfo>> {
+  SongListController()
+      : super([
+          SongInfo(artistName: '', songName: ''),
+          SongInfo(artistName: '', songName: '')
+        ]);
 
   void addSongEntry() {
     state = [...state, SongInfo(artistName: '', songName: '')];
