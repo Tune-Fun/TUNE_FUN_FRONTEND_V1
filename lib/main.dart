@@ -5,16 +5,27 @@ import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:tunefun_front/features/firebase/test/fcm_view.dart';
 import 'package:tunefun_front/features/home/views/home_view.dart';
+import 'package:tunefun_front/features/vote/injector.dart/injector.dart';
 import 'package:tunefun_front/firebase_options.dart';
 import 'package:tunefun_front/amplifyconfiguration.dart';
-import 'package:tunefun_front/features/vote/views/vote_detail_view.dart';
-import 'package:tunefun_front/features/vote/views/vote_upload_view.dart';
+import 'package:tunefun_front/features/vote/presentation/views/vote_detail_view.dart';
+import 'package:tunefun_front/features/vote/presentation/views/vote_upload_view.dart';
 import 'package:tunefun_front/theme/theme.dart';
 
 var logger = Logger();
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: 'assets/config/.env');
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  setupInjector();
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -39,7 +50,9 @@ class _MyAppState extends State<MyApp> {
       title: 'TuneFun',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.theme,
-      // home: const VoteDetailScreen(),
+      home: const HomeScreen(),
+      // home: const VoteUploadScreen(),
+      // home: const FcmTestScreen(),
     );
   }
 }

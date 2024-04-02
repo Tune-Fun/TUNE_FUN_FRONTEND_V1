@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tunefun_front/constants/ui_constants.dart';
-import 'package:tunefun_front/features/vote/%08controller/upload_controller.dart';
+import 'package:tunefun_front/features/vote/presentation/%08controller/upload_controller.dart';
 import 'package:tunefun_front/features/vote/presentation/widgets/upload_add_song.dart';
 
 class VoteUploadScreen extends ConsumerStatefulWidget {
@@ -27,7 +27,7 @@ class VoteUploadScreenState extends ConsumerState<VoteUploadScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final uploadController = ref.read(uploadSongListProvider.notifier);
+    final uploadController = ref.read(uploadProvider.notifier);
     return Scaffold(
       appBar: UIConstants.appBar(),
       body: SingleChildScrollView(
@@ -183,7 +183,7 @@ class VoteUploadScreenState extends ConsumerState<VoteUploadScreen> {
                           titleTextController.text,
                           contentTextController.text,
                           option,
-                          ref.read(uploadSongListProvider),
+                          ref.read(songListProvider),
                           initialDay,
                         );
                       }

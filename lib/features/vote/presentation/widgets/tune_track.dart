@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tunefun_front/features/vote/%08controller/view_model.dart';
+import 'package:tunefun_front/features/vote/presentation/%08controller/view_model.dart';
 
 class TuneTrackContainer extends ConsumerStatefulWidget {
   final String buttonType;

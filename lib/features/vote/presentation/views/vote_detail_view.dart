@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tunefun_front/constants/ui_constants.dart';
-import 'package:tunefun_front/features/vote/%08controller/view_model.dart';
+import 'package:tunefun_front/features/vote/presentation/%08controller/view_model.dart';
 import 'package:tunefun_front/features/vote/presentation/widgets/add_song_box.dart';
 import 'package:tunefun_front/features/vote/presentation/widgets/bottom_buttons.dart';
 import 'package:tunefun_front/features/vote/presentation/widgets/gradient_container.dart';
