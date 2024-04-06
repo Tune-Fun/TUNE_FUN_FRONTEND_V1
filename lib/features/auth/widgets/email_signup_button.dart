@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
-import 'package:tunefun_front/features/auth/views/signup_email_input_view.dart';
+import 'package:tunefun_front/presentation/views/auth/signup_email_input_view.dart';
 import 'package:tunefun_front/theme/pallete.dart';
 
 var logger = Logger();

@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tunefun_front/core/core.dart';
-import 'package:tunefun_front/models/account_model.dart';
+import 'package:tunefun_front/models/Laccount_model.dart';
 import 'package:tunefun_front/utils/utils.dart';
 
 final userAPIProvider = Provider((ref) {});
