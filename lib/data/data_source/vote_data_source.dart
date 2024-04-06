@@ -1,10 +1,12 @@
 import 'dart:convert';
-
+import 'package:fpdart/fpdart.dart';
 import 'package:http/http.dart' as http;
 import 'package:tunefun_front/constants/url_constants.dart';
+import 'package:tunefun_front/core/core.dart';
 import 'package:tunefun_front/features/vote/data/dto/song_dto.dart';
-import 'package:tunefun_front/features/vote/domain/model/upload_test_model.dart';
 import 'package:tunefun_front/features/vote/presentation/%08controller/token_controller.dart';
+import 'package:tunefun_front/features/vote/domain/model/upload_test_model.dart';
+import 'package:tunefun_front/models/vote_paper_model.dart';
 
 class VoteDataSource {
   // FutureEither<List<VotePaperModel>> getVotesList() async {

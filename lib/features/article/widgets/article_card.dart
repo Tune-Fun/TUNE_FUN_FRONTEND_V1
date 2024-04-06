@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tunefun_front/common/common.dart';
 import 'package:tunefun_front/constants/constants.dart';
 import 'package:tunefun_front/features/auth/controllers/auth_controller.dart';
-import 'package:tunefun_front/features/auth/views/login_view.dart';
+import 'package:tunefun_front/presentation/views/auth/login_view.dart';
 import 'package:tunefun_front/models/models.dart';
 import 'package:tunefun_front/theme/theme.dart';
 import 'package:timeago/timeago.dart' as timeago;

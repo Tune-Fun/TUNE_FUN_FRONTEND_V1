@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 import 'package:tunefun_front/apis/apis.dart';
 import 'package:tunefun_front/common/common.dart';
-import 'package:tunefun_front/features/auth/views/login_view.dart';
+import 'package:tunefun_front/presentation/views/auth/login_view.dart';
 import 'package:tunefun_front/features/home/views/home_view.dart';
 import 'package:tunefun_front/models/models.dart';
 
