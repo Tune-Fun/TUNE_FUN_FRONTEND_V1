@@ -19,7 +19,7 @@ class AuthRepositoryImpl implements AuthRepository {
       if (response["code"] != "0000") {
         return DataState.error(Exception(), "계정을 생성하는 동안 오류가 발생했습니다.");
       }
-      return AuthTranslator().translateSignUp(response);
+      return AuthTranslator().translateSignUp(response['data']);
     } catch (e) {
       return DataState.error(Exception(), e.toString());
     }
@@ -32,7 +32,7 @@ class AuthRepositoryImpl implements AuthRepository {
       if (response["code"] != "0000") {
         return DataState.error(Exception(), "계정을 찾을 수 없습니다");
       }
-      return AuthTranslator().translateSignUp(response);
+      return AuthTranslator().translateSignUp(response['data']);
     } catch (e) {
       return DataState.error(Exception(), e.toString());
     }

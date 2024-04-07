@@ -16,21 +16,30 @@ class AuthManager extends StateNotifier<AuthMangerState> {
 
   Future<void> signUp(dynamic params) async {
     final response = await _authUsecaseImpl.signUp(params);
-    response.when(success: (userInfo) {
-      state = AuthMangerStateSuccess(userInfo);
-    }, error: (error, message) {
-      state = AuthMangerStateError(message);
-    });
+    try {
+      response.when(success: (userInfo) {
+        state = AuthMangerStateSuccess(userInfo);
+      }, error: (error, message) {
+        state = AuthMangerStateError(message);
+      });
+    } finally {
+      state = const AuthMangerStateInitial();
+    }
   }
 
   Future<void> logIn(dynamic params) async {
-    final response = await _authUsecaseImpl.logIn(params);
-    print(response);
-    response.when(success: (userInfo) {
-      state = AuthMangerStateSuccess(userInfo);
-    }, error: (error, message) {
-      state = AuthMangerStateError(message);
-    });
+    state = const AuthManagerStateLoading();
+    try {
+      final response = await _authUsecaseImpl.logIn(params);
+      print(response.toString());
+      response.when(success: (userInfo) {
+        state = AuthMangerStateSuccess(userInfo);
+      }, error: (error, message) {
+        state = AuthMangerStateError(message);
+      });
+    } finally {
+      state = const AuthMangerStateInitial();
+    }
   }
 
   Future checkEmail(dynamic email) async {
