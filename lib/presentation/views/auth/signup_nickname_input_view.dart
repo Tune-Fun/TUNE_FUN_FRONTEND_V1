@@ -65,7 +65,7 @@ class _SignupNickNameInputScreenState
   @override
   Widget build(BuildContext context) {
     final isLoading = ref.watch(authControllerProvider);
-
+    final authState = ref.watch(authManagerProvider);
     return Scaffold(
       appBar: appbar,
       body: Form(
@@ -84,7 +84,7 @@ class _SignupNickNameInputScreenState
                     '사용자 이름이 무엇인가요?',
                     style: TextStyle(
                       color: Pallete.textMainColor,
-                      fontSize: 15,
+                      fontSize: 18,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -112,6 +112,7 @@ class _SignupNickNameInputScreenState
                         fontSize: 18,
                       ),
                     ),
+                    onChanged: (value) => setState(() {}),
                     keyboardType: TextInputType.text,
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -274,20 +275,15 @@ class _SignupNickNameInputScreenState
                   const SizedBox(height: 35),
                   Center(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 120, vertical: 5),
+                      padding: const EdgeInsets.symmetric(vertical: 5),
                       child: GreenSquareButton(
                         onTap: () {
                           if (_formKey.currentState!.validate() &&
                               privacyPolicy &&
                               termsOfService) {
-                            setState(() {
-                              buttonState = true;
-                            });
-
                             // 이제 회원가입 진행하면 된다.
                             // api 연결
-                            // signUp();
+                            signUp();
 
                             if (isLoading == true) {
                               Navigator.pushAndRemoveUntil(
@@ -298,7 +294,9 @@ class _SignupNickNameInputScreenState
                             }
                           }
                         },
-                        buttonState: buttonState,
+                        buttonState: nicknameController.text.isNotEmpty &&
+                            privacyPolicy &&
+                            termsOfService,
                         buttonText: '계정 만들기',
                       ),
                     ),
@@ -306,9 +304,21 @@ class _SignupNickNameInputScreenState
                 ],
               ),
             ),
+            Center(child: signUpTestAlert(authState, context))
           ],
         ),
       ),
     );
   }
+}
+
+Widget signUpTestAlert(AuthMangerState authState, BuildContext context) {
+  if (authState is AuthManagerStateLoading) {
+    return const Text("signUp wait");
+  } else if (authState is AuthMangerStateSuccess) {
+    return Text("signUp success \n ${authState.userInfo.username}");
+  } else if (authState is AuthMangerStateError) {
+    return Text("signUp error ${authState.message}");
+  }
+  return const Text("signUp initial");
 }

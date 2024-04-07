@@ -23,15 +23,27 @@ class GreenSquareButton extends StatelessWidget {
           vertical: 10,
         ),
         decoration: BoxDecoration(
-          color: !buttonState ? Pallete.bgMainColor : Pallete.greenColor,
+          gradient: buttonState
+              ? const LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Color.fromRGBO(251, 92, 102, 1),
+                    Color.fromRGBO(250, 35, 48, 1)
+                  ],
+                )
+              : null,
+          color: !buttonState
+              ? const Color.fromRGBO(209, 213, 219, 1)
+              : Pallete.greenColor,
           borderRadius: BorderRadius.circular(5),
-          border: Border.all(color: Pallete.greenColor),
+          border: Border.all(color: const Color.fromRGBO(209, 213, 219, 1)),
         ),
         child: Center(
           child: Text(
             buttonText,
-            style: TextStyle(
-              color: !buttonState ? Pallete.greenColor : Pallete.bgMainColor,
+            style: const TextStyle(
+              color: Color.fromRGBO(255, 255, 255, 1),
               fontSize: 16,
             ),
           ),

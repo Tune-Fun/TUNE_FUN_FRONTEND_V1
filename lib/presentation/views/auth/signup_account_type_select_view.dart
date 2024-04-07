@@ -62,7 +62,7 @@ class _SignupAccountTypeSelectScreenState
                   '사용자를 선택해주세요.',
                   style: TextStyle(
                     color: Pallete.textMainColor,
-                    fontSize: 15,
+                    fontSize: 18,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -150,8 +150,7 @@ class _SignupAccountTypeSelectScreenState
                 ),
                 Center(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 120, vertical: 5),
+                    padding: const EdgeInsets.symmetric(vertical: 5),
                     child: GreenSquareButton(
                       onTap: () {
                         if (accountType.isNotEmpty) {

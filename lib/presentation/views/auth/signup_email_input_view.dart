@@ -51,17 +51,31 @@ class _SignupEmailInputScreenState extends State<SignupEmailInputScreen> {
                       controller: emailController,
                       decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5.0),
+                          borderRadius: BorderRadius.circular(8.0),
                           borderSide: const BorderSide(
-                            color: Pallete.textSubColor,
-                            width: 3,
+                            color: Color.fromRGBO(234, 234, 234, 1),
+                            width: 1,
                           ),
                         ),
                         enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5.0),
+                          borderRadius: BorderRadius.circular(8.0),
                           borderSide: const BorderSide(
-                            color: Pallete.textSubColor,
-                            width: 3,
+                            color: Color.fromRGBO(234, 234, 234, 1),
+                            width: 1,
+                          ),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: const BorderSide(
+                            color: Color.fromRGBO(234, 234, 234, 1),
+                            width: 1,
+                          ),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: const BorderSide(
+                            color: Color.fromRGBO(234, 234, 234, 1),
+                            width: 1,
                           ),
                         ),
                         contentPadding: const EdgeInsets.all(22),
@@ -71,6 +85,9 @@ class _SignupEmailInputScreenState extends State<SignupEmailInputScreen> {
                         ),
                       ),
                       keyboardType: TextInputType.emailAddress,
+                      onChanged: (value) {
+                        setState(() {});
+                      },
                       validator: (value) {
                         if (value!.isEmpty) {
                           return '이메일을 입력해주세요.';
@@ -81,6 +98,7 @@ class _SignupEmailInputScreenState extends State<SignupEmailInputScreen> {
                           if (emailMessage == "2006") return "중복된 이메일 입니다.";
                           return emailMessage;
                         }
+                        return null;
                       },
                     ),
                     const SizedBox(height: 35),
@@ -91,12 +109,13 @@ class _SignupEmailInputScreenState extends State<SignupEmailInputScreen> {
                         ),
                         child: GreenSquareButton(
                           onTap: () async {
+                            emailMessage = "";
                             if (_formKey.currentState!.validate()) {
                               // api
-                              // dynamic response = await ref
-                              //     .read(authManagerProvider.notifier)
-                              //     .checkEmail(emailController.text);
-                              const response = "2008";
+                              dynamic response = await ref
+                                  .read(authManagerProvider.notifier)
+                                  .checkEmail(emailController.text);
+                              // const response = "2008";
                               if (response.toString() == "2008") {
                                 Navigator.push(
                                   context,
@@ -114,7 +133,7 @@ class _SignupEmailInputScreenState extends State<SignupEmailInputScreen> {
                               }
                             }
                           },
-                          buttonState: buttonState,
+                          buttonState: emailController.text.isNotEmpty,
                           buttonText: '다음',
                         ),
                       ),

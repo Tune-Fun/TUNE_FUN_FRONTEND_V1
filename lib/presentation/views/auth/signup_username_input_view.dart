@@ -56,7 +56,7 @@ class _SignupUsernameInputScreenState extends State<SignupUsernameInputScreen> {
                       '아이디가 무엇인가요?',
                       style: TextStyle(
                         color: Pallete.textMainColor,
-                        fontSize: 15,
+                        fontSize: 18,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -65,17 +65,31 @@ class _SignupUsernameInputScreenState extends State<SignupUsernameInputScreen> {
                       controller: usernameController,
                       decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5.0),
+                          borderRadius: BorderRadius.circular(8.0),
                           borderSide: const BorderSide(
-                            color: Pallete.textSubColor,
-                            width: 3,
+                            color: Color.fromRGBO(234, 234, 234, 1),
+                            width: 1,
                           ),
                         ),
                         enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5.0),
+                          borderRadius: BorderRadius.circular(8.0),
                           borderSide: const BorderSide(
-                            color: Pallete.textSubColor,
-                            width: 3,
+                            color: Color.fromRGBO(234, 234, 234, 1),
+                            width: 1,
+                          ),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: const BorderSide(
+                            color: Color.fromRGBO(234, 234, 234, 1),
+                            width: 1,
+                          ),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: const BorderSide(
+                            color: Color.fromRGBO(234, 234, 234, 1),
+                            width: 1,
                           ),
                         ),
                         contentPadding: const EdgeInsets.all(22),
@@ -85,6 +99,9 @@ class _SignupUsernameInputScreenState extends State<SignupUsernameInputScreen> {
                         ),
                       ),
                       keyboardType: TextInputType.text,
+                      onChanged: (value) {
+                        setState(() {});
+                      },
                       validator: (value) {
                         if (value!.isEmpty) {
                           return '아이디를 입력해주세요.';
@@ -98,17 +115,16 @@ class _SignupUsernameInputScreenState extends State<SignupUsernameInputScreen> {
                     const SizedBox(height: 35),
                     Center(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 120, vertical: 5),
+                        padding: const EdgeInsets.symmetric(vertical: 5),
                         child: GreenSquareButton(
                           onTap: () async {
                             idMessage = "";
                             if (_formKey.currentState!.validate()) {
                               // api
-                              // String response = await ref
-                              //     .read(authManagerProvider.notifier)
-                              //     .checkId(usernameController.text);
-                              const response = "2007";
+                              String response = await ref
+                                  .read(authManagerProvider.notifier)
+                                  .checkId(usernameController.text);
+                              // const response = "2007";
                               if (response == "2007") {
                                 Navigator.push(
                                   context,
@@ -128,7 +144,7 @@ class _SignupUsernameInputScreenState extends State<SignupUsernameInputScreen> {
                               }
                             }
                           },
-                          buttonState: buttonState,
+                          buttonState: usernameController.text.isNotEmpty,
                           buttonText: '다음',
                         ),
                       ),

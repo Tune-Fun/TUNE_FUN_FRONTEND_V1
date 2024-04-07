@@ -57,7 +57,7 @@ class _SignupPasswordInputScreenState extends State<SignupPasswordInputScreen> {
                     '비밀번호 만들기',
                     style: TextStyle(
                       color: Pallete.textMainColor,
-                      fontSize: 15,
+                      fontSize: 18,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -65,28 +65,45 @@ class _SignupPasswordInputScreenState extends State<SignupPasswordInputScreen> {
                   TextFormField(
                     controller: passwordController,
                     decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: const BorderSide(
-                          color: Pallete.textSubColor,
-                          width: 3,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: const BorderSide(
+                            color: Color.fromRGBO(234, 234, 234, 1),
+                            width: 1,
+                          ),
                         ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: const BorderSide(
-                          color: Pallete.textSubColor,
-                          width: 3,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: const BorderSide(
+                            color: Color.fromRGBO(234, 234, 234, 1),
+                            width: 1,
+                          ),
                         ),
-                      ),
-                      contentPadding: const EdgeInsets.all(22),
-                      hintText: '비밀번호',
-                      hintStyle: const TextStyle(
-                        fontSize: 18,
-                      ),
-                    ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: const BorderSide(
+                            color: Color.fromRGBO(234, 234, 234, 1),
+                            width: 1,
+                          ),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: const BorderSide(
+                            color: Color.fromRGBO(234, 234, 234, 1),
+                            width: 1,
+                          ),
+                        ),
+                        contentPadding: const EdgeInsets.all(22),
+                        hintText: '비밀번호',
+                        hintStyle: const TextStyle(
+                          fontSize: 18,
+                        ),
+                        helperText: "8가지 이상 영문/숫자/특수문자 중2가지 포함"),
                     keyboardType: TextInputType.text,
                     obscureText: true,
+                    onChanged: (value) {
+                      setState(() {});
+                    },
                     validator: (value) {
                       if (value!.isEmpty) {
                         passwordController.clear();
@@ -94,13 +111,13 @@ class _SignupPasswordInputScreenState extends State<SignupPasswordInputScreen> {
                       }
                       if (value.length <= 8) {
                         passwordController.clear();
-                        return "비밀번호는 8가지 이상 영문/숫자/특수문자 중 2가지 포함해야 합니다.";
+                        return "8가지 이상 영문/숫자/특수문자 중2가지 포함";
                       }
                       if (!RegExp(
                               r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?~^<>,.&+=])[A-Za-z\d$@$!%*#?~^<>,.&+=]{8,15}$')
                           .hasMatch(value)) {
                         passwordController.clear();
-                        return "비밀번호는 8가지 이상 영문/숫자/특수문자 중 2가지 포함해야 합니다.";
+                        return "8가지 이상 영문/숫자/특수문자 중2가지 포함";
                       }
                       return null;
                     },
@@ -109,7 +126,6 @@ class _SignupPasswordInputScreenState extends State<SignupPasswordInputScreen> {
                   Center(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 120,
                         vertical: 5,
                       ),
                       child: GreenSquareButton(
@@ -131,7 +147,7 @@ class _SignupPasswordInputScreenState extends State<SignupPasswordInputScreen> {
                             );
                           }
                         },
-                        buttonState: buttonState,
+                        buttonState: passwordController.text.isNotEmpty,
                         buttonText: '다음',
                       ),
                     ),

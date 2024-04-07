@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tunefun_front/common/common.dart';
 import 'package:tunefun_front/constants/constants.dart';
-import 'package:tunefun_front/features/auth/controllers/auth_controller.dart';
 import 'package:tunefun_front/presentation/manager/auth_manager/auth_manager.dart';
 import 'package:tunefun_front/presentation/views/auth/signup_main_view.dart';
 import 'package:tunefun_front/theme/pallete.dart';
@@ -42,6 +41,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final loginState = ref.watch(authManagerProvider);
     return Scaffold(
         appBar: appbar,
         body: Center(
@@ -74,6 +74,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         fontSize: 18,
                       ),
                     ),
+                    onChanged: (value) {
+                      setState(() {});
+                    },
                   ),
                   const SizedBox(
                     height: 25,
@@ -103,6 +106,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         fontSize: 18,
                       ),
                     ),
+                    onChanged: (value) {
+                      setState(() {});
+                    },
                   ),
                   const SizedBox(
                     height: 45,
@@ -173,20 +179,29 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     alignment: Alignment.center,
                     child: GreenSquareButton(
                       onTap: () {
-                        setState(() {
-                          buttonState = true;
-                        });
-
                         logIn();
                       },
-                      buttonState: buttonState,
+                      buttonState: usernameController.text.isNotEmpty &&
+                          passwordController.text.isNotEmpty,
                       buttonText: '로그인',
                     ),
                   ),
+                  loginTestAlert(loginState, context)
                 ],
               ),
             ),
           ),
         ));
   }
+}
+
+Widget loginTestAlert(AuthMangerState authState, BuildContext context) {
+  if (authState is AuthManagerStateLoading) {
+    return const Text("login wait");
+  } else if (authState is AuthMangerStateSuccess) {
+    return Text("login success \n ${authState.userInfo.username}");
+  } else if (authState is AuthMangerStateError) {
+    return Text("login error ${authState.message}");
+  }
+  return const Text("login initial");
 }
