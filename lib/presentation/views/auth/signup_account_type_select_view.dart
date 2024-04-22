@@ -30,7 +30,7 @@ class _SignupAccountTypeSelectScreenState
   late TextEditingController emailController;
   late TextEditingController usernameController;
   late TextEditingController passwordController;
-  String accountType = '';
+  String accountType = 'artist';
   bool buttonState = false;
 
   @override
@@ -59,94 +59,114 @@ class _SignupAccountTypeSelectScreenState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  '사용자를 선택해주세요.',
+                  '사용자를 선택해 주세요.',
                   style: TextStyle(
                     color: Pallete.textMainColor,
                     fontSize: 18,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          // 일반 사용자 버튼이 눌렸을 때의 로직
-                          setState(() {
-                            accountType =
-                                accountType == 'normal' ? '' : 'normal';
-                          });
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 10,
-                          ),
-                          decoration: BoxDecoration(
-                            color: accountType == 'normal'
-                                ? Pallete.greenColor
-                                : Pallete.bgMainColor,
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: Pallete.greenColor),
-                          ),
-                          child: Center(
-                            child: Text(
-                              '일반 사용자',
-                              style: TextStyle(
-                                color: accountType == 'normal'
-                                    ? Pallete.bgMainColor
-                                    : Pallete.greenColor,
-                                fontSize: 16,
+                Container(
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(colors: [
+                        Color.fromRGBO(250, 92, 102, 1),
+                        Color.fromRGBO(250, 35, 48, 1),
+                      ]),
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    alignment: Alignment.center,
+                    child: Container(
+                      height: 50,
+                      margin: const EdgeInsets.all(2),
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 4),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width * 0.43,
+                              height: 42,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(colors: [
+                                  accountType == "artist"
+                                      ? const Color.fromRGBO(250, 92, 102, 1)
+                                      : Colors.white,
+                                  accountType == "artist"
+                                      ? const Color.fromRGBO(250, 35, 48, 1)
+                                      : Colors.white,
+                                ]),
+                                borderRadius: BorderRadius.circular(100),
+                              ),
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    accountType = 'artist';
+                                  });
+                                },
+                                child: Center(
+                                  child: Text(
+                                    "아티스트",
+                                    style: TextStyle(
+                                        color: accountType == 'artist'
+                                            ? const Color.fromRGBO(
+                                                255, 255, 255, 1)
+                                            : Colors.red,
+                                        fontSize: 18),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 10), // 버튼 사이의 간격 조정
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          // 아티스트 사용자 버튼이 눌렸을 때의 로직
-                          setState(() {
-                            accountType =
-                                accountType == 'artist' ? '' : 'artist';
-                          });
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 10,
-                          ),
-                          decoration: BoxDecoration(
-                            color: accountType == 'artist'
-                                ? Pallete.greenColor
-                                : Pallete.bgMainColor,
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: Pallete.greenColor),
-                          ),
-                          child: Center(
-                            child: Text(
-                              '아티스트 사용자',
-                              style: TextStyle(
-                                color: accountType == 'artist'
-                                    ? Pallete.bgMainColor
-                                    : Pallete.greenColor,
-                                fontSize: 16,
+                          Padding(
+                            padding: const EdgeInsets.only(right: 4),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width * 0.43,
+                              height: 42,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(colors: [
+                                  accountType == "normal"
+                                      ? const Color.fromRGBO(250, 92, 102, 1)
+                                      : Colors.white,
+                                  accountType == "normal"
+                                      ? const Color.fromRGBO(250, 35, 48, 1)
+                                      : Colors.white,
+                                ]),
+                                borderRadius: BorderRadius.circular(100),
+                              ),
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    accountType = 'normal';
+                                  });
+                                },
+                                child: Center(
+                                  child: Text(
+                                    "일반",
+                                    style: TextStyle(
+                                        color: accountType == 'normal'
+                                            ? const Color.fromRGBO(
+                                                255, 255, 255, 1)
+                                            : Colors.red,
+                                        fontSize: 18),
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
+                          )
+                        ],
                       ),
-                    ),
-                  ],
-                ),
+                    )),
                 const SizedBox(
-                  height: 20,
+                  height: 40,
                 ),
                 Center(
                   child: Padding(
