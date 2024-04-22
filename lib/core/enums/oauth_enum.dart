@@ -2,7 +2,7 @@ enum OAuthType {
   email('email'),
   google('google'),
   apple('apple'),
-  facebook('facebook'),
+  instagram('instagram'),
   ;
 
   final String type;
@@ -18,8 +18,8 @@ extension ConvertOAuth on String {
       case 'apple':
         return OAuthType.google;
 
-      case 'facebook':
-        return OAuthType.facebook;
+      case 'instagram':
+        return OAuthType.instagram;
 
       default:
         return OAuthType.email;

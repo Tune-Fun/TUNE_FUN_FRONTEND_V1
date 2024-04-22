@@ -29,7 +29,7 @@ class _SignUpScreenState extends ConsumerState<SignUpMainScreen> {
           EmailSignupButton(text: '가입하기'),
           SocialSignupButton(text: 'Google', type: OAuthType.google),
           SocialSignupButton(text: 'Apple', type: OAuthType.apple),
-          SocialSignupButton(text: 'Facebook', type: OAuthType.facebook),
+          SocialSignupButton(text: 'Instagram', type: OAuthType.instagram),
         ],
       ),
     );
