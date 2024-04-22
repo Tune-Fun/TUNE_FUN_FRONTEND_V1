@@ -65,7 +65,6 @@ class _SignupNickNameInputScreenState
   @override
   Widget build(BuildContext context) {
     final isLoading = ref.watch(authControllerProvider);
-    final authState = ref.watch(authManagerProvider);
     return Scaffold(
       appBar: appbar,
       body: Form(
@@ -75,250 +74,233 @@ class _SignupNickNameInputScreenState
           children: [
             const SizedBox(height: 12),
             const SizedBox(height: 22),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    '사용자 이름이 무엇인가요?',
-                    style: TextStyle(
-                      color: Pallete.textMainColor,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  TextFormField(
-                    controller: nicknameController,
-                    decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: const BorderSide(
-                          color: Pallete.textSubColor,
-                          width: 3,
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: const BorderSide(
-                          color: Pallete.textSubColor,
-                          width: 3,
-                        ),
-                      ),
-                      contentPadding: const EdgeInsets.all(22),
-                      hintText: '이름',
-                      hintStyle: const TextStyle(
-                        fontSize: 18,
-                      ),
-                    ),
-                    onChanged: (value) => setState(() {}),
-                    keyboardType: TextInputType.text,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return '이름을 입력해주세요';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  const Text(
-                    '프로필에 표시됩니다',
-                    style: TextStyle(
-                      color: Pallete.textMainColor,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 10,
-                    ),
-                  ),
-                  // 필수
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Pallete.borderColor,
-                        borderRadius: BorderRadius.circular(5)),
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 14,
-                        vertical: 4,
-                      ),
-                      child: Text(
-                        '필수',
-                        style: TextStyle(
-                          color: Pallete.textMainColor,
-                        ),
-                      ),
-                    ),
-                  ),
-                  // text = Tunefun 이용약관 / 체크 버튼
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Expanded(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'TuneFun 이용 약관',
+                        '사용자 이름이 무엇인가요?',
                         style: TextStyle(
                           color: Pallete.textMainColor,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 16,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
-                      CircleCheckButton(
-                        isChecked: termsOfService,
-                        onChanged: (value) {
-                          setState(() {
-                            termsOfService = value;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  GestureDetector(
-                    onTap: () {
-                      // 이용 약관에 대한 동작 추가
-                      logger.d('이용 약관 클릭!');
-                    },
-                    child: const Text(
-                      '이용 약관',
-                      style: TextStyle(
-                        color: Pallete.greenColor,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Pallete.borderColor,
-                        borderRadius: BorderRadius.circular(5)),
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 14,
-                        vertical: 4,
-                      ),
-                      child: Text(
-                        '필수',
-                        style: TextStyle(
-                          color: Pallete.textMainColor,
+                      const SizedBox(height: 12),
+                      TextFormField(
+                        controller: nicknameController,
+                        decoration: InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: const BorderSide(
+                              color: Color.fromRGBO(234, 234, 234, 1),
+                              width: 1,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: const BorderSide(
+                              color: Color.fromRGBO(234, 234, 234, 1),
+                              width: 1,
+                            ),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: const BorderSide(
+                              color: Color.fromRGBO(234, 234, 234, 1),
+                              width: 1,
+                            ),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: const BorderSide(
+                              color: Color.fromRGBO(234, 234, 234, 1),
+                              width: 1,
+                            ),
+                          ),
+                          contentPadding: const EdgeInsets.all(22),
                         ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        '필수 개인정보의 수집 및 사용',
-                        style: TextStyle(
-                          color: Pallete.textMainColor,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 16,
-                        ),
-                      ),
-                      CircleCheckButton(
-                        isChecked: privacyPolicy,
-                        onChanged: (value) {
-                          setState(() {
-                            privacyPolicy = value;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  GestureDetector(
-                    onTap: () {
-                      // 이용 약관에 대한 동작 추가
-                      logger.d('필수 개인정보의 수집 및 사용 클릭!');
-                    },
-                    child: const Text(
-                      '필수 개인정보의 수집 및 사용',
-                      style: TextStyle(
-                        color: Pallete.greenColor,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    '사용자 개인 데이터 처리에 대한 자세한 내용은 TuneFun 개인정보 처리방침을 확인하세요.',
-                    style: TextStyle(
-                      color: Pallete.textMainColor,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 16,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  GestureDetector(
-                    onTap: () {
-                      // 이용 약관에 대한 동작 추가
-                      logger.d('개인 처리 방침 클릭!');
-                    },
-                    child: const Text(
-                      '개인정보 처리방침',
-                      style: TextStyle(
-                        color: Pallete.greenColor,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 35),
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5),
-                      child: GreenSquareButton(
-                        onTap: () {
-                          if (_formKey.currentState!.validate() &&
-                              privacyPolicy &&
-                              termsOfService) {
-                            // 이제 회원가입 진행하면 된다.
-                            // api 연결
-                            signUp();
-
-                            if (isLoading == true) {
-                              Navigator.pushAndRemoveUntil(
-                                context,
-                                LoginScreen.route(),
-                                (route) => false,
-                              );
-                            }
+                        onChanged: (value) => setState(() {}),
+                        keyboardType: TextInputType.text,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return '이름을 입력해주세요';
                           }
+                          return null;
                         },
-                        buttonState: nicknameController.text.isNotEmpty &&
-                            privacyPolicy &&
-                            termsOfService,
-                        buttonText: '계정 만들기',
                       ),
-                    ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 15, bottom: 15),
+                        child: Text(
+                          '프로필에 표시됩니다',
+                          style: TextStyle(
+                            color: Color.fromRGBO(153, 153, 153, 1),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                      // 필수
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Pallete.bgCustomColor,
+                            borderRadius: BorderRadius.circular(15)),
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 2,
+                          ),
+                          child: Text(
+                            '필수',
+                            style: TextStyle(
+                                color: Colors.red,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'TuneFun 이용 약관',
+                            style: TextStyle(
+                              color: Pallete.textMainColor,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 18,
+                            ),
+                          ),
+                          CircleCheckButton(
+                            isChecked: termsOfService,
+                            onChanged: (value) {
+                              setState(() {
+                                termsOfService = value;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 5),
+                      GestureDetector(
+                        onTap: () {
+                          // 이용 약관에 대한 동작 추가
+                          logger.d('이용 약관 클릭!');
+                        },
+                        child: const Text(
+                          '이용 약관',
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 30),
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Pallete.bgCustomColor,
+                            borderRadius: BorderRadius.circular(15)),
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 2,
+                          ),
+                          child: Text(
+                            '필수',
+                            style: TextStyle(
+                                color: Colors.red,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            '필수 개인정보의 수집 및 사용',
+                            style: TextStyle(
+                              color: Pallete.textMainColor,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 18,
+                            ),
+                          ),
+                          CircleCheckButton(
+                            isChecked: privacyPolicy,
+                            onChanged: (value) {
+                              setState(() {
+                                privacyPolicy = value;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      GestureDetector(
+                        onTap: () {
+                          // 이용 약관에 대한 동작 추가
+                          logger.d('필수 개인정보의 수집 및 사용 클릭!');
+                        },
+                        child: const Text(
+                          '필수 개인정보의 수집 및 사용',
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+
+                      const SizedBox(height: 35),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
-            Center(child: signUpTestAlert(authState, context))
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+              child: SizedBox(
+                width: double.infinity,
+                child: GreenSquareButton(
+                  onTap: () {
+                    if (_formKey.currentState!.validate() &&
+                        privacyPolicy &&
+                        termsOfService) {
+                      signUp();
+
+                      if (isLoading == true) {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          LoginScreen.route(),
+                          (route) => false,
+                        );
+                      }
+                    }
+                  },
+                  buttonState: nicknameController.text.isNotEmpty &&
+                      privacyPolicy &&
+                      termsOfService,
+                  buttonText: '계정 만들기',
+                ),
+              ),
+            ),
           ],
         ),
       ),
     );
   }
-}
-
-Widget signUpTestAlert(AuthMangerState authState, BuildContext context) {
-  if (authState is AuthManagerStateLoading) {
-    return const Text("signUp wait");
-  } else if (authState is AuthMangerStateSuccess) {
-    return Text("signUp success \n ${authState.userInfo.username}");
-  } else if (authState is AuthMangerStateError) {
-    return Text("signUp error ${authState.message}");
-  }
-  return const Text("signUp initial");
 }
