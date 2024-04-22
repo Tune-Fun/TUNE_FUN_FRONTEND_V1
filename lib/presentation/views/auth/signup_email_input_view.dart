@@ -43,7 +43,7 @@ class _SignupEmailInputScreenState extends State<SignupEmailInputScreen> {
                       style: TextStyle(
                         color: Pallete.textMainColor,
                         fontSize: 18,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                     const SizedBox(height: 12),
@@ -95,7 +95,9 @@ class _SignupEmailInputScreenState extends State<SignupEmailInputScreen> {
                             .hasMatch(value)) {
                           return '올바른 이메일 형식이 아닙니다.';
                         } else if (emailMessage.isNotEmpty) {
-                          if (emailMessage == "2006") return "중복된 이메일 입니다.";
+                          if (emailMessage == "2006") {
+                            return "중복된 이메일 입니다. 다른 이메일을 입력해 주세요.";
+                          }
                           return emailMessage;
                         }
                         return null;
