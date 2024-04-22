@@ -57,7 +57,7 @@ class _SignupUsernameInputScreenState extends State<SignupUsernameInputScreen> {
                       style: TextStyle(
                         color: Pallete.textMainColor,
                         fontSize: 18,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                     const SizedBox(height: 12),
@@ -106,7 +106,9 @@ class _SignupUsernameInputScreenState extends State<SignupUsernameInputScreen> {
                         if (value!.isEmpty) {
                           return '아이디를 입력해주세요.';
                         } else if (idMessage.isNotEmpty) {
-                          if (idMessage == "2005") return "아이디가 중복입니다.";
+                          if (idMessage == "2005") {
+                            return "중복된 아이디 입니다. 다른 아이디를 사용해주세요.";
+                          }
                           return idMessage;
                         }
                         return null;
