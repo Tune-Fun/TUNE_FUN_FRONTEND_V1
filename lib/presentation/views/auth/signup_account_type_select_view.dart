@@ -31,7 +31,6 @@ class _SignupAccountTypeSelectScreenState
   late TextEditingController usernameController;
   late TextEditingController passwordController;
   String accountType = 'artist';
-  bool buttonState = false;
 
   @override
   void initState() {
@@ -39,7 +38,7 @@ class _SignupAccountTypeSelectScreenState
     emailController = widget.emailController;
     usernameController = widget.usernameController;
     passwordController = widget.passwordController;
-    accountType = '';
+    accountType = 'artist';
   }
 
   @override
@@ -90,28 +89,26 @@ class _SignupAccountTypeSelectScreenState
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 4),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width * 0.43,
-                              height: 42,
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(colors: [
-                                  accountType == "artist"
-                                      ? const Color.fromRGBO(250, 92, 102, 1)
-                                      : Colors.white,
-                                  accountType == "artist"
-                                      ? const Color.fromRGBO(250, 35, 48, 1)
-                                      : Colors.white,
-                                ]),
-                                borderRadius: BorderRadius.circular(100),
-                              ),
-                              child: GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    accountType = 'artist';
-                                  });
-                                },
+                          GestureDetector(
+                            onTap: () => setState(() {
+                              accountType = "artist";
+                            }),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 4),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 0.43,
+                                height: 42,
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(colors: [
+                                    accountType == "artist"
+                                        ? const Color.fromRGBO(250, 92, 102, 1)
+                                        : Colors.white,
+                                    accountType == "artist"
+                                        ? const Color.fromRGBO(250, 35, 48, 1)
+                                        : Colors.white,
+                                  ]),
+                                  borderRadius: BorderRadius.circular(100),
+                                ),
                                 child: Center(
                                   child: Text(
                                     "아티스트",
@@ -126,28 +123,26 @@ class _SignupAccountTypeSelectScreenState
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 4),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width * 0.43,
-                              height: 42,
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(colors: [
-                                  accountType == "normal"
-                                      ? const Color.fromRGBO(250, 92, 102, 1)
-                                      : Colors.white,
-                                  accountType == "normal"
-                                      ? const Color.fromRGBO(250, 35, 48, 1)
-                                      : Colors.white,
-                                ]),
-                                borderRadius: BorderRadius.circular(100),
-                              ),
-                              child: GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    accountType = 'normal';
-                                  });
-                                },
+                          GestureDetector(
+                            onTap: () => setState(() {
+                              accountType = 'normal';
+                            }),
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 4),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 0.43,
+                                height: 42,
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(colors: [
+                                    accountType == "normal"
+                                        ? const Color.fromRGBO(250, 92, 102, 1)
+                                        : Colors.white,
+                                    accountType == "normal"
+                                        ? const Color.fromRGBO(250, 35, 48, 1)
+                                        : Colors.white,
+                                  ]),
+                                  borderRadius: BorderRadius.circular(100),
+                                ),
                                 child: Center(
                                   child: Text(
                                     "일반",
@@ -173,27 +168,19 @@ class _SignupAccountTypeSelectScreenState
                     padding: const EdgeInsets.symmetric(vertical: 5),
                     child: GreenSquareButton(
                       onTap: () {
-                        if (accountType.isNotEmpty) {
-                          setState(() {
-                            buttonState = true;
-                          });
-
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SignupNickNameInputScreen(
-                                emailController: emailController,
-                                usernameController: usernameController,
-                                passwordController: passwordController,
-                                accountType: accountType,
-                              ),
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SignupNickNameInputScreen(
+                              emailController: emailController,
+                              usernameController: usernameController,
+                              passwordController: passwordController,
+                              accountType: accountType,
                             ),
-                          );
-                        } else {
-                          showSnackBar(context, '사용자 유형을 선택해야 합니다.');
-                        }
+                          ),
+                        );
                       },
-                      buttonState: accountType.isNotEmpty ? true : false,
+                      buttonState: true,
                       buttonText: '다음',
                     ),
                   ),
