@@ -24,23 +24,21 @@ class _CircleCheckButtonState extends State<CircleCheckButton> {
         }
       },
       child: Container(
-        width: 24,
-        height: 24,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: Border.all(
-            color: widget.isChecked ? Colors.green : Colors.grey,
-            width: 2,
+          width: 24,
+          height: 24,
+          decoration: BoxDecoration(
+            color: widget.isChecked ? Colors.red : Colors.white,
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: Colors.red,
+              width: 2,
+            ),
           ),
-        ),
-        child: widget.isChecked
-            ? const Icon(
-                Icons.check,
-                size: 16,
-                color: Colors.green,
-              )
-            : SizedBox(), // 체크되지 않은 경우 빈 SizedBox 반환
-      ),
+          child: Icon(
+            Icons.check,
+            size: 16,
+            color: widget.isChecked ? Colors.white : Colors.red,
+          )),
     );
   }
 }

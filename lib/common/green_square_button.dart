@@ -36,7 +36,7 @@ class GreenSquareButton extends StatelessWidget {
           color: !buttonState
               ? const Color.fromRGBO(209, 213, 219, 1)
               : Pallete.greenColor,
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(10),
           border: Border.all(color: const Color.fromRGBO(209, 213, 219, 1)),
         ),
         child: Center(
@@ -44,7 +44,7 @@ class GreenSquareButton extends StatelessWidget {
             buttonText,
             style: const TextStyle(
               color: Color.fromRGBO(255, 255, 255, 1),
-              fontSize: 16,
+              fontSize: 18,
             ),
           ),
         ),

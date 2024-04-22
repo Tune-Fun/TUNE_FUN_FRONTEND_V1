@@ -35,7 +35,13 @@ class EmailSignupButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(text),
+              Text(
+                text,
+                style: const TextStyle(
+                    color: Color.fromRGBO(102, 102, 102, 1),
+                    fontWeight: FontWeight.w500,
+                    fontSize: 18),
+              ),
             ],
           ),
         ),

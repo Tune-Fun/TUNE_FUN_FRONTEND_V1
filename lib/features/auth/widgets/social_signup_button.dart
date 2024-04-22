@@ -21,28 +21,34 @@ class SocialSignupButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String buttonText;
+    String iconPath;
     switch (type) {
-      case OAuthType.facebook:
+      case OAuthType.instagram:
         buttonText = '$text으로 계속하기';
+        iconPath = ImageConstants.instagramIcon;
         break;
       case OAuthType.google:
         buttonText = '$text로 계속하기';
+        iconPath = ImageConstants.googleIcon;
         break;
       case OAuthType.apple:
         buttonText = '$text로 계속하기';
+        iconPath = ImageConstants.appleIcon;
         break;
       default:
         buttonText = text;
+        iconPath = ImageConstants.backIcon;
     }
 
     return Padding(
       padding: const EdgeInsets.symmetric(
-        vertical: 8,
+        vertical: 10,
         horizontal: 23,
       ),
       child: GestureDetector(
         onTap: () {
           logger.i('$text이 클릭됨!!!');
+          print(text);
         },
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 13),
@@ -56,12 +62,18 @@ class SocialSignupButton extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SvgPicture.asset(
-                ImageConstants.profileOutlinedIcon,
+                iconPath,
                 height: 24,
                 width: 24,
               ),
               const SizedBox(width: 14),
-              Text(buttonText),
+              Text(
+                buttonText,
+                style: const TextStyle(
+                    color: Color.fromRGBO(102, 102, 102, 1),
+                    fontWeight: FontWeight.w500,
+                    fontSize: 18),
+              ),
             ],
           ),
         ),
