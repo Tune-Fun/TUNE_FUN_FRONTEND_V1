@@ -136,6 +136,20 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         ),
                       )
                     : const SizedBox(),
+                // login test
+                if (loginState is AuthMangerStateSuccess)
+                  const Padding(
+                    padding: EdgeInsets.only(top: 10, bottom: 15),
+                    child: Text(
+                      "로그인 성공 ",
+                      style: TextStyle(
+                          color: Color.fromRGBO(233, 20, 20, 1),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  )
+                else
+                  const SizedBox(),
                 const SizedBox(
                   height: 20,
                 ),
