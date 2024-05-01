@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tunefun_front/features/vote/presentation/%08controller/view_model.dart';
 import 'package:tunefun_front/features/vote/presentation/widgets/gradient_container.dart';
-import 'package:tunefun_front/features/vote/presentation/widgets/tune_track.dart';
 
 class BottomButtons extends ConsumerWidget {
   final bool isClicked;
@@ -38,7 +36,7 @@ class BottomButtons extends ConsumerWidget {
                       builder: (BuildContext context) {
                         return Padding(
                           padding: MediaQuery.of(context).viewInsets,
-                          child: const TuneTrackContainer(buttonType: "search"),
+                          child: Container(),
                         );
                       }).then((value) {
                       // ref.watch(voteViewModelProvider).isExist = false;
@@ -52,6 +50,7 @@ class BottomButtons extends ConsumerWidget {
             child: SizedBox(
                 height: 50,
                 child: GradientContainer(
+                    height: 50,
                     width: MediaQuery.of(context).size.width * 0.4,
                     borderRadius: BorderRadius.circular(12),
                     type: "fill",

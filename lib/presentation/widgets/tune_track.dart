@@ -49,7 +49,7 @@ class _TuneTrackContainerState extends ConsumerState<TuneTrackContainer> {
                         IconButton(
                           onPressed: () {
                             if (viewModel.filteredSongs.isEmpty) return;
-                            viewModel.showNextSong();
+                            // viewModel.showNextSong();
                             songTextController.text = viewModel
                                     .filteredSongs[viewModel.filteredSongIndex]
                                 ["song"];
@@ -59,7 +59,7 @@ class _TuneTrackContainerState extends ConsumerState<TuneTrackContainer> {
                         IconButton(
                             onPressed: () {
                               if (viewModel.filteredSongs.isEmpty) return;
-                              viewModel.showPreviousSong();
+                              // viewModel.showPreviousSong();
                               songTextController.text = viewModel.filteredSongs[
                                   viewModel.filteredSongIndex]["song"];
                             },
@@ -98,7 +98,7 @@ class _TuneTrackContainerState extends ConsumerState<TuneTrackContainer> {
                             borderSide: BorderSide(width: 1)),
                       ),
                       onFieldSubmitted: (value) {
-                        viewModel.searchByArtist(artistTextController.text);
+                        viewModel.searchSong(artistTextController.text);
                         if (viewModel.filteredSongs.isEmpty) {
                           showDialog(
                               context: context,

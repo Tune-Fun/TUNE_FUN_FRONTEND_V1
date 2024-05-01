@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 
 class GradientContainer extends StatelessWidget {
   final double width;
+  final double height;
   final BorderRadius borderRadius;
   final Widget child;
   final String type;
+  final EdgeInsetsGeometry? edgetInsets;
   const GradientContainer(
       {required this.width,
+      required this.height,
       required this.borderRadius,
       required this.child,
       required this.type,
+      this.edgetInsets,
       super.key});
 
   @override
@@ -18,7 +22,8 @@ class GradientContainer extends StatelessWidget {
     switch (type) {
       case "fill":
         innerContainer = Container(
-          margin: const EdgeInsets.all(2),
+          height: height,
+          margin: edgetInsets,
           width: width,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -28,7 +33,8 @@ class GradientContainer extends StatelessWidget {
         break;
       case "contentBox":
         innerContainer = Container(
-          margin: const EdgeInsets.all(2),
+          height: height,
+          margin: edgetInsets,
           width: width,
           decoration: BoxDecoration(
             color: const Color.fromRGBO(255, 242, 242, 1),
@@ -39,7 +45,8 @@ class GradientContainer extends StatelessWidget {
         break;
       case "border":
         innerContainer = Container(
-          margin: const EdgeInsets.all(2),
+          height: height,
+          margin: edgetInsets,
           width: width,
           decoration: BoxDecoration(
             color: Colors.white,
@@ -54,10 +61,11 @@ class GradientContainer extends StatelessWidget {
     }
 
     return Container(
+      height: height,
       width: width,
       decoration: BoxDecoration(
         gradient: const LinearGradient(colors: [
-          Color.fromRGBO(250, 92, 102, 1),
+          Color.fromRGBO(251, 92, 102, 1),
           Color.fromRGBO(250, 35, 48, 1),
         ]),
         borderRadius: borderRadius,

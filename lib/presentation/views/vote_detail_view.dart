@@ -81,6 +81,7 @@ class _VoteDetailScreenState extends ConsumerState<VoteDetailScreen> {
             Row(
               children: [
                 GradientContainer(
+                    height: 13,
                     width: MediaQuery.of(context).size.width * 0.2,
                     borderRadius: BorderRadius.circular(10),
                     type: "fill",
@@ -124,6 +125,8 @@ class _VoteDetailScreenState extends ConsumerState<VoteDetailScreen> {
               height: 15,
             ),
             GradientContainer(
+                edgetInsets: const EdgeInsets.all(2),
+                height: 50,
                 width: MediaQuery.of(context).size.width,
                 borderRadius: BorderRadius.circular(10),
                 type: "contentBox",
@@ -171,6 +174,7 @@ class _VoteDetailScreenState extends ConsumerState<VoteDetailScreen> {
                       child: Padding(
                           padding: const EdgeInsets.only(bottom: 15),
                           child: GradientContainer(
+                              height: 50,
                               width: MediaQuery.of(context).size.width,
                               borderRadius: BorderRadius.circular(10),
                               type:
