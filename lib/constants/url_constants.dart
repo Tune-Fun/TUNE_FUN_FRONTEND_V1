@@ -23,4 +23,5 @@ class UrlConstants {
       dotenv.get('PUBLIC_USER_CHECK_USERNAME_DUPLICATE');
   static String spotifyAccessTokenURL = dotenv.get('SPOTIFY_ACCESS_TOKEN_URL');
   static String spotifyURL = dotenv.get('SPOTIFY_URL');
+  static String voteUploadURL = dotenv.get('VOTE_UPLOAD_URL');
 }
