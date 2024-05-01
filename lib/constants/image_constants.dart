@@ -15,4 +15,6 @@ class ImageConstants {
   static const String heartIcon = '$_svgsPath/heart.svg';
   static const String homeIcon = '$_svgsPath/home.svg';
   static const String pollIcon = '$_svgsPath/poll.svg';
+  static const String alarmIcon = '$_svgsPath/alarm.svg';
+  static const String alertIcon = '$_svgsPath/alert.svg';
 }

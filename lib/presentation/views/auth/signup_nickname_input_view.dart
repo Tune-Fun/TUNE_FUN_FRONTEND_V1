@@ -64,7 +64,7 @@ class _SignupNickNameInputScreenState
 
   @override
   Widget build(BuildContext context) {
-    final isLoading = ref.watch(authControllerProvider);
+    final loginState = ref.watch(authManagerProvider);
     return Scaffold(
       appBar: appbar,
       body: Form(
@@ -282,12 +282,13 @@ class _SignupNickNameInputScreenState
                         termsOfService) {
                       signUp();
 
-                      if (isLoading == true) {
+                      if (loginState is AuthMangerStateSuccess) {
                         Navigator.pushAndRemoveUntil(
                           context,
                           LoginScreen.route(),
                           (route) => false,
                         );
+                        showSnackBar(context, '회원가입이 완료되었습니다.');
                       }
                     }
                   },

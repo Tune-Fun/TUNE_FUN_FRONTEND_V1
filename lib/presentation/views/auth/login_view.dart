@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tunefun_front/common/login_button.dart';
 import 'package:tunefun_front/constants/constants.dart';
 import 'package:tunefun_front/presentation/manager/auth_manager/auth_manager.dart';
+import 'package:tunefun_front/presentation/views/auth/signup_main_view.dart';
 import 'package:tunefun_front/theme/pallete.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
@@ -113,27 +114,27 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     setState(() {});
                   },
                 ),
+                const SizedBox(
+                  height: 15,
+                ),
                 loginState is AuthMangerStateError
-                    ? Padding(
-                        padding: const EdgeInsets.only(top: 10, bottom: 15),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(
-                              ImageConstants.alertIcon,
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            const Text(
-                              "아이디 및 비밀번호 조합이 잘못되었습니다.",
-                              style: TextStyle(
-                                  color: Color.fromRGBO(233, 20, 20, 1),
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ],
-                        ),
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                            ImageConstants.alertIcon,
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          const Text(
+                            "아이디 및 비밀번호 조합이 잘못되었습니다.",
+                            style: TextStyle(
+                                color: Color.fromRGBO(233, 20, 20, 1),
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ],
                       )
                     : const SizedBox(),
                 // login test
@@ -168,7 +169,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 const SizedBox(
                   height: 30,
                 ),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
@@ -176,7 +177,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       style: TextStyle(
                           color: Colors.black, fontSize: 16), // 폰트 스타일 설정
                     ),
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.only(left: 10, right: 10),
                       child: Text(
                         '|',
@@ -188,7 +189,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       '비밀번호 찾기',
                       style: TextStyle(color: Colors.black, fontSize: 16),
                     ),
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.only(left: 10, right: 10),
                       child: Text(
                         '|',
@@ -196,9 +197,18 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             color: Colors.black, fontSize: 16), // 폰트 스타일 설정
                       ),
                     ),
-                    Text(
-                      '회원 가입',
-                      style: TextStyle(color: Colors.black, fontSize: 16),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const SignUpMainScreen()));
+                      },
+                      child: Text(
+                        '회원 가입',
+                        style: TextStyle(color: Colors.black, fontSize: 16),
+                      ),
                     ),
                   ],
                 ),

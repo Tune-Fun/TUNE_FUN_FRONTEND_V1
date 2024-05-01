@@ -1,4 +1,4 @@
-export './account_model.dart';
+export 'Laccount_model.dart';
 export './article_model.dart';
 export './vote_model.dart';
 export './inquiry_model.dart';

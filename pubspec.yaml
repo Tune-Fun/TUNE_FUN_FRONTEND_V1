@@ -34,7 +34,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  flutter_riverpod: ^2.4.10
+  flutter_riverpod: ^2.5.1
   flutter_dotenv: ^5.1.0
   timeago: ^3.6.1
   flutter_svg: ^2.0.9
@@ -50,6 +50,10 @@ dependencies:
   uuid: ^4.3.3
   patrol: ^3.5.2
   get_it: ^7.6.7
+  freezed_annotation: ^2.4.1  
+  json_annotation: ^4.8.1
+  riverpod_annotation: ^2.3.5
+  webview_flutter: ^4.7.0
 
 dev_dependencies:
   flutter_test:
@@ -65,7 +69,12 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
   patrol_finders: ^2.0.2
-
+  build_runner: ^2.4.9
+  freezed: ^2.4.7
+  json_serializable:
+  riverpod_generator: ^2.4.0
+  custom_lint: ^0.6.4
+  riverpod_lint: ^2.3.10
 patrol:
   app_name: tunefun_front
   android:

@@ -1,15 +1,11 @@
-import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
-import 'package:amplify_core/amplify_core.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
-import 'package:tunefun_front/features/firebase/test/fcm_view.dart';
 import 'package:tunefun_front/features/home/views/home_view.dart';
 import 'package:tunefun_front/features/vote/injector.dart/injector.dart';
 import 'package:tunefun_front/firebase_options.dart';
-import 'package:tunefun_front/amplifyconfiguration.dart';
-import 'package:tunefun_front/features/vote/presentation/views/vote_detail_view.dart';
-import 'package:tunefun_front/features/vote/presentation/views/vote_upload_view.dart';
 import 'package:tunefun_front/theme/theme.dart';
 
 var logger = Logger();
