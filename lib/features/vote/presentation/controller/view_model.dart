@@ -11,22 +11,12 @@ class VoteViewModel extends ChangeNotifier {
   List<Map<String, dynamic>> get filteredSongs => _filteredSongs;
   int filteredSongIndex = 0;
 
-  void searchByArtist(String artistName) {
+  void searchSong(String query) {
     _filteredSongs = dummy
         .where((song) =>
-            song['artist'].toLowerCase().contains(artistName.toLowerCase()))
+            song['artist'].toLowerCase().contains(query.toLowerCase()) ||
+            song['song'].toLowerCase().contains(query.toLowerCase()))
         .toList();
-    notifyListeners();
-  }
-
-  void showNextSong() {
-    filteredSongIndex = (filteredSongIndex + 1) % filteredSongs.length;
-    notifyListeners();
-  }
-
-  void showPreviousSong() {
-    filteredSongIndex =
-        (filteredSongIndex - 1 + filteredSongs.length) % filteredSongs.length;
     notifyListeners();
   }
 }
