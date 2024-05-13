@@ -2,6 +2,7 @@ class ImageConstants {
   static const String _svgsPath = 'assets/images';
   static const String notificationIcon = '$_svgsPath/notification.svg';
   static const String searchIcon = '$_svgsPath/search.svg';
+  static const String shareNetworkIcon = '$_svgsPath/shareNetwork.svg';
   static const String sortIcon = '$_svgsPath/sort.svg';
   static const String voteIcon = '$_svgsPath/vote.svg';
   static const String likeFilledIcon = '$_svgsPath/like_filled.svg';
