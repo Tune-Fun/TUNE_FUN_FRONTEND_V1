@@ -3,10 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tunefun_front/constants/image_constants.dart';
 import 'package:tunefun_front/constants/ui_constants.dart';
-import 'package:tunefun_front/features/vote/presentation/%08controller/view_model.dart';
+import 'package:tunefun_front/features/vote/presentation/%08controller/vote_controller.dart';
 import 'package:tunefun_front/features/vote/presentation/widgets/bottom_buttons.dart';
 import 'package:tunefun_front/features/vote/presentation/widgets/gradient_container.dart';
 import 'package:tunefun_front/features/vote/presentation/widgets/search_song_widget.dart';
+import 'package:tunefun_front/features/vote/presentation/widgets/search_spotify_widget.dart';
 import 'package:tunefun_front/theme/pallete.dart';
 
 List<Map<String, dynamic>> dummy = [
@@ -157,34 +158,41 @@ class _VoteDetailScreenState extends ConsumerState<VoteDetailScreen> {
                   itemCount: songList.length + 1,
                   itemBuilder: ((context, index) {
                     if (index == 0) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 15),
-                        child: Container(
-                          height: 50,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                color: const Color.fromRGBO(153, 153, 153, 1),
+                      return GestureDetector(
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    SearchFromSpotifyWidget())),
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 15),
+                          child: Container(
+                            height: 50,
+                            width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: const Color.fromRGBO(153, 153, 153, 1),
+                                ),
+                                borderRadius: BorderRadius.circular(10),
+                                color: const Color.fromRGBO(255, 255, 255, 1)),
+                            child: const Padding(
+                              padding: EdgeInsets.all(12.0),
+                              child: Row(
+                                children: [
+                                  Icon(Icons.add_circle_outline,
+                                      color: Color.fromRGBO(153, 153, 152, 1)),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    '노래 추가하여 투표',
+                                    style: TextStyle(
+                                        color: Color.fromRGBO(153, 153, 153, 1),
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ],
                               ),
-                              borderRadius: BorderRadius.circular(10),
-                              color: const Color.fromRGBO(255, 255, 255, 1)),
-                          child: const Padding(
-                            padding: EdgeInsets.all(12.0),
-                            child: Row(
-                              children: [
-                                Icon(Icons.add_circle_outline,
-                                    color: Color.fromRGBO(153, 153, 152, 1)),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  '노래 추가하여 투표',
-                                  style: TextStyle(
-                                      color: Color.fromRGBO(153, 153, 153, 1),
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ],
                             ),
                           ),
                         ),

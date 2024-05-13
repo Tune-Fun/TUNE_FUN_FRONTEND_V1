@@ -1,12 +1,19 @@
 import 'dart:convert';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:tunefun_front/constants/url_constants.dart';
 import 'package:tunefun_front/features/vote/data/dto/song_dto.dart';
 import 'package:tunefun_front/features/vote/domain/model/upload_test_model.dart';
 import 'package:tunefun_front/features/vote/presentation/%08controller/token_controller.dart';
 
+final voteDataSourceProvider = Provider<VoteDataSource>((ref) {
+  return VoteDataSource(ref);
+});
+
 class VoteDataSource {
+  final Ref ref;
+  VoteDataSource(this.ref);
   // FutureEither<List<VotePaperModel>> getVotesList() async {
   //   final response = await http.get(Uri.parse(''));
   //   if (response.statusCode == 200) {
@@ -41,7 +48,9 @@ class VoteDataSource {
           ? song['artists'][0]['name']
           : 'Unknown Artist';
       String songTitle = song['name'] ?? 'Unknown Title';
-      return SongDto(artistName: artistName, songName: songTitle);
+      String songImage = song['album']["images"][2]['url'];
+      return SongDto(
+          artistName: artistName, songName: songTitle, songImage: songImage);
     }).toList();
     return songs;
   }

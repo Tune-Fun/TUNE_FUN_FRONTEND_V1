@@ -135,18 +135,22 @@ class UploadTestModel {
 class SongInfo {
   final String artistName;
   final String songName;
+  final String songImage;
   SongInfo({
     required this.artistName,
     required this.songName,
+    required this.songImage,
   });
 
   SongInfo copyWith({
     String? artistName,
     String? songName,
+    String? songImage,
   }) {
     return SongInfo(
       artistName: artistName ?? this.artistName,
       songName: songName ?? this.songName,
+      songImage: songImage ?? this.songImage,
     );
   }
 
@@ -154,6 +158,7 @@ class SongInfo {
     return <String, dynamic>{
       'artistName': artistName,
       'songName': songName,
+      'songImage': songImage,
     };
   }
 
@@ -161,6 +166,7 @@ class SongInfo {
     return SongInfo(
       artistName: map['artistName'] as String,
       songName: map['songName'] as String,
+      songImage: map['songImage'] as String,
     );
   }
 

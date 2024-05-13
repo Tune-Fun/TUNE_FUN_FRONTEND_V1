@@ -1,25 +1,33 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:tunefun_front/core/core.dart';
+import 'package:tunefun_front/domain/model/data_state_model.dart';
 import 'package:tunefun_front/features/vote/data/data_source/vote_data_source.dart';
 import 'package:tunefun_front/features/vote/data/translator/vote_translator.dart';
 import 'package:tunefun_front/features/vote/domain/model/upload_test_model.dart';
 import 'package:tunefun_front/features/vote/domain/repository/vote_repository.dart';
 
+final voteRepositoryProvider = Provider<VoteRepositoryImpl>((ref) {
+  return VoteRepositoryImpl(ref);
+});
+
 class VoteRepositoryImpl implements VoteRepository {
-  final VoteDataSource _voteDataSource;
-  const VoteRepositoryImpl(this._voteDataSource);
+  final Ref ref;
+  const VoteRepositoryImpl(this.ref);
   @override
-  FutureEither<List<SongInfo>> searchSong(String artist) async {
+  Future<DataState<List<SongInfo>>> searchSong(String artist) async {
     try {
-      final response = await _voteDataSource.searchSong(artist);
+      final response =
+          await ref.read(voteDataSourceProvider).searchSong(artist);
       return VoteTranslator().translateSongInfo(response);
-    } catch (e, trace) {
-      return left(Failure(e.toString(), trace));
+    } catch (e) {
+      return DataState.error(Exception(), e.toString());
     }
   }
 
   @override
-  FutureEither uploadVote(UploadTestModel uploadTestModel) {
+  Future<DataState<List<SongInfo>>> uploadVote(
+      UploadTestModel uploadTestModel) {
     throw UnimplementedError();
   }
   /*

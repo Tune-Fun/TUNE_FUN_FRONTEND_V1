@@ -3,8 +3,12 @@ import 'dart:convert';
 class SongDto {
   final String artistName;
   final String songName;
+  final String songImage;
 
-  SongDto({required this.artistName, required this.songName});
+  SongDto(
+      {required this.artistName,
+      required this.songName,
+      required this.songImage});
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -17,6 +21,7 @@ class SongDto {
     return SongDto(
       artistName: map['artistName'] as String,
       songName: map['songName'] as String,
+      songImage: map['songImage'] as String,
     );
   }
 

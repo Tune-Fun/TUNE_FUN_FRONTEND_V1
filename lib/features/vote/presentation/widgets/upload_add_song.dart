@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fpdart/fpdart.dart';
-import 'package:tunefun_front/core/failure.dart';
-import 'package:tunefun_front/features/vote/presentation/%08controller/upload_controller.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:tunefun_front/features/vote/presentation/%08controller/vote_controller.dart';
 import 'package:tunefun_front/features/vote/domain/model/upload_test_model.dart';
 
 class UploadAddSongWidget extends ConsumerWidget {
@@ -54,7 +53,8 @@ class UploadAddSongWidget extends ConsumerWidget {
             ],
           ),
         IconButton(
-          onPressed: () => ref.read(songListProvider.notifier).addSongEntry(),
+          onPressed: () => ref.read(songListProvider.notifier).addSongEntry(
+              SongInfo(artistName: '', songName: '', songImage: '')),
           icon: const Icon(Icons.add_circle_outline_outlined),
         ),
       ],
@@ -96,42 +96,42 @@ class SongSearchDelegate extends SearchDelegate {
     }
     return Consumer(
       builder: (context, ref, child) {
-        return FutureBuilder(
-          future: ref.read(uploadProvider.notifier).searchList(query),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Text('오류가 발생했습니다: ${snapshot.error}');
-            } else if (snapshot.hasData) {
-              return Container();
-              // return snapshot.data!.fold(
-              //   (left) {
-              //     return Text('검색 실패: ${left.toString()}');
-              //   },
-              //   (right) {
-              //     final songs = right;
-              //     return ListView.builder(
-              //       itemCount: songs.length,
-              //       itemBuilder: (context, index) {
-              //         final song = songs[index];
-              //         return ListTile(
-              //             title: Text('${song.artistName} - ${song.songName}'),
-              //             onTap: () {
-              //               onResultSelect(
-              //                   '${song.artistName} - ${song.songName}');
+        final state = ref.watch(songSearchProvider);
 
-              //               Navigator.pop(context);
-              //             });
-              //       },
-              //     );
-              //   },
-              // );
-            } else {
-              return const Text('검색 결과가 없습니다.');
-            }
-          },
-        );
+        if (state is SongSearchLoading) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (state is SongSearchSuccess) {
+          return ListView.builder(
+            itemCount: state.songs.length,
+            itemBuilder: (context, index) {
+              final song = state.songs[index];
+              return ListTile(
+                leading: Image.network(song.songImage),
+                title: Text(song.songName),
+                subtitle: Text(song.artistName),
+                onTap: () {
+                  if (ref
+                      .read(songListProvider.notifier)
+                      .checkDuplicate(song)) {
+                    onResultSelect('${song.artistName} - ${song.songName}');
+                    close(context, null);
+                  } else {
+                    Fluttertoast.showToast(msg: "이미 추가된 노래입니다.");
+                  }
+                },
+              );
+            },
+          );
+        } else if (state is SongSearchError) {
+          return Text(state.message);
+        } else {
+          return TextButton(
+            onPressed: () {
+              ref.read(songSearchProvider.notifier).searchSongs(query);
+            },
+            child: Text('Search Songs'),
+          );
+        }
       },
     );
   }
