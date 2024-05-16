@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tunefun_front/features/vote/domain/model/upload_test_model.dart';
 import 'package:tunefun_front/features/vote/domain/usecase/vote_usecase.dart';
-import 'package:flutter/material.dart';
 import 'package:tunefun_front/features/vote/presentation/views/vote_detail_view.dart';
 
 part 'song_search_state.dart';
@@ -14,8 +15,8 @@ final uploadProvider =
 });
 
 class UploadController extends StateNotifier<VoteUploadState> {
-  final VoteUseCaseImpl _songUseCase;
-  UploadController(this._songUseCase) : super(const VoteUploadInitial());
+  final VoteUseCaseImpl _voteUseCase;
+  UploadController(this._voteUseCase) : super(const VoteUploadInitial());
 
   void uploadVote(String title, String content, bool option,
       List<SongInfo> songs, DateTime createdAt) async {
@@ -34,7 +35,7 @@ class UploadController extends StateNotifier<VoteUploadState> {
     );
 
     try {
-      final result = await _songUseCase.uploadVote(uploadModel);
+      final result = await _voteUseCase.uploadVote(uploadModel);
       result.when(success: (data) {}, error: (error, message) {});
       print("success data form ${uploadModel.toJson()}");
     } catch (error) {
@@ -57,8 +58,8 @@ final songListProvider =
 class SongListController extends StateNotifier<List<SongInfo>> {
   SongListController()
       : super([
-          SongInfo(artistName: '', songName: '', songImage: ''),
-          SongInfo(artistName: '', songName: '', songImage: ''),
+          SongInfo(songId: '', artistName: '', songName: '', songImage: ''),
+          SongInfo(songId: '', artistName: '', songName: '', songImage: ''),
         ]);
 
   void addSongEntry(SongInfo song) {
@@ -69,7 +70,11 @@ class SongListController extends StateNotifier<List<SongInfo>> {
     state = [
       for (int i = 0; i < state.length; i++)
         if (i == index)
-          SongInfo(artistName: name, songName: state[i].songName, songImage: '')
+          SongInfo(
+              songId: '',
+              artistName: name,
+              songName: state[i].songName,
+              songImage: '')
         else
           state[i],
     ];
@@ -80,7 +85,10 @@ class SongListController extends StateNotifier<List<SongInfo>> {
       for (int i = 0; i < state.length; i++)
         if (i == index)
           SongInfo(
-              artistName: state[i].artistName, songName: title, songImage: '')
+              songId: '',
+              artistName: state[i].artistName,
+              songName: title,
+              songImage: '')
         else
           state[i],
     ];
@@ -93,22 +101,27 @@ class SongListController extends StateNotifier<List<SongInfo>> {
     ];
   }
 
-  void updateSongEntry(int index, String artistName, String songTitle) {
-    if (index < state.length) {
-      List<SongInfo> updatedList = List.from(state);
-      updatedList[index] =
-          SongInfo(artistName: artistName, songName: songTitle, songImage: '');
-      state = updatedList;
+  void updateSongEntry(int index, SongInfo song) {
+    if (checkDuplicate(song)) {
+      if (index < state.length) {
+        List<SongInfo> updatedList = List.from(state);
+        updatedList[index] = SongInfo(
+            songId: song.songId,
+            artistName: song.artistName,
+            songName: song.songName,
+            songImage: song.songImage);
+        state = updatedList;
+      }
     }
   }
 
   bool checkDuplicate(SongInfo song) {
     if (state.any((s) =>
         s.artistName == song.artistName && s.songName == song.songName)) {
+      Fluttertoast.showToast(msg: '이미 추가된 노래입니다.');
       return false;
-    } else {
-      return true;
     }
+    return true;
   }
 }
 
@@ -119,13 +132,13 @@ final songSearchProvider =
 });
 
 class SongSearchController extends StateNotifier<SongSearchState> {
-  final VoteUseCaseImpl _songUseCase;
+  final VoteUseCaseImpl _voteUseCase;
 
-  SongSearchController(this._songUseCase) : super(const SongSearchInitial());
+  SongSearchController(this._voteUseCase) : super(const SongSearchInitial());
 
   Future<void> searchSongs(String query) async {
     state = const SongSearchLoading();
-    final result = await _songUseCase.searchSong(query);
+    final result = await _voteUseCase.searchSong(query);
     result.when(success: (data) {
       state = SongSearchSuccess(data);
     }, error: (error, message) {
@@ -134,19 +147,31 @@ class SongSearchController extends StateNotifier<SongSearchState> {
   }
 }
 
-final voteViewModelProvider = ChangeNotifierProvider((ref) => VoteViewModel());
+final voteViewModelProvider = ChangeNotifierProvider((ref) {
+  final voteUsecase = ref.watch(voteUsecaseProvider);
+  return VoteViewModel(voteUsecase);
+});
 
 class VoteViewModel extends ChangeNotifier {
-  List<Map<String, dynamic>> _filteredSongs = [];
-  List<Map<String, dynamic>> get filteredSongs => _filteredSongs;
-  int filteredSongIndex = 0;
+  final VoteUseCaseImpl _voteUseCase;
+  VoteViewModel(this._voteUseCase);
 
+  List<SongInfo> _filteredSongs = dummy;
+  List<SongInfo> get filteredSongs => _filteredSongs;
+  int filteredSongIndex = 0;
+  SongInfo searchedSong =
+      SongInfo(songId: '', artistName: '', songName: '', songImage: '');
   void searchSong(String query) {
     _filteredSongs = dummy
         .where((song) =>
-            song['artist'].toLowerCase().contains(query.toLowerCase()) ||
-            song['song'].toLowerCase().contains(query.toLowerCase()))
+            song.artistName.toLowerCase().contains(query.toLowerCase()) ||
+            song.songName.toLowerCase().contains(query.toLowerCase()))
         .toList();
+    notifyListeners();
+  }
+
+  void addVoteSong(SongInfo song) {
+    searchedSong = song;
     notifyListeners();
   }
 }
