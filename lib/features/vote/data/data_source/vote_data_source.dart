@@ -44,14 +44,19 @@ class VoteDataSource {
     final tracks = data['tracks']['items'] as List;
 
     List<SongDto> songs = tracks.map((song) {
+      String songId = song['id'];
       String artistName = song['artists'] != null && song['artists'].isNotEmpty
           ? song['artists'][0]['name']
           : 'Unknown Artist';
       String songTitle = song['name'] ?? 'Unknown Title';
       String songImage = song['album']["images"][2]['url'];
       return SongDto(
-          artistName: artistName, songName: songTitle, songImage: songImage);
+          songId: songId,
+          artistName: artistName,
+          songName: songTitle,
+          songImage: songImage);
     }).toList();
+
     return songs;
   }
 }

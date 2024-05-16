@@ -16,6 +16,7 @@ class VoteTranslator {
       return compute((List<SongDto> songInfo) {
         var translated = songInfo
             .map((song) => SongInfo(
+                songId: song.songId,
                 artistName: song.artistName,
                 songName: song.songName,
                 songImage: song.songImage))

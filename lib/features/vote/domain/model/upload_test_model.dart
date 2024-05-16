@@ -133,29 +133,20 @@ class UploadTestModel {
 }
 
 class SongInfo {
+  final String songId;
   final String artistName;
   final String songName;
   final String songImage;
-  SongInfo({
-    required this.artistName,
-    required this.songName,
-    required this.songImage,
-  });
 
-  SongInfo copyWith({
-    String? artistName,
-    String? songName,
-    String? songImage,
-  }) {
-    return SongInfo(
-      artistName: artistName ?? this.artistName,
-      songName: songName ?? this.songName,
-      songImage: songImage ?? this.songImage,
-    );
-  }
+  SongInfo(
+      {required this.songId,
+      required this.artistName,
+      required this.songName,
+      required this.songImage});
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'songId': songId,
       'artistName': artistName,
       'songName': songName,
       'songImage': songImage,
@@ -164,6 +155,7 @@ class SongInfo {
 
   factory SongInfo.fromMap(Map<String, dynamic> map) {
     return SongInfo(
+      songId: map['songId'] as String,
       artistName: map['artistName'] as String,
       songName: map['songName'] as String,
       songImage: map['songImage'] as String,
@@ -174,17 +166,34 @@ class SongInfo {
 
   factory SongInfo.fromJson(String source) =>
       SongInfo.fromMap(json.decode(source) as Map<String, dynamic>);
+}
 
-  @override
-  String toString() => 'SongInfo(artistName: $artistName, songName: $songName)';
+class UploadSongInfo {
+  final String songId;
+  final String artistName;
+  final String songName;
 
-  @override
-  bool operator ==(covariant SongInfo other) {
-    if (identical(this, other)) return true;
+  UploadSongInfo(
+      {required this.songId, required this.artistName, required this.songName});
 
-    return other.artistName == artistName && other.songName == songName;
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'songId': songId,
+      'artistName': artistName,
+      'songName': songName,
+    };
   }
 
-  @override
-  int get hashCode => artistName.hashCode ^ songName.hashCode;
+  factory UploadSongInfo.fromMap(Map<String, dynamic> map) {
+    return UploadSongInfo(
+      songId: map['songId'] as String,
+      artistName: map['artistName'] as String,
+      songName: map['songName'] as String,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory UploadSongInfo.fromJson(String source) =>
+      UploadSongInfo.fromMap(json.decode(source) as Map<String, dynamic>);
 }
