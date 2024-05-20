@@ -11,15 +11,16 @@ class VoteTranslator {
 
   factory VoteTranslator() => _singleton;
 
-  Future<DataState<List<SongInfo>>> translateSongInfo(List<SongDto> songInfo) {
+  Future<DataState<List<SongInfo>>> translateSongInfo(
+      List<SongFromSpotifyDTO> songInfo) {
     try {
-      return compute((List<SongDto> songInfo) {
+      return compute((List<SongFromSpotifyDTO> songInfo) {
         var translated = songInfo
             .map((song) => SongInfo(
-                songId: song.songId,
-                artistName: song.artistName,
-                songName: song.songName,
-                songImage: song.songImage))
+                id: song.songId,
+                artist_name: song.artistName,
+                music: song.songName,
+                music_image: song.songImage))
             .toList();
         return DataState.success(translated);
       }, songInfo);
