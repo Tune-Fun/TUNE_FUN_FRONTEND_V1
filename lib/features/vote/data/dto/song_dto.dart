@@ -42,15 +42,20 @@ class SongInfoDTO {
   final String id;
   final String music;
   final String artist_name;
+  final String music_image;
 
   SongInfoDTO(
-      {required this.id, required this.music, required this.artist_name});
+      {required this.id,
+      required this.music,
+      required this.artist_name,
+      required this.music_image});
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
       'music': music,
       'artist_name': artist_name,
+      'music_image': music_image,
     };
   }
 
@@ -59,6 +64,7 @@ class SongInfoDTO {
       id: map['id'] as String,
       music: map['music'] as String,
       artist_name: map['artist_name'] as String,
+      music_image: map['music_image'] as String,
     );
   }
 
@@ -68,6 +74,7 @@ class SongInfoDTO {
       id: song.id,
       artist_name: song.artist_name,
       music: song.music,
+      music_image: song.music_image,
     );
   }
   factory SongInfoDTO.fromJson(String source) =>
