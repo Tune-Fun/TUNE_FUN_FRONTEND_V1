@@ -12,7 +12,7 @@ class BottomButtons extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final buttonHeight = MediaQuery.of(context).size.height * 0.1;
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
+      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 20),
       child: SizedBox(
         height: buttonHeight,
         child: Row(
@@ -23,7 +23,13 @@ class BottomButtons extends ConsumerWidget {
               children: [
                 SvgPicture.asset(ImageConstants.shareNetworkIcon),
                 const SizedBox(height: 10),
-                const Text("공유하기")
+                const Text(
+                  "공유하기",
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: Color.fromRGBO(153, 153, 153, 1)),
+                )
               ],
             ),
             Column(
@@ -31,7 +37,13 @@ class BottomButtons extends ConsumerWidget {
               children: [
                 SvgPicture.asset(ImageConstants.pollIcon),
                 const SizedBox(height: 10),
-                const Text("321")
+                const Text(
+                  "321",
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: Color.fromRGBO(153, 153, 153, 1)),
+                )
               ],
             ),
             Column(
@@ -39,7 +51,13 @@ class BottomButtons extends ConsumerWidget {
               children: [
                 SvgPicture.asset(ImageConstants.heartIcon),
                 const SizedBox(height: 10),
-                const Text("321")
+                const Text(
+                  "321",
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: Color.fromRGBO(153, 153, 153, 1)),
+                )
               ],
             ),
             GestureDetector(

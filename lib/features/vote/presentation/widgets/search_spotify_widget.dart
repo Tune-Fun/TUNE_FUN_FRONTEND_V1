@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tunefun_front/constants/ui_constants.dart';
+import 'package:tunefun_front/features/vote/presentation/%08controller/vote_controller.dart';
 import 'package:tunefun_front/features/vote/presentation/widgets/gradient_container.dart';
 import 'package:tunefun_front/theme/pallete.dart';
 
 class SearchFromSpotifyWidget extends ConsumerWidget {
-  const SearchFromSpotifyWidget({super.key});
+  final String type;
+  const SearchFromSpotifyWidget({required this.type, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final searchSpotifyController = TextEditingController();
+    final songSearchState = ref.watch(songSearchProvider);
+
     return Scaffold(
       appBar: UIConstants.appBar(),
       body: SingleChildScrollView(
@@ -20,7 +23,10 @@ class SearchFromSpotifyWidget extends ConsumerWidget {
               SizedBox(
                 height: 40,
                 child: TextField(
-                  controller: searchSpotifyController,
+                  autofocus: false,
+                  onChanged: (query) {
+                    ref.read(songSearchProvider.notifier).searchSongs(query);
+                  },
                   decoration: InputDecoration(
                     prefixIcon: const Icon(Icons.search),
                     hintText: "검색",
@@ -43,26 +49,45 @@ class SearchFromSpotifyWidget extends ConsumerWidget {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              GradientContainer(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.7,
-                  borderRadius: BorderRadius.circular(12),
-                  child: ListView.separated(
-                    itemCount: 6,
-                    itemBuilder: ((context, index) {
-                      return ListTile(
-                        title: Text('$index 번째 노래'),
-                        subtitle: Text('$index 번째 아티스트'),
-                      );
-                    }),
-                    separatorBuilder: (context, index) => Divider(
-                      color: Colors.white,
-                    ),
-                  ),
-                  type: "contentBox"),
+              const SizedBox(height: 20),
+              if (songSearchState is SongSearchSuccess)
+                GradientContainer(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * 0.7,
+                    borderRadius: BorderRadius.circular(12),
+                    type: "contentBox",
+                    child: ListView.separated(
+                      itemCount: songSearchState.songs.length,
+                      itemBuilder: ((context, index) {
+                        final song = songSearchState.songs[index];
+                        return ListTile(
+                          leading: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.network(song.music_image)),
+                          title: Text(song.music),
+                          subtitle: Text(song.artist_name),
+                          onTap: () {
+                            if (type == 'voteDetail') {
+                              print('222');
+                              ref
+                                  .read(voteViewModelProvider.notifier)
+                                  .addVoteSong(song);
+                            } else if (type == 'upload') {
+                              Navigator.pop(context, song);
+                            }
+                          },
+                        );
+                      }),
+                      separatorBuilder: (context, index) => const Divider(
+                        color: Colors.white,
+                      ),
+                    ))
+              else
+                songSearchState is SongSearchLoading
+                    ? const CircularProgressIndicator()
+                    : songSearchState is SongSearchError
+                        ? Text(songSearchState.message)
+                        : const Text('검색어를 입력해 주세요.'),
             ],
           ),
         ),
