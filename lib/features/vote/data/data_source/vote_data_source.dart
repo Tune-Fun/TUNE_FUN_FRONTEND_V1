@@ -14,10 +14,16 @@ class VoteDataSource {
   VoteDataSource(this.ref);
 
   uploadvote(UploadModel uploadModel) async {
+    String accessToken = '';
     final uploadURL = UrlConstants.voteUploadURL;
-    final response =
-        await http.post(Uri.parse(uploadURL), body: uploadModel.toJson());
-    final data = jsonDecode(response.body);
+    final response = await http.post(Uri.parse(uploadURL),
+        headers: {
+          'authorization': "Bearer $accessToken",
+          'Content-Type': "application/json",
+          'charset': "UTF-8"
+        },
+        body: uploadModel.toJson());
+    final data = utf8.decode(response.bodyBytes);
     return data;
   }
 }
