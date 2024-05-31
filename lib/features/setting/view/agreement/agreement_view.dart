@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tunefun_front/constants/agreement_data.dart';
-import 'package:tunefun_front/features/setting/view/agreement_detail_view.dart';
+import 'package:tunefun_front/features/setting/view/agreement/agreement_detail_view.dart';
 
 class AgreementScreen extends StatelessWidget {
   const AgreementScreen({super.key});
