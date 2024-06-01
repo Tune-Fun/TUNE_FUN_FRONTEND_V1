@@ -1,4 +1,4 @@
-class AgreementData {
+class SettingData {
   static List agreementData = [
     {
       'type': 'agreement',
@@ -11,7 +11,16 @@ class AgreementData {
       'content': privacyPolicy,
     },
   ];
-
+  static List inquiryData = [
+    {
+      'type': 'writeInquiry',
+      'title': '문의 작성',
+    },
+    {
+      'type': 'inquiryList',
+      'title': '문의 내역',
+    }
+  ];
   static String agreementText = '''
 # 제1조 목적
 

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:tunefun_front/constants/setting_data.dart';
-import 'package:tunefun_front/features/setting/view/agreement/agreement_detail_view.dart';
+import 'package:tunefun_front/features/setting/view/inquiry/inquiry_detail_view.dart';
 
-class AgreementScreen extends StatelessWidget {
-  const AgreementScreen({super.key});
+class InquiryScreen extends StatelessWidget {
+  const InquiryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: const Text(
-            "약관 및 정책",
+            "이용 문의",
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
           ),
           centerTitle: true,
@@ -28,7 +28,7 @@ class AgreementScreen extends StatelessWidget {
             (paddingVertical * 2 * itemCount) -
             (dividerHeight * (itemCount - 1))) /
         itemCount;
-    List agreementData = SettingData.agreementData;
+    List inquiryData = SettingData.inquiryData;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 20),
       child: Container(
@@ -44,8 +44,8 @@ class AgreementScreen extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => AgreementDetailScreen(
-                              data: agreementData[index],
+                        builder: (context) => InquiryDetailScreen(
+                              data: inquiryData[index],
                             )));
               },
               child: SizedBox(
@@ -55,7 +55,7 @@ class AgreementScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(agreementData[index]["title"],
+                      Text(inquiryData[index]["title"],
                           style: const TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w400)),
                       const Icon(Icons.arrow_forward_ios_outlined)

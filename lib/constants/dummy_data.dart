@@ -94,21 +94,4 @@ class DummyData {
       deletedAt: DateTime.now(),
     ),
   ];
-  static List agreementData = [
-    {
-      'id': '1',
-      'title': '서비스 이용약관',
-      'content': '',
-    },
-    {
-      'id': '2',
-      'title': '개인정보 처리방침',
-      'content': '',
-    },
-    {
-      'id': '3',
-      'title': '환불 정책',
-      'content': '',
-    }
-  ];
 }
