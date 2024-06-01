@@ -3,7 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 import 'package:tunefun_front/common/common.dart';
 import 'package:tunefun_front/constants/constants.dart';
-import 'package:tunefun_front/features/auth/controllers/auth_controller.dart';
+import 'package:tunefun_front/constants/setting_data.dart';
+import 'package:tunefun_front/features/setting/view/agreement/agreement_detail_view.dart';
 import 'package:tunefun_front/presentation/manager/auth_manager/auth_manager.dart';
 import 'package:tunefun_front/presentation/views/auth/login_view.dart';
 import 'package:tunefun_front/theme/theme.dart';
@@ -66,6 +67,7 @@ class _SignupNickNameInputScreenState
   @override
   Widget build(BuildContext context) {
     final loginState = ref.watch(authManagerProvider);
+
     return Scaffold(
       appBar: appbar,
       body: Form(
@@ -196,13 +198,19 @@ class _SignupNickNameInputScreenState
                       const SizedBox(height: 5),
                       GestureDetector(
                         onTap: () {
+                          List agreementData = SettingData.agreementData;
                           // 이용 약관에 대한 동작 추가
-                          logger.d('이용 약관 클릭!');
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AgreementDetailScreen(
+                                      data: agreementData[0])));
                         },
                         child: const Text(
                           '이용 약관',
                           style: TextStyle(
-                            color: Colors.red,
+                            decoration: TextDecoration.underline,
+                            color: Color.fromRGBO(102, 102, 102, 1),
                             fontWeight: FontWeight.w400,
                             fontSize: 14,
                           ),
@@ -252,13 +260,21 @@ class _SignupNickNameInputScreenState
                       const SizedBox(height: 10),
                       GestureDetector(
                         onTap: () {
+                          List agreementData = SettingData.agreementData;
                           // 이용 약관에 대한 동작 추가
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AgreementDetailScreen(
+                                      data: agreementData[1])));
+
                           logger.d('필수 개인정보의 수집 및 사용 클릭!');
                         },
                         child: const Text(
                           '필수 개인정보의 수집 및 사용',
                           style: TextStyle(
-                            color: Colors.red,
+                            decoration: TextDecoration.underline,
+                            color: Color.fromRGBO(102, 102, 102, 1),
                             fontWeight: FontWeight.w400,
                             fontSize: 14,
                           ),
@@ -290,6 +306,8 @@ class _SignupNickNameInputScreenState
                           (route) => false,
                         );
                         showSnackBar(context, '회원가입이 완료되었습니다.');
+                      } else if (loginState is AuthMangerStateError) {
+                        showSnackBar(context, loginState.message);
                       }
                     }
                   },
