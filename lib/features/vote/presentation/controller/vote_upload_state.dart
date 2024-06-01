@@ -1,4 +1,4 @@
-part of 'upload_controller.dart';
+part of 'vote_controller.dart';
 
 abstract class VoteUploadState {
   final List<SongInfo>? songs;

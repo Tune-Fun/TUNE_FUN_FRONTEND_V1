@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tunefun_front/features/vote/presentation/widgets/gradient_container.dart';
-import 'package:tunefun_front/features/vote/presentation/widgets/tune_track.dart';
 
 class AddSongContainer extends StatelessWidget {
   const AddSongContainer({super.key});
@@ -17,11 +16,13 @@ class AddSongContainer extends StatelessWidget {
             builder: (BuildContext context) {
               return Padding(
                 padding: MediaQuery.of(context).viewInsets,
-                child: const TuneTrackContainer(buttonType: "add"),
+                child: Container(),
               );
             });
       },
       child: GradientContainer(
+        height: 50,
+        edgetInsets: const EdgeInsets.all(2),
         width: MediaQuery.of(context).size.width,
         borderRadius: BorderRadius.circular(10),
         type: "border",

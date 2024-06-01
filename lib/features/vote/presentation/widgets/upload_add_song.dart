@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fpdart/fpdart.dart';
-import 'package:tunefun_front/core/failure.dart';
-import 'package:tunefun_front/features/vote/presentation/%08controller/upload_controller.dart';
 import 'package:tunefun_front/features/vote/domain/model/upload_test_model.dart';
+import 'package:tunefun_front/features/vote/presentation/%08controller/vote_controller.dart';
+import 'package:tunefun_front/features/vote/presentation/widgets/gradient_container.dart';
+import 'package:tunefun_front/features/vote/presentation/widgets/search_spotify_widget.dart';
 
-class UploadAddSongWidget extends ConsumerWidget {
-  const UploadAddSongWidget({Key? key}) : super(key: key);
+class UploadSongWidget extends ConsumerWidget {
+  const UploadSongWidget({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     List<SongInfo> songs = ref.watch(songListProvider);
-
     return ListView(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -22,122 +22,86 @@ class UploadAddSongWidget extends ConsumerWidget {
               Expanded(
                   flex: 1,
                   child: GestureDetector(
-                    onTap: () {
-                      showSearch(
-                        context: context,
-                        delegate: SongSearchDelegate((result) {
-                          var parts = result.split(' - ');
+                      onTap: () async {
+                        final SongInfo? result = await Navigator.push<SongInfo>(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                const SearchFromSpotifyWidget(type: 'upload'),
+                          ),
+                        );
+                        if (result != null) {
                           ref
                               .read(songListProvider.notifier)
-                              .updateSongEntry(i, parts[0], parts[1]);
-                        }),
-                      );
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      margin: const EdgeInsets.only(bottom: 10),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: Colors.green)),
-                      child: Text(songs[i].artistName.isNotEmpty &&
-                              songs[i].songName.isNotEmpty
-                          ? '${songs[i].artistName} - ${songs[i].songName}'
-                          : '아티스트 명 또는 노래 제목 입력'),
-                    ),
-                  )),
-              if (songs.length > 2)
-                IconButton(
-                  onPressed: () =>
-                      ref.read(songListProvider.notifier).removeSongEntry(i),
-                  icon: const Icon(Icons.remove_circle),
-                ),
+                              .updateSongEntry(i, result);
+                        }
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: GradientContainer(
+                          type: "contentBox",
+                          width: MediaQuery.of(context).size.width,
+                          height: songs[i].artist_name.isEmpty ? 60 : 70,
+                          borderRadius: BorderRadius.circular(10),
+                          child: ListTile(
+                            contentPadding: const EdgeInsets.only(left: 12),
+                            leading: songs[i].music_image.isEmpty
+                                ? null
+                                : ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Image.network(songs[i].music_image)),
+                            title: Text(
+                              songs[i].artist_name.isNotEmpty
+                                  ? songs[i].music
+                                  : "아티스트 이름 또는 노래 제목 입력",
+                              style: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color.fromRGBO(102, 102, 102, 1)),
+                            ),
+                            subtitle: Text(
+                              songs[i].artist_name.isNotEmpty
+                                  ? songs[i].artist_name
+                                  : "",
+                              style: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color.fromRGBO(102, 102, 102, 1)),
+                            ),
+                            trailing: songs.length > 2
+                                ? IconButton(
+                                    onPressed: () => ref
+                                        .read(songListProvider.notifier)
+                                        .removeSongEntry(i),
+                                    icon: const Icon(
+                                      Icons.remove_circle_outline,
+                                      color: Color.fromRGBO(102, 102, 102, 1),
+                                    ),
+                                    padding: EdgeInsets.zero,
+                                  )
+                                : null,
+                          ),
+                        ),
+                      ))),
             ],
           ),
-        IconButton(
-          onPressed: () => ref.read(songListProvider.notifier).addSongEntry(),
-          icon: const Icon(Icons.add_circle_outline_outlined),
-        ),
+        Container(
+            height: 50,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border:
+                    Border.all(color: const Color.fromRGBO(229, 231, 235, 1))),
+            child: IconButton(
+              onPressed: () => ref.read(songListProvider.notifier).addSongEntry(
+                    SongInfo(
+                        id: '', artist_name: '', music: '', music_image: ''),
+                  ),
+              icon: const Icon(
+                Icons.add,
+                color: Color.fromRGBO(102, 102, 102, 1),
+              ),
+            )),
       ],
     );
-  }
-}
-
-class SongSearchDelegate extends SearchDelegate {
-  final Function(String) onResultSelect;
-
-  SongSearchDelegate(this.onResultSelect);
-
-  @override
-  List<Widget> buildActions(BuildContext context) {
-    return [
-      IconButton(
-        icon: const Icon(Icons.clear),
-        onPressed: () {
-          query = '';
-        },
-      ),
-    ];
-  }
-
-  @override
-  Widget buildLeading(BuildContext context) {
-    return IconButton(
-      icon: const Icon(Icons.arrow_back),
-      onPressed: () {
-        close(context, null);
-      },
-    );
-  }
-
-  @override
-  Widget buildResults(BuildContext context) {
-    if (query.isEmpty) {
-      return const Center(child: Text("검색어를 입력해 주세요"));
-    }
-    return Consumer(
-      builder: (context, ref, child) {
-        return FutureBuilder(
-          future: ref.read(uploadProvider.notifier).searchList(query),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Text('오류가 발생했습니다: ${snapshot.error}');
-            } else if (snapshot.hasData) {
-              return Container();
-              // return snapshot.data!.fold(
-              //   (left) {
-              //     return Text('검색 실패: ${left.toString()}');
-              //   },
-              //   (right) {
-              //     final songs = right;
-              //     return ListView.builder(
-              //       itemCount: songs.length,
-              //       itemBuilder: (context, index) {
-              //         final song = songs[index];
-              //         return ListTile(
-              //             title: Text('${song.artistName} - ${song.songName}'),
-              //             onTap: () {
-              //               onResultSelect(
-              //                   '${song.artistName} - ${song.songName}');
-
-              //               Navigator.pop(context);
-              //             });
-              //       },
-              //     );
-              //   },
-              // );
-            } else {
-              return const Text('검색 결과가 없습니다.');
-            }
-          },
-        );
-      },
-    );
-  }
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    return const SizedBox();
   }
 }

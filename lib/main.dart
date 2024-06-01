@@ -4,7 +4,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 import 'package:tunefun_front/features/home/views/home_view.dart';
-import 'package:tunefun_front/features/vote/injector.dart/injector.dart';
+import 'package:tunefun_front/features/vote/presentation/views/vote_detail_view.dart';
+import 'package:tunefun_front/features/vote/presentation/views/vote_upload_view.dart';
 import 'package:tunefun_front/firebase_options.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
@@ -21,7 +22,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  setupInjector();
   runApp(
     const ProviderScope(
       child: MyApp(),
@@ -48,12 +48,13 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'TuneFun',
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.theme,
-      home: const HomeScreen(),
-      // home: const VoteUploadScreen(),
-      // home: const FcmTestScreen(),
-    );
+        title: 'TuneFun',
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.theme,
+        // home: const HomeScreen(),
+        home: VoteDetailScreen()
+        // home: const VoteUploadScreen(),
+        // home: const FcmTestScreen(),
+        );
   }
 }
