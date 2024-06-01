@@ -20,7 +20,7 @@ class AuthDataSource {
     'Charset': 'UTF-8'
   };
   Future signUp(dynamic data) async {
-    final url = Uri.parse("${UrlConstants.registerURL}?${data['type']}");
+    final url = Uri.parse("${UrlConstants.registerURL}?${data["type"]}");
     final body = {
       "username": data["username"],
       "password": data["password"],
