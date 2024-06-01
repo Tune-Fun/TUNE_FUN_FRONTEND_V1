@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tunefun_front/constants/agreement_data.dart';
 
 class AgreementDetailScreen extends StatelessWidget {
   final Map<String, dynamic> data;
