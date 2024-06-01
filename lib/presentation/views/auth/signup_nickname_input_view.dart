@@ -54,6 +54,7 @@ class _SignupNickNameInputScreenState
 
   void signUp() {
     dynamic data = {
+      'type': accountType,
       "email": emailController.text,
       "username": usernameController.text,
       "password": passwordController.text,

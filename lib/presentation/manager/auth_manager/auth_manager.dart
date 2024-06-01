@@ -14,7 +14,7 @@ class AuthManager extends StateNotifier<AuthMangerState> {
   final AuthUsecaseImpl _authUsecaseImpl;
   AuthManager(this._authUsecaseImpl) : super(const AuthMangerStateInitial());
 
-  Future<void> signUp(dynamic params) async {
+  Future<void> signUp(Map<String, dynamic> params) async {
     final response = await _authUsecaseImpl.signUp(params);
     response.when(success: (userInfo) {
       state = AuthMangerStateSuccess(userInfo);

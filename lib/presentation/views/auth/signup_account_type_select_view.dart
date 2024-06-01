@@ -30,7 +30,7 @@ class _SignupAccountTypeSelectScreenState
   late TextEditingController emailController;
   late TextEditingController usernameController;
   late TextEditingController passwordController;
-  String accountType = 'artist';
+  String accountType = 'ARTIST';
 
   @override
   void initState() {
@@ -38,7 +38,7 @@ class _SignupAccountTypeSelectScreenState
     emailController = widget.emailController;
     usernameController = widget.usernameController;
     passwordController = widget.passwordController;
-    accountType = 'artist';
+    accountType = 'ARTIST';
   }
 
   @override
@@ -91,7 +91,7 @@ class _SignupAccountTypeSelectScreenState
                         children: [
                           GestureDetector(
                             onTap: () => setState(() {
-                              accountType = "artist";
+                              accountType = "ARTIST";
                             }),
                             child: Padding(
                               padding: const EdgeInsets.only(left: 4),
@@ -100,10 +100,10 @@ class _SignupAccountTypeSelectScreenState
                                 height: 42,
                                 decoration: BoxDecoration(
                                   gradient: LinearGradient(colors: [
-                                    accountType == "artist"
+                                    accountType == "ARTIST"
                                         ? const Color.fromRGBO(250, 92, 102, 1)
                                         : Colors.white,
-                                    accountType == "artist"
+                                    accountType == "ARTIST"
                                         ? const Color.fromRGBO(250, 35, 48, 1)
                                         : Colors.white,
                                   ]),
@@ -113,7 +113,7 @@ class _SignupAccountTypeSelectScreenState
                                   child: Text(
                                     "아티스트",
                                     style: TextStyle(
-                                        color: accountType == 'artist'
+                                        color: accountType == 'ARTIST'
                                             ? const Color.fromRGBO(
                                                 255, 255, 255, 1)
                                             : Colors.red,
@@ -125,7 +125,7 @@ class _SignupAccountTypeSelectScreenState
                           ),
                           GestureDetector(
                             onTap: () => setState(() {
-                              accountType = 'normal';
+                              accountType = 'NORMAL';
                             }),
                             child: Padding(
                               padding: const EdgeInsets.only(right: 4),
@@ -134,10 +134,10 @@ class _SignupAccountTypeSelectScreenState
                                 height: 42,
                                 decoration: BoxDecoration(
                                   gradient: LinearGradient(colors: [
-                                    accountType == "normal"
+                                    accountType == "NORMAL"
                                         ? const Color.fromRGBO(250, 92, 102, 1)
                                         : Colors.white,
-                                    accountType == "normal"
+                                    accountType == "NORMAL"
                                         ? const Color.fromRGBO(250, 35, 48, 1)
                                         : Colors.white,
                                   ]),
@@ -147,7 +147,7 @@ class _SignupAccountTypeSelectScreenState
                                   child: Text(
                                     "일반",
                                     style: TextStyle(
-                                        color: accountType == 'normal'
+                                        color: accountType == 'NORMAL'
                                             ? const Color.fromRGBO(
                                                 255, 255, 255, 1)
                                             : Colors.red,
