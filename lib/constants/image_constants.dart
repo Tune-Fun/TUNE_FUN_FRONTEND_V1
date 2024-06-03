@@ -18,4 +18,11 @@ class ImageConstants {
   static const String pollIcon = '$_svgsPath/poll.svg';
   static const String alarmIcon = '$_svgsPath/alarm.svg';
   static const String alertIcon = '$_svgsPath/alert.svg';
+  static const String uploadIcon = '$_svgsPath/upload.svg';
+  static const String followIcon = '$_svgsPath/follow.svg';
+  static const String profileIcon = '$_svgsPath/profile.svg';
+  static const String homeActiveIcon = '$_svgsPath/home_active.svg';
+  static const String addActiveIcon = '$_svgsPath/add_active.svg';
+  static const String profileActiveIcon = '$_svgsPath/profile_active.svg';
+  static const String followActiveIcon = '$_svgsPath/follow_active.svg';
 }

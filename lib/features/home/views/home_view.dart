@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tunefun_front/common/show_snack_bar.dart';
 import 'package:tunefun_front/constants/constants.dart';
+import 'package:tunefun_front/constants/image_constants.dart';
 import 'package:tunefun_front/features/auth/controllers/auth_controller.dart';
 import 'package:tunefun_front/theme/theme.dart';
 
@@ -48,37 +50,43 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         index: _page,
         children: UIConstants.bottomTapBarPages,
       ),
-      bottomNavigationBar: CupertinoTabBar(
+      bottomNavigationBar: BottomNavigationBar(
         currentIndex: _page,
         onTap: onPageChanged,
         backgroundColor: Pallete.bgMainColor,
         items: [
-          const BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-            ),
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(
-              Icons.add,
-            ),
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(
-              Icons.people,
-            ),
-          ),
           BottomNavigationBarItem(
-            icon: IconButton(
-              onPressed: () {
-                onPageChanged(3);
-              },
-              icon: const Icon(
-                Icons.person,
+              icon: SvgPicture.asset(
+                _page == 0
+                    ? ImageConstants.homeActiveIcon
+                    : ImageConstants.homeIcon,
               ),
-            ),
-          ),
+              label: "홈화면"),
+          BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                _page == 1
+                    ? ImageConstants.addActiveIcon
+                    : ImageConstants.uploadIcon,
+              ),
+              label: "업로드"),
+          BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                _page == 2
+                    ? ImageConstants.followActiveIcon
+                    : ImageConstants.followIcon,
+              ),
+              label: "팔로우"),
+          BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                _page == 3
+                    ? ImageConstants.profileActiveIcon
+                    : ImageConstants.profileIcon,
+              ),
+              label: "프로필"),
         ],
+        selectedItemColor: Colors.red,
+        unselectedItemColor: Colors.grey,
+        type: BottomNavigationBarType.fixed,
       ),
     );
   }
