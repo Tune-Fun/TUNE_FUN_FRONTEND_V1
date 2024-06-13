@@ -25,4 +25,5 @@ class ImageConstants {
   static const String addActiveIcon = '$_svgsPath/add_active.svg';
   static const String profileActiveIcon = '$_svgsPath/profile_active.svg';
   static const String followActiveIcon = '$_svgsPath/follow_active.svg';
+  static const String induceAuthIcon = '$_svgsPath/induce_auth.svg';
 }
