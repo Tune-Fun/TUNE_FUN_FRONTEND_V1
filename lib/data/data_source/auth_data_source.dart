@@ -17,7 +17,8 @@ class AuthDataSource {
   final Map<String, String> headers = {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-    'Charset': 'UTF-8'
+    'Charset': 'UTF-8',
+    'Accept-Language': 'ko_KR',
   };
   Future signUp(dynamic data) async {
     final url = Uri.parse("${UrlConstants.registerURL}?${data["type"]}");
@@ -50,8 +51,6 @@ class AuthDataSource {
     final body = {
       "username": data["username"],
       "password": data["password"],
-      "email": data["email"],
-      "nickname": data["nickname"],
       "device": {
         "fcm_token": fcmToken,
         "device_token": deviceToken,
