@@ -14,6 +14,8 @@ class DummyData {
       createdAt: DateTime(2024, 1, 14),
       updatedAt: DateTime(2024, 1, 14),
       deletedAt: DateTime.now(),
+      endedAt: DateTime(2024, 6, 20),
+      isVoted: false,
     ),
     ArticleModel(
       id: 0,
@@ -27,6 +29,8 @@ class DummyData {
       createdAt: DateTime(2024, 1, 4),
       updatedAt: DateTime(2024, 1, 4),
       deletedAt: DateTime.now(),
+      endedAt: DateTime(2024, 7, 29),
+      isVoted: false,
     ),
     ArticleModel(
       id: 0,
@@ -40,6 +44,8 @@ class DummyData {
       createdAt: DateTime(2023, 12, 24),
       updatedAt: DateTime(2023, 12, 24),
       deletedAt: DateTime.now(),
+      endedAt: DateTime(2024, 7, 22),
+      isVoted: false,
     ),
     ArticleModel(
       id: 0,
@@ -53,6 +59,8 @@ class DummyData {
       createdAt: DateTime(2023, 10, 12),
       updatedAt: DateTime(2023, 10, 12),
       deletedAt: DateTime.now(),
+      endedAt: DateTime(2024, 7, 4),
+      isVoted: true,
     ),
     ArticleModel(
       id: 0,
@@ -66,6 +74,8 @@ class DummyData {
       createdAt: DateTime(2023, 8, 5),
       updatedAt: DateTime(2023, 8, 5),
       deletedAt: DateTime.now(),
+      endedAt: DateTime(2024, 7, 1),
+      isVoted: false,
     ),
     ArticleModel(
       id: 0,
@@ -79,6 +89,8 @@ class DummyData {
       createdAt: DateTime(2023, 12, 31),
       updatedAt: DateTime(2023, 12, 31),
       deletedAt: DateTime.now(),
+      endedAt: DateTime(2024, 7, 5),
+      isVoted: true,
     ),
     ArticleModel(
       id: 0,
@@ -89,9 +101,11 @@ class DummyData {
       likes: 4566324,
       articleType: '',
       username: 'Coldplay',
-      createdAt: DateTime(2023, 12, 25),
-      updatedAt: DateTime(2023, 12, 25),
+      createdAt: DateTime(2024, 07, 01),
+      updatedAt: DateTime(2024, 07, 02),
       deletedAt: DateTime.now(),
+      endedAt: DateTime(2024, 8, 31),
+      isVoted: false,
     ),
   ];
 }
