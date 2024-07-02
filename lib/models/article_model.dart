@@ -16,6 +16,8 @@ class ArticleModel {
   final DateTime createdAt;
   final DateTime updatedAt;
   final DateTime deletedAt;
+  final DateTime endedAt;
+  final bool isVoted;
 
   const ArticleModel({
     required this.id,
@@ -29,6 +31,8 @@ class ArticleModel {
     required this.createdAt,
     required this.updatedAt,
     required this.deletedAt,
+    required this.endedAt,
+    required this.isVoted,
   });
 
   ArticleModel copyWith({
@@ -43,6 +47,8 @@ class ArticleModel {
     DateTime? createdAt,
     DateTime? updatedAt,
     DateTime? deletedAt,
+    DateTime? endedAt,
+    bool? isVoted,
   }) {
     return ArticleModel(
       id: id ?? this.id,
@@ -56,6 +62,8 @@ class ArticleModel {
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
       deletedAt: deletedAt ?? this.deletedAt,
+      endedAt: endedAt ?? this.endedAt,
+      isVoted: isVoted ?? this.isVoted,
     );
   }
 
@@ -72,6 +80,8 @@ class ArticleModel {
       'createdAt': createdAt.millisecondsSinceEpoch,
       'updatedAt': updatedAt.millisecondsSinceEpoch,
       'deletedAt': deletedAt.millisecondsSinceEpoch,
+      'endedAt': endedAt.millisecondsSinceEpoch,
+      'isVoted': isVoted,
     };
   }
 
@@ -88,6 +98,8 @@ class ArticleModel {
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
       updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt'] as int),
       deletedAt: DateTime.fromMillisecondsSinceEpoch(map['deletedAt'] as int),
+      endedAt: DateTime.fromMillisecondsSinceEpoch(map['endedAt'] as int),
+      isVoted: map['isVoted'] as bool,
     );
   }
 
@@ -98,7 +110,7 @@ class ArticleModel {
 
   @override
   String toString() {
-    return 'ArticleModel(id: $id, title: $title, uuid: $uuid, content: $content, votes: $votes, likes: $likes, articleType: $articleType, username: $username, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt)';
+    return 'ArticleModel(id: $id, title: $title, uuid: $uuid, content: $content, votes: $votes, likes: $likes, articleType: $articleType, username: $username, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt, endedAt: $endedAt, isVoted: $isVoted)';
   }
 
   @override
@@ -115,7 +127,9 @@ class ArticleModel {
         other.username == username &&
         other.createdAt == createdAt &&
         other.updatedAt == updatedAt &&
-        other.deletedAt == deletedAt;
+        other.deletedAt == deletedAt &&
+        other.endedAt == endedAt &&
+        other.isVoted == isVoted;
   }
 
   @override
@@ -130,6 +144,8 @@ class ArticleModel {
         username.hashCode ^
         createdAt.hashCode ^
         updatedAt.hashCode ^
-        deletedAt.hashCode;
+        deletedAt.hashCode ^
+        endedAt.hashCode ^
+        isVoted.hashCode;
   }
 }

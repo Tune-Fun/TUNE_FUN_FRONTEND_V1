@@ -78,73 +78,76 @@ class _ArticleListState extends ConsumerState<ArticleList> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(color: Pallete.bgSubColor),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    onIconStateChanged('alarm');
-                  },
-                  icon: SvgPicture.asset(
-                    ImageConstants.notificationIcon,
-                    height: 25,
-                    width: 25,
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    onIconStateChanged('search');
-                  },
-                  icon: SvgPicture.asset(
-                    ImageConstants.searchIcon,
-                    height: 25,
-                    width: 25,
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    onIconStateChanged('sort');
-                    onSortButtonClicked();
-                  },
-                  icon: SvgPicture.asset(
-                    ImageConstants.sortIcon,
-                    height: 18,
-                    width: 12,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: iconState == 'search'
-                ? SearchTextField(
-                    iconState: iconState,
-                    onIconStateChanged: onIconStateChanged,
-                    articles: articles,
-                  )
-                : SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        ListView.builder(
-                          itemCount: articles.length,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            final article = articles[index];
-                            return ArticleCard(article: article);
-                          },
-                        ),
-                      ],
+    return Scaffold(
+      appBar: UIConstants.appBar(),
+      body: Container(
+        decoration: const BoxDecoration(color: Pallete.bgSubColor),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      onIconStateChanged('alarm');
+                    },
+                    icon: SvgPicture.asset(
+                      ImageConstants.notificationIcon,
+                      height: 25,
+                      width: 25,
                     ),
                   ),
-          ),
-        ],
+                  IconButton(
+                    onPressed: () {
+                      onIconStateChanged('search');
+                    },
+                    icon: SvgPicture.asset(
+                      ImageConstants.searchIcon,
+                      height: 25,
+                      width: 25,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      onIconStateChanged('sort');
+                      onSortButtonClicked();
+                    },
+                    icon: SvgPicture.asset(
+                      ImageConstants.sortIcon,
+                      height: 18,
+                      width: 12,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: iconState == 'search'
+                  ? SearchTextField(
+                      iconState: iconState,
+                      onIconStateChanged: onIconStateChanged,
+                      articles: articles,
+                    )
+                  : SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          ListView.builder(
+                            itemCount: articles.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              final article = articles[index];
+                              return ArticleCard(article: article);
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:tunefun_front/common/common.dart';
 import 'package:tunefun_front/constants/constants.dart';
-import 'package:tunefun_front/features/auth/controllers/auth_controller.dart';
-import 'package:tunefun_front/presentation/views/auth/login_view.dart';
+import 'package:tunefun_front/features/vote/presentation/widgets/gradient_container.dart';
 import 'package:tunefun_front/models/models.dart';
 import 'package:tunefun_front/theme/theme.dart';
-import 'package:timeago/timeago.dart' as timeago;
 
 class ArticleCard extends ConsumerWidget {
   final ArticleModel article;
@@ -19,22 +16,11 @@ class ArticleCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isUser = ref.watch(authControllerProvider);
-
-    void onArticleClicked() {
-      if (isUser == true) {
-        showSnackBar(context, '이미 로그인 했습니다!');
-        // 이제 투표 화면으로 이동하면 된다.
-      } else {
-        Navigator.push(
-          context,
-          LoginScreen.route(),
-        );
-      }
-    }
-
+    Duration difference = article.endedAt.difference(DateTime.now());
+    String daysDifference =
+        difference.inDays < 0 ? "투표 종료" : "${difference.inDays}일 남음";
     return GestureDetector(
-      onTap: onArticleClicked,
+      onTap: () {},
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
         child: Container(
@@ -42,12 +28,14 @@ class ArticleCard extends ConsumerWidget {
           padding: const EdgeInsets.all(1),
           // 외곽을 그라데이션으로 채우기
           decoration: BoxDecoration(
-            gradient: const LinearGradient(
-              colors: [
-                Pallete.pinkColor,
-                Pallete.redColor,
-              ],
-            ),
+            gradient: daysDifference != "투표 종료" && !article.isVoted
+                ? const LinearGradient(
+                    colors: [
+                      Pallete.pinkColor,
+                      Pallete.redColor,
+                    ],
+                  )
+                : null,
             borderRadius: BorderRadius.circular(15),
           ),
           child: Container(
@@ -57,7 +45,9 @@ class ArticleCard extends ConsumerWidget {
             decoration: BoxDecoration(
               border: Border.all(
                 width: 1,
-                color: Colors.white,
+                color: article.isVoted && daysDifference != "투표 종료"
+                    ? const Color.fromRGBO(153, 153, 153, 1)
+                    : const Color.fromRGBO(234, 234, 234, 1),
               ),
               color: Colors.white,
               borderRadius: BorderRadius.circular(15),
@@ -82,11 +72,28 @@ class ArticleCard extends ConsumerWidget {
                       child: Text(
                         article.title,
                         style: const TextStyle(
-                          color: Pallete.textMainColor,
-                          fontSize: 15,
-                        ),
+                            color: Pallete.textMainColor,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500),
                       ),
                     ),
+                    GradientContainer(
+                        width: 100,
+                        height: 30,
+                        borderRadius: BorderRadius.circular(12),
+                        type: daysDifference == "투표 종료" ? "voteEndBox" : "fill",
+                        child: Center(
+                          child: Text(
+                            daysDifference,
+                            style: TextStyle(
+                              color: daysDifference == "투표 종료"
+                                  ? const Color.fromRGBO(102, 102, 102, 1)
+                                  : Pallete.bgMainColor,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12,
+                            ),
+                          ),
+                        )),
                   ],
                 ),
                 const SizedBox(height: 10),
@@ -95,7 +102,7 @@ class ArticleCard extends ConsumerWidget {
                   article.content,
                   style: const TextStyle(
                     color: Pallete.textMainColor,
-                    fontSize: 20,
+                    fontSize: 22,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -104,32 +111,6 @@ class ArticleCard extends ConsumerWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // 작성일
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 30, vertical: 5),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Pallete.pinkColor,
-                          width: 2, // border 두께 지정
-                        ),
-                        color: Pallete.pinkColor,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Text(
-                        timeago.format(
-                          // article.deletedAt.difference(article.createdAt),
-                          article.createdAt,
-                          locale: 'en',
-                        ),
-                        style: const TextStyle(
-                          color: Pallete.textMainColor,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ),
-                    const Spacer(),
                     // 투표 정보
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -173,6 +154,19 @@ class ArticleCard extends ConsumerWidget {
                         ),
                       ],
                     ),
+                    const Spacer(),
+                    if (article.isVoted) ...[
+                      const GradientText(
+                          text: "투표완료",
+                          gradient: LinearGradient(colors: [
+                            Color.fromRGBO(251, 92, 192, 1),
+                            Color.fromRGBO(250, 35, 48, 1)
+                          ])),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      SvgPicture.asset(ImageConstants.doneColorIcon)
+                    ]
                   ],
                 ),
               ],

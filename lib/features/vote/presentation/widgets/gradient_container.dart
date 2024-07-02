@@ -82,11 +82,19 @@ class GradientContainer extends StatelessWidget {
               borderRadius: borderRadius),
           child: child,
         );
+      case "voteEndBox":
+        innerContainer = Container(
+          height: height,
+          width: width,
+          decoration: BoxDecoration(
+              color: const Color.fromRGBO(234, 234, 234, 1),
+              borderRadius: borderRadius),
+          child: child,
+        );
       default:
         innerContainer = Container();
         break;
     }
-
     return Container(
       height: height,
       width: width,
