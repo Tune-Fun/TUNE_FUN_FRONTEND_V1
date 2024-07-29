@@ -11,7 +11,6 @@ class AuthTranslator {
 
   Future<DataState<AccountModel>> translateSignUp(dynamic data) async {
     try {
-      print(data['roles']);
       List<dynamic> res = data['roles'];
       List<String> roles = res.map((item) => item.toString()).toList();
 
@@ -20,6 +19,14 @@ class AuthTranslator {
         roles: roles,
         accessToken: data["access_token"].toString(),
         refreshToken: data["refresh_token"].toString(),
+        password: '',
+        email: '',
+        nickname: '',
+        emailverify: false,
+        voteProgressNotification: null,
+        voteEndNotification: null,
+        voteDeliveryNotification: null,
+        profileImageUrl: '',
       );
       return DataState.success(userInfo);
     } catch (e) {

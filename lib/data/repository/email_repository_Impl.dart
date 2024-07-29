@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tunefun_front/data/data_source/auth_data_source.dart';
+import 'package:tunefun_front/data/data_source/email_data_source.dart';
 import 'package:tunefun_front/data/translator/auth_translator.dart';
 import 'package:tunefun_front/domain/model/account_model.dart';
 import 'package:tunefun_front/domain/model/data_state_model.dart';
@@ -14,32 +15,74 @@ class EmailRepositoryImpl implements EmailRepository {
   EmailRepositoryImpl(this.ref);
 
   @override
-  Future<DataState> check() {
-    // TODO: implement check
-    throw UnimplementedError();
+  Future<DataState> checkDuplicate(String email) async {
+    try {
+      final response =
+          await ref.read(emailDataSourceProvider).checkDuplicate(email);
+
+      return DataState.success(response["code"]);
+    } catch (e) {
+      return DataState.error(Exception(e), e.toString());
+    }
   }
 
   @override
-  Future<DataState> delete() {
-    // TODO: implement delete
-    throw UnimplementedError();
+  Future<DataState> checkVerify() async {
+    try {
+      final response = await ref.read(emailDataSourceProvider).checkVerify();
+      return DataState.success(response["code"]);
+    } catch (e) {
+      return DataState.error(Exception(e), e.toString());
+    }
   }
 
   @override
-  Future<DataState> regist(String email) {
-    // TODO: implement regist
-    throw UnimplementedError();
+  Future<DataState> delete() async {
+    try {
+      final response = await ref.read(emailDataSourceProvider).delete();
+      return DataState.success(response["code"]);
+    } catch (e) {
+      return DataState.error(Exception(e), e.toString());
+    }
   }
 
   @override
-  Future<DataState> send() {
-    // TODO: implement send
-    throw UnimplementedError();
+  Future<DataState> regist(String email) async {
+    try {
+      final response = await ref.read(emailDataSourceProvider).regist(email);
+      return DataState.success(response["code"]);
+    } catch (e) {
+      return DataState.error(Exception(e), e.toString());
+    }
   }
 
   @override
-  Future<DataState> update(String email) {
-    // TODO: implement update
-    throw UnimplementedError();
+  Future<DataState> send() async {
+    try {
+      final response = await ref.read(emailDataSourceProvider).send();
+      return DataState.success(response["code"]);
+    } catch (e) {
+      return DataState.error(Exception(e), e.toString());
+    }
+  }
+
+  @override
+  Future<DataState> update(String email) async {
+    try {
+      final response = await ref.read(emailDataSourceProvider).update();
+      return DataState.success(response["code"]);
+    } catch (e) {
+      return DataState.error(Exception(e), e.toString());
+    }
+  }
+
+  @override
+  Future<DataState> verify(String otp) async {
+    try {
+      final response = await ref.read(emailDataSourceProvider).verify(otp);
+      return DataState.success(response["code"]);
+    } catch (e) {
+      return DataState.error(Exception(e), e.toString());
+    }
   }
 }

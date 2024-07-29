@@ -25,12 +25,22 @@ class AuthUsecaseImpl implements AuthUseCase<dynamic, dynamic> {
   }
 
   @override
-  Future<String> checkEmail(dynamic params) {
-    return _authRepository.checkEmail(params);
+  Future<String> checkId(dynamic params) {
+    return _authRepository.checkId(params);
   }
 
   @override
-  Future<String> checkId(dynamic params) {
-    return _authRepository.checkId(params);
+  Future<DataState> sendPasswordOTP() {
+    return _authRepository.sendPasswordOTP();
+  }
+
+  @override
+  Future<DataState> resendPasswordOTP() {
+    return _authRepository.resendPasswordOTP();
+  }
+
+  @override
+  Future<DataState> setNewPassword(params) {
+    return _authRepository.setNewPassword(params);
   }
 }

@@ -39,9 +39,9 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<String> checkEmail(String email) async {
+  Future<String> checkId(String id) async {
     try {
-      final response = await ref.read(authDataSourceProvider).checkEmail(email);
+      final response = await ref.read(authDataSourceProvider).checkId(id);
       String valid = response["code"];
       return valid;
     } catch (e) {
@@ -50,13 +50,45 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<String> checkId(String id) async {
+  Future<DataState<String>> sendPasswordOTP() async {
     try {
-      final response = await ref.read(authDataSourceProvider).checkId(id);
-      String valid = response["code"];
-      return valid;
+      final response = await ref.read(authDataSourceProvider).sendPasswordOTP();
+      if (response["code"] == "3106") {
+        return DataState.success(response["code"]);
+      } else {
+        return DataState.error(Exception(), "change err");
+      }
     } catch (e) {
-      throw Exception(e.toString());
+      return DataState.error(Exception(), e.toString());
+    }
+  }
+
+  @override
+  Future<DataState> resendPasswordOTP() async {
+    try {
+      final response = await ref.read(authDataSourceProvider).sendPasswordOTP();
+      if (response["code"] == "3107") {
+        return DataState.success(response["code"]);
+      } else {
+        return DataState.error(Exception(), "change err");
+      }
+    } catch (e) {
+      return DataState.error(Exception(), e.toString());
+    }
+  }
+
+  @override
+  Future<DataState<String>> setNewPassword(String pw) async {
+    try {
+      final response =
+          await ref.read(authDataSourceProvider).setNewPassword(pw);
+      if (response["code"] == "2010") {
+        return DataState.success(response["code"]);
+      } else {
+        return DataState.error(Exception(), "change err");
+      }
+    } catch (e) {
+      return DataState.error(Exception(), e.toString());
     }
   }
 }
