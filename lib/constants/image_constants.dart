@@ -13,6 +13,7 @@ class ImageConstants {
   static const String instagramIcon = '$_svgsPath/instagram-logo.svg';
   static const String backIcon = '$_svgsPath/back.svg';
   static const String doneIcon = '$_svgsPath/done.svg';
+  static const String doneColorIcon = '$_svgsPath/done_color.svg';
   static const String heartIcon = '$_svgsPath/heart.svg';
   static const String homeIcon = '$_svgsPath/home.svg';
   static const String pollIcon = '$_svgsPath/poll.svg';
@@ -26,4 +27,5 @@ class ImageConstants {
   static const String profileActiveIcon = '$_svgsPath/profile_active.svg';
   static const String followActiveIcon = '$_svgsPath/follow_active.svg';
   static const String induceAuthIcon = '$_svgsPath/induce_auth.svg';
+  static const String xIcon = '$_svgsPath/x.svg';
 }

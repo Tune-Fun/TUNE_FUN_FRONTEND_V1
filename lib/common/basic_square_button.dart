@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:tunefun_front/theme/theme.dart';
 
-class GreenSquareButton extends StatelessWidget {
+class BasicSquareButton extends StatelessWidget {
   final bool buttonState;
   final VoidCallback onTap;
   final String buttonText;
 
-  const GreenSquareButton({
+  const BasicSquareButton({
     super.key,
     required this.buttonState,
     required this.onTap,
