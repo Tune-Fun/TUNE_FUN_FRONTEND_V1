@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tunefun_front/common/radius_square_button.dart';
 import 'package:tunefun_front/constants/constants.dart';
-import 'package:tunefun_front/presentation/views/account/delete/delete_account_otp_view.dart';
+import 'package:tunefun_front/features/home/views/home_view.dart';
+import 'package:tunefun_front/presentation/manager/auth_manager/auth_manager.dart';
 
-class DeleteAccountFinalView extends StatefulWidget {
+class DeleteAccountFinalView extends ConsumerStatefulWidget {
   const DeleteAccountFinalView({super.key});
 
   @override
-  State<DeleteAccountFinalView> createState() => _DeleteAccountFinalViewState();
+  ConsumerState<DeleteAccountFinalView> createState() =>
+      _DeleteAccountFinalViewState();
 }
 
-class _DeleteAccountFinalViewState extends State<DeleteAccountFinalView> {
+class _DeleteAccountFinalViewState
+    extends ConsumerState<DeleteAccountFinalView> {
   bool isChecked = false;
   @override
   Widget build(BuildContext context) {
@@ -113,11 +117,15 @@ class _DeleteAccountFinalViewState extends State<DeleteAccountFinalView> {
             RadiusSquareButton(
                 buttonState: isChecked,
                 onTap: () async {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              const DeleteAccountOTPScreen()));
+                  // 계정 해지 API 호출 성공 시 홈화면으로 이동
+                  if (!isChecked) return;
+                  // user 정보 초기화
+                  ref.read(authManagerProvider.notifier).initAuthState();
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => const HomeScreen()),
+                    (Route<dynamic> route) => false,
+                  );
                 },
                 buttonText: "계정 해지하기")
           ],
