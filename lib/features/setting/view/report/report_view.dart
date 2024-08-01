@@ -48,7 +48,7 @@ class _ReportViewState extends State<ReportView> {
             GestureDetector(
               onTap: () async {
                 // categoryList(context);
-                final category = await _showInquiryDialog(
+                final category = await _showReportDialog(
                     context, reportCategories, selectedCategory);
                 if (category != null) {
                   setState(() {
@@ -117,19 +117,19 @@ class _ReportViewState extends State<ReportView> {
     );
   }
 
-  Future<String?> _showInquiryDialog(BuildContext context,
-      List<String> inquiryCategories, String? selectedString) {
+  Future<String?> _showReportDialog(BuildContext context,
+      List<String> reportCategories, String? selectedString) {
     return showDialog<String>(
       context: context,
       builder: (BuildContext context) {
-        String selectedCategory = selectedString ?? inquiryCategories[0];
+        String selectedCategory = selectedString ?? reportCategories[0];
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
             return AlertDialog(
               backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
               content: SingleChildScrollView(
                 child: ListBody(
-                  children: inquiryCategories.map((category) {
+                  children: reportCategories.map((category) {
                     return Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -153,7 +153,7 @@ class _ReportViewState extends State<ReportView> {
                             });
                           },
                         ),
-                        if (category != inquiryCategories.last)
+                        if (category != reportCategories.last)
                           const Divider(
                             height: 1.0,
                             thickness: 1.0,
