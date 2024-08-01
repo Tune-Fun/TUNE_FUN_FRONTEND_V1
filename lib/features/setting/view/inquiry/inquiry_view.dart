@@ -7,7 +7,9 @@ class InquiryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List inquiryData = SettingData.inquiryData;
     return Scaffold(
+        backgroundColor: const Color.fromRGBO(249, 249, 249, 1),
         appBar: AppBar(
           title: const Text(
             "이용 문의",
@@ -15,63 +17,59 @@ class InquiryScreen extends StatelessWidget {
           ),
           centerTitle: true,
         ),
-        body: _agreementBody(context));
-  }
-
-  Widget _agreementBody(BuildContext context) {
-    final double containerHeight = MediaQuery.of(context).size.height * 0.15;
-    const int itemCount = 2;
-    const double paddingVertical = 1.0;
-    const double dividerHeight = 1.0;
-
-    final double itemHeight = (containerHeight -
-            (paddingVertical * 2 * itemCount) -
-            (dividerHeight * (itemCount - 1))) /
-        itemCount;
-    List inquiryData = SettingData.inquiryData;
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 20),
-      child: Container(
-        height: containerHeight,
-        decoration: BoxDecoration(
-            border: Border.all(color: const Color.fromRGBO(234, 234, 234, 1)),
-            borderRadius: BorderRadius.circular(8)),
-        child: ListView.separated(
-          physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) {
-            return InkWell(
-              onTap: () {
-                Navigator.push(
+        body: Container(
+          margin: const EdgeInsets.only(top: 20),
+          padding: const EdgeInsets.only(left: 20, right: 20),
+          height: 110,
+          color: const Color.fromRGBO(255, 255, 255, 1),
+          child: Column(
+            children: [
+              const SizedBox(height: 20),
+              GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => InquiryDetailScreen(
-                              data: inquiryData[index],
-                            )));
-              },
-              child: SizedBox(
-                height: itemHeight,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 12, right: 12),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(inquiryData[index]["title"],
-                          style: const TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.w400)),
-                      const Icon(Icons.arrow_forward_ios_outlined)
-                    ],
-                  ),
+                        builder: (context) =>
+                            InquiryDetailView(data: inquiryData[0]))),
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "문의 작성",
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                          color: Color.fromRGBO(17, 17, 17, 1)),
+                    ),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      size: 18,
+                      color: Color.fromRGBO(102, 102, 102, 1),
+                    )
+                  ],
                 ),
               ),
-            );
-          },
-          separatorBuilder: (context, index) => const Padding(
-            padding: EdgeInsets.only(left: 12, right: 12),
-            child: Divider(height: dividerHeight),
+              const SizedBox(height: 20),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "문의 내역",
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                        color: Color.fromRGBO(17, 17, 17, 1)),
+                  ),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    size: 18,
+                    color: Color.fromRGBO(102, 102, 102, 1),
+                  )
+                ],
+              ),
+            ],
           ),
-          itemCount: itemCount,
-        ),
-      ),
-    );
+        ));
   }
 }
