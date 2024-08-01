@@ -100,6 +100,7 @@ class AccountSettingScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 18),
           GestureDetector(
+            behavior: HitTestBehavior.translucent,
             onTap: () => emailDialog(context, "simondr@naver.com"),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -119,6 +120,7 @@ class AccountSettingScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 18),
           GestureDetector(
+            behavior: HitTestBehavior.translucent,
             onTap: () {
               int t = ref.read(timerProvider);
               if (t == 180) {
@@ -169,6 +171,7 @@ class AccountSettingScreen extends ConsumerWidget {
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
       color: const Color.fromRGBO(253, 253, 253, 1),
       child: GestureDetector(
+        behavior: HitTestBehavior.translucent,
         onTap: () => Navigator.push(context,
             MaterialPageRoute(builder: (context) => const CheckPasswordView())),
         child: SizedBox(
