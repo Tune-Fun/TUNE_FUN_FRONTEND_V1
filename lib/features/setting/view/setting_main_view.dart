@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:tunefun_front/features/setting/view/account_setting_view.dart';
 import 'package:tunefun_front/features/setting/view/agreement/agreement_detail_view.dart';
 import 'package:tunefun_front/features/setting/view/agreement/agreement_view.dart';
+import 'package:tunefun_front/features/setting/view/inquiry/inquiry_view.dart';
+import 'package:tunefun_front/features/setting/view/notification/notification_view.dart';
+import 'package:tunefun_front/features/setting/view/report/report_view.dart';
 
 class SettingMainView extends StatelessWidget {
   const SettingMainView({super.key});
@@ -35,8 +38,11 @@ class SettingMainView extends StatelessWidget {
                       onTap: () {
                         onAccountInfoTap(context);
                       }),
-                  const SettingsListTile(
-                      title: '알림 설정', onTap: _onNotificationSettingsTap),
+                  SettingsListTile(
+                      title: '알림 설정',
+                      onTap: () {
+                        onNotificationSettingsTap(context);
+                      }),
                   const SettingsListTile(
                       title: '결제 내역', onTap: _onPaymentHistoryTap),
                   SettingsListTile(
@@ -51,13 +57,21 @@ class SettingMainView extends StatelessWidget {
               color: const Color.fromRGBO(255, 255, 255, 1),
               margin: const EdgeInsets.only(top: 20),
               width: MediaQuery.of(context).size.width,
-              child: const Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SectionHeader(title: '도움말'),
-                  SettingsListTile(title: '신고', onTap: _onReportTap),
+                  SettingsListTile(
+                      title: '신고',
+                      onTap: () {
+                        onReportTap(context);
+                      }),
                   SettingsListTile(title: '고객센터', onTap: _onCustomerServiceTap),
-                  SettingsListTile(title: '이용문의', onTap: _onInquiriesTap),
+                  SettingsListTile(
+                      title: '이용문의',
+                      onTap: () {
+                        onInquiriesTap(context);
+                      }),
                   SettingsListTile(title: '웹 버전', onTap: _onWebVersionTap),
                 ],
               ),
@@ -91,8 +105,11 @@ class SettingMainView extends StatelessWidget {
         MaterialPageRoute(builder: (context) => const AccountSettingScreen()));
   }
 
-  static void _onNotificationSettingsTap() {
-    // 알림 설정 페이지로 이동하는 로직 추가
+  static void onNotificationSettingsTap(BuildContext context) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const NotificationSettingsScreen()));
   }
 
   static void _onPaymentHistoryTap() {
@@ -104,16 +121,18 @@ class SettingMainView extends StatelessWidget {
         MaterialPageRoute(builder: (context) => const AgreementScreen()));
   }
 
-  static void _onReportTap() {
-    // 신고 페이지로 이동하는 로직 추가
+  void onReportTap(BuildContext context) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const ReportView()));
   }
 
   static void _onCustomerServiceTap() {
     // 고객센터 페이지로 이동하는 로직 추가
   }
 
-  static void _onInquiriesTap() {
-    // 이용문의 페이지로 이동하는 로직 추가
+  void onInquiriesTap(BuildContext context) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const InquiryScreen()));
   }
 
   static void _onWebVersionTap() {
