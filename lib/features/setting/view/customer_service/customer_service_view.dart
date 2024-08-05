@@ -37,7 +37,7 @@ class CustomerServiceView extends StatelessWidget {
                     border: Border.all(
                         color: const Color.fromRGBO(234, 234, 234, 1))),
                 child: const Text(
-                  "qwer@email",
+                  "tunefun.business@gmail.com",
                   style: TextStyle(
                       color: Color.fromRGBO(102, 102, 102, 1),
                       fontSize: 14,
