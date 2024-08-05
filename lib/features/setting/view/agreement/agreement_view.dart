@@ -8,6 +8,7 @@ class AgreementScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: const Color.fromRGBO(249, 249, 249, 1),
         appBar: AppBar(
           title: const Text(
             "약관 및 정책",
@@ -19,8 +20,8 @@ class AgreementScreen extends StatelessWidget {
   }
 
   Widget _agreementBody(BuildContext context) {
-    final double containerHeight = MediaQuery.of(context).size.height * 0.15;
-    const int itemCount = 2;
+    final double containerHeight = MediaQuery.of(context).size.height * 0.18;
+    const int itemCount = 3;
     const double paddingVertical = 1.0;
     const double dividerHeight = 1.0;
 
@@ -30,10 +31,11 @@ class AgreementScreen extends StatelessWidget {
         itemCount;
     List agreementData = SettingData.agreementData;
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 20),
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
       child: Container(
         height: containerHeight,
         decoration: BoxDecoration(
+            color: const Color.fromRGBO(255, 255, 255, 1),
             border: Border.all(color: const Color.fromRGBO(234, 234, 234, 1)),
             borderRadius: BorderRadius.circular(8)),
         child: ListView.separated(
@@ -57,8 +59,11 @@ class AgreementScreen extends StatelessWidget {
                     children: [
                       Text(agreementData[index]["title"],
                           style: const TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.w400)),
-                      const Icon(Icons.arrow_forward_ios_outlined)
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                          )),
+                      const Icon(Icons.arrow_forward_ios_outlined,
+                          size: 16, color: Color.fromRGBO(102, 102, 102, 1))
                     ],
                   ),
                 ),

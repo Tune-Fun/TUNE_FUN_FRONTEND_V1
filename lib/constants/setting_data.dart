@@ -10,6 +10,11 @@ class SettingData {
       'title': '개인정보 처리방침',
       'content': privacyPolicy,
     },
+    {
+      'type': 'refund',
+      'title': '환불 정책',
+      'content': "refund",
+    },
   ];
   static List inquiryData = [
     {
@@ -19,6 +24,16 @@ class SettingData {
     {
       'type': 'inquiryList',
       'title': '문의 내역',
+    }
+  ];
+  static List refundData = [
+    {
+      'type': 'refund',
+      'title': '환불 정책',
+    },
+    {
+      'type': 'refundList',
+      'title': '환불 정책',
     }
   ];
   static String agreementText = '''
