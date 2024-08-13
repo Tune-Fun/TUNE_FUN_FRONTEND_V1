@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:tunefun_front/constants/constants.dart';
 import 'package:tunefun_front/presentation/manager/auth_manager/user_manager.dart';
@@ -21,6 +22,7 @@ class AuthDataSource {
     'Charset': 'UTF-8',
     'Accept-Language': 'ko_KR',
   };
+
   Future signUp(dynamic data) async {
     final url = Uri.parse("${UrlConstants.registerURL}?type=${data["type"]}");
     final body = {
@@ -118,6 +120,28 @@ class AuthDataSource {
   Future resendPasswordOTP() async {
     final url = Uri.parse(UrlConstants.userOtpResendURL);
     var response = await http.post(url, headers: headers);
+    var decodeResponse = utf8.decode(response.bodyBytes);
+    var jsonResponse = json.decode(decodeResponse);
+    return jsonResponse;
+  }
+
+  Future updateNickname(String newNickname) async {
+    final url = Uri.parse(UrlConstants.userUpdateNicknameURL);
+    const storage = FlutterSecureStorage();
+    final accessToken = await storage.read(key: 'access_token');
+    final Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Charset': 'UTF-8',
+      'Accept-Language': 'ko_KR',
+      'Authorization': 'Bearer $accessToken'
+    };
+    final body = {
+      "new_nickname": newNickname,
+    };
+
+    var response =
+        await http.patch(url, headers: headers, body: jsonEncode(body));
     var decodeResponse = utf8.decode(response.bodyBytes);
     var jsonResponse = json.decode(decodeResponse);
     return jsonResponse;

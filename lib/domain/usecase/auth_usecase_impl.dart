@@ -43,4 +43,9 @@ class AuthUsecaseImpl implements AuthUseCase<dynamic, dynamic> {
   Future<DataState> setNewPassword(params) {
     return _authRepository.setNewPassword(params);
   }
+
+  @override
+  Future updateNickname(newNickname) {
+    return _authRepository.updateNickname(newNickname);
+  }
 }

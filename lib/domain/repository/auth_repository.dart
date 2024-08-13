@@ -8,4 +8,5 @@ abstract class AuthRepository {
   Future<DataState> sendPasswordOTP();
   Future<DataState> resendPasswordOTP();
   Future<DataState> setNewPassword(String pw);
+  Future<DataState> updateNickname(String newNickname);
 }

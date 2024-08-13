@@ -91,4 +91,18 @@ class AuthRepositoryImpl implements AuthRepository {
       return DataState.error(Exception(), e.toString());
     }
   }
+
+  @override
+  Future<DataState> updateNickname(String newNickname) async {
+    try {
+      final response =
+          await ref.read(authDataSourceProvider).updateNickname(newNickname);
+      if (response["code"] != "2011") {
+        return DataState.error(Exception(), "프로필 변경하는 동안 오류가 발생했습니다.");
+      }
+      return AuthTranslator().translateSignUp(response['message']);
+    } catch (e) {
+      return DataState.error(Exception(), e.toString());
+    }
+  }
 }

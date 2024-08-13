@@ -5,4 +5,5 @@ abstract class AuthUseCase<T, P> {
   Future<T> setNewPassword(P params);
   Future<T> sendPasswordOTP();
   Future<T> resendPasswordOTP();
+  Future<T> updateNickname(P newNickname);
 }
