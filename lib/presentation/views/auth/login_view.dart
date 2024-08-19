@@ -111,13 +111,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   Widget _buildBody() {
     var loginState = ref.watch(authManagerProvider);
-    ref.listen<AuthManagerState>(authManagerProvider, (previus, next) async {
+    ref.listen<AuthManagerState>(authManagerProvider, (previus, next) {
       if (next is AuthManagerStateSuccess) {
-        await ref.read(emailManagerProvider.notifier).checkVerify();
-        final emailState = ref.watch(emailManagerProvider);
-        if (emailState is EmailManagerStateSuccess) {
-          ref.read(userManagerProvider.notifier).updateEmailVerified(true);
-        }
+        ref.read(emailManagerProvider.notifier).checkVerify();
         if (Navigator.canPop(context)) {
           Navigator.pop(context);
         } else {

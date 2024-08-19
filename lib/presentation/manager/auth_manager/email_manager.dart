@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tunefun_front/domain/model/account_model.dart';
 import 'package:tunefun_front/domain/usecase/email_usecase_impl.dart';
 import 'package:tunefun_front/presentation/manager/auth_manager/user_manager.dart';
 
@@ -8,12 +7,14 @@ part 'email_manager_state.dart';
 final emailManagerProvider =
     StateNotifierProvider<EmailManager, EmailManagerState>((ref) {
   final emailUsecase = ref.watch(emailUsecaseProvider);
-  return EmailManager(emailUsecase);
+  final userManager = ref.read(userManagerProvider.notifier);
+  return EmailManager(emailUsecase, userManager);
 });
 
 class EmailManager extends StateNotifier<EmailManagerState> {
   final EmailUsecaseImpl _emailUsecaseImpl;
-  EmailManager(this._emailUsecaseImpl)
+  final UserManager _userManager;
+  EmailManager(this._emailUsecaseImpl, this._userManager)
       : super(const EmailManagerStateInitial());
 
   Future checkEmailDuplicate(dynamic email) async {
@@ -37,6 +38,7 @@ class EmailManager extends StateNotifier<EmailManagerState> {
     final response = await _emailUsecaseImpl.checkVerify();
     response.when(success: (data) {
       state = EmailManagerStateSuccess(data);
+      _userManager.updateEmailVerified(true);
     }, error: (error, message) {
       state = EmailManagerStateError(message);
     });
@@ -83,6 +85,7 @@ class EmailManager extends StateNotifier<EmailManagerState> {
     final response = await _emailUsecaseImpl.verify(otp);
     response.when(success: (data) {
       state = EmailManagerStateSuccess(data);
+      _userManager.updateEmailVerified(true);
     }, error: (error, message) {
       state = EmailManagerStateError(message);
     });
