@@ -61,7 +61,7 @@ class AccountSettingScreen extends ConsumerWidget {
       margin: const EdgeInsets.symmetric(vertical: 20),
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height * 0.35,
+      height: MediaQuery.of(context).size.height * 0.38,
       color: const Color.fromRGBO(255, 255, 255, 1),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,7 +71,7 @@ class AccountSettingScreen extends ConsumerWidget {
             children: [
               Text("사용자", style: titleStyle),
               Text(
-                userModel!.roles!.contains("ARTIST") ? "아티스트 사용자" : "일반 사용자",
+                userModel.roles!.contains("ARTIST") ? "아티스트 사용자" : "일반 사용자",
                 style: contentStyle,
               )
             ],
