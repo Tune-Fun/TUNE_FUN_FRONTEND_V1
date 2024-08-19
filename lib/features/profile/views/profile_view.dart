@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tunefun_front/features/auth/controllers/auth_controller.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tunefun_front/constants/dummy_data.dart';
+import 'package:tunefun_front/constants/image_constants.dart';
+import 'package:tunefun_front/features/article/widgets/article_card.dart';
+import 'package:tunefun_front/features/profile/views/edit_profile_view.dart';
+import 'package:tunefun_front/features/setting/view/setting_main_view.dart';
+import 'package:tunefun_front/models/article_model.dart';
+import 'package:tunefun_front/presentation/manager/auth_manager/user_manager.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
+  static MaterialPageRoute route() =>
+      MaterialPageRoute(builder: (context) => const ProfileScreen());
   const ProfileScreen({super.key});
 
   @override
@@ -15,7 +24,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    final isArtist = ref.read(userManagerProvider).roles!.contains("ARTIST");
+    _tabController = TabController(length: isArtist ? 4 : 3, vsync: this);
   }
 
   @override
@@ -26,101 +36,148 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
 
   @override
   Widget build(BuildContext context) {
-    final user = ref.watch(userControllerProvider);
-
+    final userInfo = ref.watch(userManagerProvider);
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: Column(
+        child: Column(
+          children: [
+            profileCard(context),
+            const SizedBox(
+              height: 30,
+            ),
+            TabBar(
+              unselectedLabelColor: const Color.fromRGBO(102, 102, 102, 1),
+              labelColor: Colors.black,
+              controller: _tabController,
+              tabs: [
+                const Tab(
+                  icon: Icon(Icons.chrome_reader_mode_outlined),
+                ),
+                if (userInfo.roles!.contains("ARTIST"))
+                  Tab(
+                    child: SvgPicture.asset(ImageConstants.pollIcon),
+                  ),
+                const Tab(icon: Icon(Icons.check_circle_outline)),
+                const Tab(icon: Icon(Icons.favorite_border)),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  ListView.builder(
+                    itemCount: 6,
+                    itemBuilder: (context, index) {
+                      List<ArticleModel> articles = DummyData.articles;
+                      return ArticleCard(article: articles[index]);
+                    },
+                  ),
+                  Container(),
+                  Container(),
+                  Container(),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget profileCard(BuildContext context) {
+    final userInfo = ref.watch(userManagerProvider);
+    return Padding(
+      padding: const EdgeInsets.only(left: 20, right: 20, top: 30, bottom: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '${user?.username}',
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 24),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.more_horiz),
-                  ),
-                ],
+              const CircleAvatar(
+                radius: 40,
+                backgroundColor: Colors.grey,
+                backgroundImage: NetworkImage(
+                    'https://ichef.bbci.co.uk/ace/ws/640/cpsprodpb/7036/production/_111162782__313.jpg'),
               ),
-              const Padding(
-                padding: EdgeInsets.only(top: 20, right: 30),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CircleAvatar(
-                      radius: 28,
-                      backgroundColor: Colors.grey,
-                    ),
-                    Text("팔로잉 : 200"),
-                  ],
-                ),
-              ),
-              // 계정 연동 된 플랫폼 위젯
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.1,
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 3,
-                    itemBuilder: (context, index) {
-                      return const Padding(
-                        padding: EdgeInsets.only(right: 15),
-                        child: CircleAvatar(
-                          backgroundColor: Colors.red,
-                        ),
-                      );
-                    }),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green),
-                      onPressed: () {},
-                      child: const Text(
-                        "구독",
-                        style: TextStyle(color: Colors.black),
-                      )),
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green),
-                      onPressed: () {},
-                      child: const Text(
-                        "프로필 편집",
-                        style: TextStyle(color: Colors.black),
-                      ))
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              TabBar(
-                labelColor: Colors.black,
-                controller: _tabController,
-                tabs: const [
-                  Tab(icon: Icon(Icons.list)),
-                  Tab(icon: Icon(Icons.queue_music)),
-                  Tab(icon: Icon(Icons.heart_broken)),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Expanded(
-                child: TabBarView(
-                  controller: _tabController,
-                  children: [Container(), Container(), Container()],
-                ),
-              ),
+              IconButton(
+                  onPressed: () {
+                    print(userInfo.emailverify);
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => const SettingMainView()));
+                  },
+                  icon: const Icon(
+                    Icons.settings,
+                    color: Color.fromRGBO(102, 102, 102, 1),
+                  ))
             ],
           ),
-        ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "${userInfo.nickname}",
+                style: const TextStyle(
+                    color: Color.fromRGBO(17, 17, 17, 1),
+                    fontWeight: FontWeight.w700,
+                    fontSize: 22),
+              ),
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
+                      shape: RoundedRectangleBorder(
+                          side: const BorderSide(
+                              color: Color.fromRGBO(102, 102, 102, 1)),
+                          borderRadius: BorderRadius.circular(100))),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const EditProfileView()));
+                  },
+                  child: const Text(
+                    "프로필 수정",
+                    style: TextStyle(
+                        color: Color.fromRGBO(102, 102, 102, 1),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500),
+                  ))
+            ],
+          ),
+          const SizedBox(height: 10),
+          // 계정 연동 된 플랫폼 위젯
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.05,
+            child: ListView.builder(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: 3,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            color: const Color.fromRGBO(234, 234, 234, 1),
+                          ),
+                          borderRadius: BorderRadius.circular(100)),
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        child: SvgPicture.asset(
+                          width: 20,
+                          height: 20,
+                          ImageConstants.ticktokIcon,
+                        ),
+                      ),
+                    ),
+                  );
+                }),
+          ),
+        ],
       ),
     );
   }

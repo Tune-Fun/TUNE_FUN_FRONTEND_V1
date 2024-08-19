@@ -27,7 +27,7 @@ class AccountSettingScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    AccountModel? accountModel = ref.read(userManagerProvider);
+    AccountModel? accountModel = ref.watch(userManagerProvider);
     return Scaffold(
       backgroundColor: const Color.fromRGBO(249, 249, 249, 1),
       appBar: AppBar(
@@ -56,7 +56,7 @@ class AccountSettingScreen extends ConsumerWidget {
 
   Widget infoContainer(
       WidgetRef ref, BuildContext context, AccountModel? accountModel) {
-    final userModel = ref.read(userManagerProvider);
+    final userModel = ref.watch(userManagerProvider);
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 20),
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
@@ -82,7 +82,7 @@ class AccountSettingScreen extends ConsumerWidget {
             children: [
               Text("사용자 이름", style: titleStyle),
               Text(
-                "parksanghun00",
+                "${userModel.nickname}",
                 style: contentStyle,
               )
             ],
@@ -93,7 +93,7 @@ class AccountSettingScreen extends ConsumerWidget {
             children: [
               Text("아이디", style: titleStyle),
               Text(
-                "sanghun",
+                "${userModel.username}",
                 style: contentStyle,
               )
             ],
@@ -107,12 +107,12 @@ class AccountSettingScreen extends ConsumerWidget {
               children: [
                 Text("이메일", style: titleStyle),
                 Text(
-                  "simondr@naver.com",
+                  "${userModel.email}",
                   style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
                       color: accountModel!.emailverify!
-                          ? Color.fromRGBO(17, 17, 17, 1)
+                          ? const Color.fromRGBO(17, 17, 17, 1)
                           : Colors.red),
                 )
               ],
