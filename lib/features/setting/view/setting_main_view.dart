@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tunefun_front/features/setting/view/account_setting_view.dart';
-import 'package:tunefun_front/features/setting/view/agreement/agreement_detail_view.dart';
 import 'package:tunefun_front/features/setting/view/agreement/agreement_view.dart';
+import 'package:tunefun_front/features/setting/view/customer_service/customer_service_view.dart';
 import 'package:tunefun_front/features/setting/view/inquiry/inquiry_view.dart';
 import 'package:tunefun_front/features/setting/view/notification/notification_view.dart';
 import 'package:tunefun_front/features/setting/view/report/report_view.dart';
@@ -62,16 +62,12 @@ class SettingMainView extends StatelessWidget {
                 children: [
                   SectionHeader(title: '도움말'),
                   SettingsListTile(
-                      title: '신고',
-                      onTap: () {
-                        onReportTap(context);
-                      }),
-                  SettingsListTile(title: '고객센터', onTap: _onCustomerServiceTap),
+                      title: '신고', onTap: () => onReportTap(context)),
                   SettingsListTile(
-                      title: '이용문의',
-                      onTap: () {
-                        onInquiriesTap(context);
-                      }),
+                      title: '고객센터',
+                      onTap: () => onCustomerServiceTap(context)),
+                  SettingsListTile(
+                      title: '이용문의', onTap: () => onInquiriesTap(context)),
                   SettingsListTile(title: '웹 버전', onTap: _onWebVersionTap),
                 ],
               ),
@@ -126,8 +122,9 @@ class SettingMainView extends StatelessWidget {
         context, MaterialPageRoute(builder: (context) => const ReportView()));
   }
 
-  static void _onCustomerServiceTap() {
-    // 고객센터 페이지로 이동하는 로직 추가
+  void onCustomerServiceTap(BuildContext context) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const CustomerServiceView()));
   }
 
   void onInquiriesTap(BuildContext context) {

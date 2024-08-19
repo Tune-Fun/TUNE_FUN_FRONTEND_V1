@@ -166,7 +166,7 @@ class _SignupAccountTypeSelectScreenState
                 Center(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5),
-                    child: GreenSquareButton(
+                    child: BasicSquareButton(
                       onTap: () {
                         Navigator.push(
                           context,

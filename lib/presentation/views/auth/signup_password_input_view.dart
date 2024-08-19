@@ -138,7 +138,7 @@ class _SignupPasswordInputScreenState extends State<SignupPasswordInputScreen> {
                       padding: const EdgeInsets.symmetric(
                         vertical: 5,
                       ),
-                      child: GreenSquareButton(
+                      child: BasicSquareButton(
                         onTap: () {
                           if (_formKey.currentState!.validate()) {
                             setState(() {

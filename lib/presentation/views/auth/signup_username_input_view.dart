@@ -118,7 +118,7 @@ class _SignupUsernameInputScreenState extends State<SignupUsernameInputScreen> {
                     Center(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5),
-                        child: GreenSquareButton(
+                        child: BasicSquareButton(
                           onTap: () async {
                             idMessage = "";
                             if (_formKey.currentState!.validate()) {

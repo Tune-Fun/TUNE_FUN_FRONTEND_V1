@@ -292,21 +292,21 @@ class _SignupNickNameInputScreenState
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
               child: SizedBox(
                 width: double.infinity,
-                child: GreenSquareButton(
+                child: BasicSquareButton(
                   onTap: () {
                     if (_formKey.currentState!.validate() &&
                         privacyPolicy &&
                         termsOfService) {
                       signUp();
 
-                      if (loginState is AuthMangerStateSuccess) {
+                      if (loginState is AuthManagerStateSuccess) {
                         Navigator.pushAndRemoveUntil(
                           context,
                           LoginScreen.route(),
                           (route) => false,
                         );
                         showSnackBar(context, '회원가입이 완료되었습니다.');
-                      } else if (loginState is AuthMangerStateError) {
+                      } else if (loginState is AuthManagerStateError) {
                         showSnackBar(context, loginState.message);
                       }
                     }

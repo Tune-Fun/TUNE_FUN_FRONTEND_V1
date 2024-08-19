@@ -8,7 +8,7 @@ import 'package:tunefun_front/common/radius_square_button.dart';
 import 'package:tunefun_front/presentation/common/timer_manager.dart';
 import 'package:tunefun_front/presentation/manager/auth_manager/auth_manager.dart';
 import 'package:tunefun_front/presentation/views/account/delete/delete_account_final_view.dart';
-import 'package:tunefun_front/presentation/views/account/password_update_screen.dart';
+import 'package:tunefun_front/presentation/views/account/update_password/password_update_screen.dart';
 
 var logger = Logger();
 
@@ -58,17 +58,17 @@ class _DeleteAccountOTPScreenState
   Widget build(BuildContext context) {
     final start = ref.watch(timerProvider);
 
-    ref.listen<AuthManagerState>(authManagerProvider, (previous, next) {
-      if (next is VerifyPasswordOTPSuccess) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const PasswordUpdateScreen()),
-        );
-      } else if (next is SendPasswordOTPError) {
-        Fluttertoast.showToast(msg: "인증코드 발송 실패 ${next.message}");
-        ref.read(timerProvider.notifier).resetTimer();
-      }
-    });
+    // ref.listen<AuthManagerState>(authManagerProvider, (previous, next) {
+    //   if (next is VerifyPasswordOTPSuccess) {
+    //     Navigator.push(
+    //       context,
+    //       MaterialPageRoute(builder: (context) => const PasswordUpdateScreen()),
+    //     );
+    //   } else if (next is SendPasswordOTPError) {
+    //     Fluttertoast.showToast(msg: "인증코드 발송 실패 ${next.message}");
+    //     ref.read(timerProvider.notifier).resetTimer();
+    //   }
+    // });
 
     return Scaffold(
       appBar: AppBar(

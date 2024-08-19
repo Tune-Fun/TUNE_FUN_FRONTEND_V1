@@ -3,12 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tunefun_front/constants/constants.dart';
 import 'package:tunefun_front/features/article/widgets/article_list.dart';
+import 'package:tunefun_front/features/follow/follow_view.dart';
 import 'package:tunefun_front/features/profile/views/profile_view.dart';
 import 'package:tunefun_front/features/vote/presentation/views/vote_upload_view.dart';
 import 'package:tunefun_front/presentation/manager/auth_manager/auth_manager.dart';
-import 'package:tunefun_front/presentation/views/auth/email_verify_view.dart';
+import 'package:tunefun_front/presentation/manager/auth_manager/user_manager.dart';
 import 'package:tunefun_front/presentation/views/auth/induce_auth_view.dart';
-import 'package:tunefun_front/presentation/views/auth/login_view.dart';
 import 'package:tunefun_front/theme/theme.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -47,17 +47,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final authState = ref.watch(authManagerProvider);
-
+    final userInfo = ref.watch(userManagerProvider);
     List<Widget> bottomTapBarPages = [
       const ArticleList(),
-      authState is AuthManagerStateSuccess
-          ? authState.userInfo.roles!.contains('ARTIST')
+      userInfo.nickname!.isNotEmpty
+          ? userInfo.roles!.contains('ARTIST')
               ? const VoteUploadScreen()
               : const SizedBox()
           : const InduceAuthScreen(),
-      const EmailVerifyScreen(),
-      authState is AuthManagerStateSuccess
+      const FollowView(),
+      userInfo.nickname!.isNotEmpty
           ? const ProfileScreen()
           : const InduceAuthScreen(),
     ];

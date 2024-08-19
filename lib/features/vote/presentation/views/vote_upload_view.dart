@@ -195,7 +195,7 @@ class _VoteUploadScreenState extends ConsumerState<VoteUploadScreen> {
           height: 10,
         ),
         Container(
-          height: MediaQuery.of(context).size.height * 0.12,
+          height: MediaQuery.of(context).size.height * 0.13,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               border:

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tunefun_front/common/common.dart';
 import 'package:tunefun_front/constants/constants.dart';
 import 'package:tunefun_front/presentation/manager/auth_manager/auth_manager.dart';
+import 'package:tunefun_front/presentation/manager/auth_manager/email_manager.dart';
 import 'package:tunefun_front/presentation/views/auth/signup_username_input_view.dart';
 import 'package:tunefun_front/theme/theme.dart';
 
@@ -109,14 +110,14 @@ class _SignupEmailInputScreenState extends State<SignupEmailInputScreen> {
                         padding: const EdgeInsets.symmetric(
                           vertical: 5,
                         ),
-                        child: GreenSquareButton(
+                        child: BasicSquareButton(
                           onTap: () async {
                             emailMessage = "";
                             if (_formKey.currentState!.validate()) {
                               // api
                               dynamic response = await ref
-                                  .read(authManagerProvider.notifier)
-                                  .checkEmail(emailController.text);
+                                  .read(emailManagerProvider.notifier)
+                                  .checkEmailDuplicate(emailController.text);
                               // const response = "2008";
                               if (response.toString() == "2008") {
                                 Navigator.push(
