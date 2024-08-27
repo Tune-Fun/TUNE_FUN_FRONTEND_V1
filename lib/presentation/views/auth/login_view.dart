@@ -7,7 +7,6 @@ import 'package:tunefun_front/constants/constants.dart';
 import 'package:tunefun_front/features/home/views/home_view.dart';
 import 'package:tunefun_front/presentation/manager/auth_manager/auth_manager.dart';
 import 'package:tunefun_front/presentation/manager/auth_manager/email_manager.dart';
-import 'package:tunefun_front/presentation/manager/auth_manager/user_manager.dart';
 import 'package:tunefun_front/presentation/views/auth/signup_main_view.dart';
 import 'package:tunefun_front/theme/pallete.dart';
 
@@ -33,40 +32,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     passwordController.dispose();
   }
 
-  // void logIn() async {
-  //   dynamic data = {
-  //     'username': usernameController.text,
-  //     'password': passwordController.text,
-  //   };
-  //   await ref.read(authManagerProvider.notifier).logIn(data);
-
-  //   final loginState = ref.watch(authManagerProvider);
-  //   final emailState = ref.watch(emailManagerProvider);
-  //   if (loginState is AuthManagerStateSuccess) {
-  //     if (emailState is EmailManagerStateSuccess) {
-  //       if (emailState.code == "2009") {
-  //         // email 인증 성공
-  //         loginState.userInfo.copyWith(emailverify: true);
-  //       }
-  //     }
-
-  //     if (mounted) {
-  //       if (Navigator.canPop(context)) {
-  //         Navigator.pop(context);
-  //       } else {
-  //         Navigator.pushAndRemoveUntil(
-  //           context,
-  //           HomeScreen.route(),
-  //           (route) => false,
-  //         );
-  //       }
-  //     }
-  //     Fluttertoast.showToast(msg: "로그인 성공");
-  //   } else if (loginState is AuthManagerStateError) {
-  //     Fluttertoast.showToast(msg: loginState.message);
-  //   }
-  // }
-
   Future checkEmailVerify() async {
     await ref.read(emailManagerProvider.notifier).checkVerify();
   }
@@ -89,30 +54,21 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               }
             },
           ),
-          title: const GradientText(
-            text: "TuneFun",
-            gradient: LinearGradient(
-              colors: [
-                Pallete.pinkColor,
-                Pallete.redColor,
-              ],
-            ),
+          title: const Text(
+            "로그인",
             style: TextStyle(
-              color: Pallete.pointColor,
-              height: 80,
-              fontWeight: FontWeight.bold,
-              fontSize: 35,
+              fontWeight: FontWeight.w500,
+              fontSize: 18,
             ),
           ),
-          centerTitle: true,
         ),
         body: _buildBody());
   }
 
   Widget _buildBody() {
-    var loginState = ref.watch(authManagerProvider);
+    final loginState = ref.watch(authManagerProvider);
     ref.listen<AuthManagerState>(authManagerProvider, (previus, next) {
-      if (next is AuthManagerStateSuccess) {
+      if (next is LoginSuccess) {
         ref.read(emailManagerProvider.notifier).checkVerify();
         if (Navigator.canPop(context)) {
           Navigator.pop(context);
@@ -124,7 +80,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           );
         }
         Fluttertoast.showToast(msg: "로그인 성공");
-      } else if (next is AuthManagerStateError) {
+      } else if (next is LoginError) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           Fluttertoast.showToast(msg: "error ${next.message}");
         });
@@ -155,14 +111,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         borderRadius: BorderRadius.circular(8.0),
                         borderSide: const BorderSide(
                           color: Pallete.borderColor,
-                          width: 3,
                         ),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
                         borderSide: const BorderSide(
                           color: Pallete.borderColor,
-                          width: 3,
                         ),
                       ),
                       contentPadding: const EdgeInsets.all(16),
@@ -190,14 +144,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         borderRadius: BorderRadius.circular(8.0),
                         borderSide: const BorderSide(
                           color: Pallete.borderColor,
-                          width: 3,
                         ),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
                         borderSide: const BorderSide(
                           color: Pallete.borderColor,
-                          width: 3,
                         ),
                       ),
                       contentPadding: const EdgeInsets.all(16),
@@ -206,29 +158,29 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       setState(() {});
                     },
                   ),
-                  const SizedBox(
-                    height: 15,
+                  SizedBox(
+                    height: 50,
+                    child: loginState is LoginError
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(
+                                ImageConstants.alertIcon,
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              const Text(
+                                "아이디 및 비밀번호 조합이 잘못되었습니다.",
+                                style: TextStyle(
+                                    color: Color.fromRGBO(233, 20, 20, 1),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ],
+                          )
+                        : const SizedBox(),
                   ),
-                  loginState is AuthManagerStateError
-                      ? Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(
-                              ImageConstants.alertIcon,
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            const Text(
-                              "아이디 및 비밀번호 조합이 잘못되었습니다.",
-                              style: TextStyle(
-                                  color: Color.fromRGBO(233, 20, 20, 1),
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ],
-                        )
-                      : const SizedBox(),
                   Align(
                     alignment: Alignment.center,
                     child: LoginButton(
@@ -249,53 +201,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     ),
                   ),
                   const SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        '아이디 찾기',
-                        style: TextStyle(
-                            color: Colors.black, fontSize: 16), // 폰트 스타일 설정
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(left: 10, right: 10),
-                        child: Text(
-                          '|',
-                          style: TextStyle(
-                              color: Colors.black, fontSize: 16), // 폰트 스타일 설정
-                        ),
-                      ),
-                      const Text(
-                        '비밀번호 찾기',
-                        style: TextStyle(color: Colors.black, fontSize: 16),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(left: 10, right: 10),
-                        child: Text(
-                          '|',
-                          style: TextStyle(
-                              color: Colors.black, fontSize: 16), // 폰트 스타일 설정
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const SignUpMainScreen()));
-                        },
-                        child: const Text(
-                          '회원 가입',
-                          style: TextStyle(color: Colors.black, fontSize: 16),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 50,
+                    height: 100,
                   ),
                   const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -318,87 +224,60 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color.fromRGBO(234, 234, 234, 1),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Center(
-                            child: CircleAvatar(
-                              backgroundColor: Colors.white,
-                              radius: 30,
-                              child: GestureDetector(
-                                onTap: () {
-                                  // apple social
-                                },
-                                child: SvgPicture.asset(
-                                  ImageConstants.appleIcon,
-                                  height: 30,
-                                  width: 30,
-                                ),
-                              ),
-                            ),
-                          ),
+                      const Text(
+                        '아이디 찾기',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ), // 폰트 스타일 설정
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 10, right: 10),
+                        child: Text(
+                          '|',
+                          style: TextStyle(
+                              color: Colors.black, fontSize: 16), // 폰트 스타일 설정
                         ),
                       ),
-                      const SizedBox(
-                        width: 25,
-                      ),
-                      Container(
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color.fromRGBO(234, 234, 234, 1),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Center(
-                            child: CircleAvatar(
-                              backgroundColor: Colors.white,
-                              radius: 30,
-                              child: GestureDetector(
-                                onTap: () {
-                                  // apple social
-                                },
-                                child: SvgPicture.asset(
-                                  ImageConstants.googleIcon,
-                                  height: 30,
-                                  width: 30,
-                                ),
-                              ),
-                            ),
-                          ),
+                      const Text(
+                        '비밀번호 찾기',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
-                      const SizedBox(
-                        width: 25,
-                      ),
-                      Container(
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color.fromRGBO(234, 234, 234, 1),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 10, right: 10),
+                        child: Text(
+                          '|',
+                          style: TextStyle(
+                              color: Colors.black, fontSize: 16), // 폰트 스타일 설정
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Center(
-                            child: CircleAvatar(
-                              backgroundColor: Colors.white,
-                              radius: 30,
-                              child: GestureDetector(
-                                onTap: () {},
-                                child: SvgPicture.asset(
-                                  ImageConstants.instagramIcon,
-                                  height: 30,
-                                  width: 30,
-                                ),
-                              ),
-                            ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const SignUpMainScreen()));
+                        },
+                        child: const Text(
+                          '회원 가입',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
                       ),
                     ],
-                  )
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
                 ],
               ),
             ),
