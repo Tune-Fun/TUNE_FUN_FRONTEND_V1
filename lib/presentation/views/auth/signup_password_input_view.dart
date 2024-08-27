@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:tunefun_front/common/common.dart';
+import 'package:tunefun_front/common/radius_square_button.dart';
 import 'package:tunefun_front/constants/constants.dart';
 import 'package:tunefun_front/presentation/views/auth/signup_account_type_select_view.dart';
 import 'package:tunefun_front/theme/theme.dart';
@@ -28,7 +29,7 @@ class _SignupPasswordInputScreenState extends State<SignupPasswordInputScreen> {
   late TextEditingController usernameController;
   final passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  bool buttonState = false;
+
   String? errorText;
   @override
   void initState() {
@@ -45,6 +46,9 @@ class _SignupPasswordInputScreenState extends State<SignupPasswordInputScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool buttonState = passwordController.text.length >= 8 &&
+        RegExp(r'^(?=(?:.*[A-Za-z].*[0-9])|(?:.*[A-Za-z].*[$@$!%*#?&])|(?:.*[0-9].*[$@$!%*#?&]))[A-Za-z0-9$@$!%*#?&]{8,40}$')
+            .hasMatch(passwordController.text);
     return Scaffold(
       appBar: appbar,
       body: Form(
@@ -78,59 +82,50 @@ class _SignupPasswordInputScreenState extends State<SignupPasswordInputScreen> {
                     ],
                   ),
                   const SizedBox(height: 12),
-                  TextFormField(
-                    controller: passwordController,
-                    decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: const BorderSide(
-                          color: Color.fromRGBO(234, 234, 234, 1),
-                          width: 1,
+                  SizedBox(
+                    height: 70,
+                    child: TextFormField(
+                      controller: passwordController,
+                      decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: const BorderSide(
+                            color: Color.fromRGBO(234, 234, 234, 1),
+                            width: 1,
+                          ),
                         ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: const BorderSide(
-                          color: Color.fromRGBO(234, 234, 234, 1),
-                          width: 1,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: const BorderSide(
+                            color: Color.fromRGBO(234, 234, 234, 1),
+                            width: 1,
+                          ),
                         ),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: const BorderSide(
-                          color: Color.fromRGBO(234, 234, 234, 1),
-                          width: 1,
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: const BorderSide(
+                            color: Color.fromRGBO(234, 234, 234, 1),
+                            width: 1,
+                          ),
                         ),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: const BorderSide(
-                          color: Color.fromRGBO(234, 234, 234, 1),
-                          width: 1,
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: const BorderSide(
+                            color: Color.fromRGBO(234, 234, 234, 1),
+                            width: 1,
+                          ),
                         ),
+                        contentPadding: const EdgeInsets.all(10),
+                        helperStyle: const TextStyle(
+                            color: Color.fromRGBO(153, 153, 153, 1)),
+                        helperText: "8가지 이상 영문/숫자/특수문자 중2가지 포함",
+                        errorStyle: const TextStyle(
+                            color: Color.fromRGBO(153, 153, 153, 1)),
                       ),
-                      contentPadding: const EdgeInsets.all(22),
-                      hintText: '비밀번호',
-                      hintStyle: const TextStyle(
-                        fontSize: 18,
-                      ),
-                      helperStyle: const TextStyle(
-                          color: Color.fromRGBO(153, 153, 153, 1)),
-                      helperText: "8가지 이상 영문/숫자/특수문자 중2가지 포함",
-                      errorStyle: const TextStyle(
-                          color: Color.fromRGBO(153, 153, 153, 1)),
+                      keyboardType: TextInputType.text,
+                      obscureText: true,
+                      onChanged: (value) => setState(() {}),
                     ),
-                    keyboardType: TextInputType.text,
-                    obscureText: true,
-                    onChanged: (value) => setState(() {}),
-                    validator: (value) {
-                      if (value!.isEmpty) return "8가지 이상 영문/숫자/특수문자 중2가지 포함";
-                      if (value.length <= 8) return "8가지 이상 영문/숫자/특수문자 중2가지 포함";
-                      if (!RegExp(
-                              r'^(?=(?:.*[A-Za-z].*[0-9])|(?:.*[A-Za-z].*[$@$!%*#?&])|(?:.*[0-9].*[$@$!%*#?&]))[A-Za-z0-9$@$!%*#?&]{8,40}$')
-                          .hasMatch(value)) return "8가지 이상 영문/숫자/특수문자 중2가지 포함";
-                      return null;
-                    },
                   ),
                   const SizedBox(height: 35),
                   Center(
@@ -138,12 +133,9 @@ class _SignupPasswordInputScreenState extends State<SignupPasswordInputScreen> {
                       padding: const EdgeInsets.symmetric(
                         vertical: 5,
                       ),
-                      child: BasicSquareButton(
+                      child: RadiusSquareButton(
                         onTap: () {
-                          if (_formKey.currentState!.validate()) {
-                            setState(() {
-                              buttonState = true;
-                            });
+                          if (buttonState) {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -155,13 +147,9 @@ class _SignupPasswordInputScreenState extends State<SignupPasswordInputScreen> {
                                 ),
                               ),
                             );
-                          } else {
-                            setState(() {
-                              errorText = '비밀번호가 취약합니다.';
-                            });
                           }
                         },
-                        buttonState: passwordController.text.isNotEmpty,
+                        buttonState: buttonState,
                         buttonText: '다음',
                       ),
                     ),

@@ -19,6 +19,7 @@ class EmailManager extends StateNotifier<EmailManagerState> {
 
   Future checkEmailDuplicate(dynamic email) async {
     try {
+      state = const EmailManagerLoading();
       final response = await _emailUsecaseImpl.checkDuplicate(email);
       response.when(success: (data) {
         if (data == "2008") {
@@ -35,6 +36,7 @@ class EmailManager extends StateNotifier<EmailManagerState> {
   }
 
   Future<void> checkVerify() async {
+    state = const EmailManagerLoading();
     final response = await _emailUsecaseImpl.checkVerify();
     response.when(success: (data) {
       state = EmailManagerStateSuccess(data);
@@ -45,6 +47,7 @@ class EmailManager extends StateNotifier<EmailManagerState> {
   }
 
   Future regist(String email) async {
+    state = const EmailManagerLoading();
     final response = await _emailUsecaseImpl.regist(email);
     response.when(success: (data) {
       state = EmailManagerStateSuccess(data);
@@ -55,6 +58,7 @@ class EmailManager extends StateNotifier<EmailManagerState> {
   }
 
   Future send() async {
+    state = const EmailManagerLoading();
     final response = await _emailUsecaseImpl.send();
     response.when(success: (data) {
       state = EmailManagerStateSuccess(data);
@@ -64,6 +68,7 @@ class EmailManager extends StateNotifier<EmailManagerState> {
   }
 
   Future update(String email) async {
+    state = const EmailManagerLoading();
     final response = await _emailUsecaseImpl.update(email);
     response.when(success: (data) {
       state = EmailManagerStateSuccess(data);
@@ -73,6 +78,7 @@ class EmailManager extends StateNotifier<EmailManagerState> {
   }
 
   Future delete() async {
+    state = const EmailManagerLoading();
     final response = await _emailUsecaseImpl.delete();
     response.when(success: (data) {
       state = EmailManagerStateSuccess(data);
@@ -82,6 +88,7 @@ class EmailManager extends StateNotifier<EmailManagerState> {
   }
 
   Future verify(String otp) async {
+    state = const EmailManagerLoading();
     final response = await _emailUsecaseImpl.verify(otp);
     response.when(success: (data) {
       state = EmailManagerStateSuccess(data);

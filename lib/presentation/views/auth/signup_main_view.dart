@@ -24,7 +24,7 @@ class _SignUpScreenState extends ConsumerState<SignUpMainScreen> {
       body: const Column(
         children: [
           SizedBox(
-            height: 70,
+            height: 100,
           ),
           EmailSignupButton(text: '가입하기'),
           SocialSignupButton(text: 'Google', type: OAuthType.google),

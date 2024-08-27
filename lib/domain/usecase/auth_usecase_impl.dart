@@ -25,7 +25,7 @@ class AuthUsecaseImpl implements AuthUseCase<dynamic, dynamic> {
   }
 
   @override
-  Future<String> checkId(dynamic params) {
+  Future<DataState> checkId(dynamic params) {
     return _authRepository.checkId(params);
   }
 
@@ -45,7 +45,7 @@ class AuthUsecaseImpl implements AuthUseCase<dynamic, dynamic> {
   }
 
   @override
-  Future updateNickname(newNickname) {
+  Future<DataState> updateNickname(newNickname) {
     return _authRepository.updateNickname(newNickname);
   }
 }

@@ -39,13 +39,13 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<String> checkId(String id) async {
+  Future<DataState> checkId(String id) async {
     try {
       final response = await ref.read(authDataSourceProvider).checkId(id);
       String valid = response["code"];
-      return valid;
+      return DataState.success(valid);
     } catch (e) {
-      throw Exception(e.toString());
+      throw DataState.error(Exception(), e.toString());
     }
   }
 
@@ -100,7 +100,7 @@ class AuthRepositoryImpl implements AuthRepository {
       if (response["code"] != "2011") {
         return DataState.error(Exception(), "프로필 변경하는 동안 오류가 발생했습니다.");
       }
-      return AuthTranslator().translateSignUp(response['message']);
+      return DataState.success(response['message']);
     } catch (e) {
       return DataState.error(Exception(), e.toString());
     }

@@ -19,11 +19,9 @@ class EmailDataSource {
   Future<Map<String, String>> headerSet() async {
     const storage = FlutterSecureStorage();
     final key = await storage.read(key: 'access_token');
-    final userManager = ref.read(userManagerProvider);
-    final accessToken = userManager?.accessToken;
     final Map<String, String> headers = {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer $accessToken',
+      'Authorization': 'Bearer $key',
       'Charset': 'UTF-8',
       'Accept-Language': 'ko_KR',
     };

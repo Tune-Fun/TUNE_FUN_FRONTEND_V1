@@ -28,11 +28,10 @@ class AuthManager extends StateNotifier<AuthManagerState> {
 
   Future<void> signUp(Map<String, dynamic> params) async {
     final response = await _authUsecaseImpl.signUp(params);
-    response.when(success: (userInfo) {
-      state = AuthManagerStateSuccess(userInfo);
-      _userManager.setUser(userInfo);
+    response.when(success: (data) {
+      state = SignupSuccess();
     }, error: (error, message) {
-      state = AuthManagerStateError(message);
+      state = SignupError(message);
     });
   }
 
@@ -40,23 +39,30 @@ class AuthManager extends StateNotifier<AuthManagerState> {
     state = const AuthManagerStateLoading();
     final response = await _authUsecaseImpl.logIn(params);
     response.when(success: (userInfo) async {
-      state = AuthManagerStateSuccess(userInfo);
+      state = LoginSuccess(userInfo);
       _userManager.setUser(userInfo);
       const storage = FlutterSecureStorage();
       storage.write(key: 'access_token', value: userInfo.accessToken);
       storage.write(key: 'refresh_token', value: userInfo.refreshToken);
     }, error: (error, message) {
-      state = AuthManagerStateError(message);
+      state = LoginError(message);
     });
   }
 
   Future checkId(dynamic id) async {
-    try {
-      final response = await _authUsecaseImpl.checkId(id);
-      return response;
-    } catch (e) {
-      return "아이디 검증 중 오류가 발생했습니다.";
-    }
+    state = const AuthManagerStateLoading();
+    final response = await _authUsecaseImpl.checkId(id);
+    response.when(success: (data) {
+      if (data == "2007") {
+        state = const IdIsNoExist();
+      } else if (data == "2005") {
+        state = const IdIsExist();
+      } else {
+        state = const CheckIdError();
+      }
+    }, error: (error, message) {
+      state = const CheckIdError();
+    });
   }
 
   Future sendPasswordOTP() async {

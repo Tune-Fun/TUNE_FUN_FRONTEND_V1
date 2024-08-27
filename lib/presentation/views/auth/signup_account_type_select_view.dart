@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:tunefun_front/common/common.dart';
+import 'package:tunefun_front/common/radius_square_button.dart';
 import 'package:tunefun_front/constants/constants.dart';
 import 'package:tunefun_front/presentation/views/auth/signup_nickname_input_view.dart';
 import 'package:tunefun_front/theme/theme.dart';
@@ -166,7 +167,7 @@ class _SignupAccountTypeSelectScreenState
                 Center(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5),
-                    child: BasicSquareButton(
+                    child: RadiusSquareButton(
                       onTap: () {
                         Navigator.push(
                           context,
