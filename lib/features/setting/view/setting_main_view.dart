@@ -28,7 +28,7 @@ class SettingMainView extends StatelessWidget {
               color: const Color.fromRGBO(255, 255, 255, 1),
               margin: const EdgeInsets.only(top: 20),
               width: MediaQuery.of(context).size.width,
-              height: 300,
+              height: 250,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -43,8 +43,8 @@ class SettingMainView extends StatelessWidget {
                       onTap: () {
                         onNotificationSettingsTap(context);
                       }),
-                  const SettingsListTile(
-                      title: '결제 내역', onTap: _onPaymentHistoryTap),
+                  // const SettingsListTile(
+                  //     title: '결제 내역', onTap: _onPaymentHistoryTap),
                   SettingsListTile(
                       title: '약관 및 정책',
                       onTap: () {

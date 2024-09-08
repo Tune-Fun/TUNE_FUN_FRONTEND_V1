@@ -10,11 +10,6 @@ class SettingData {
       'title': '개인정보 처리방침',
       'content': privacyPolicy,
     },
-    {
-      'type': 'refund',
-      'title': '환불 정책',
-      'content': "refund",
-    },
   ];
   static List inquiryData = [
     {

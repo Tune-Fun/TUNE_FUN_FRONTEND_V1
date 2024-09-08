@@ -234,7 +234,12 @@ class AccountSettingScreen extends ConsumerWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      emailDisconnectDialog(context, email);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const EmailDisconnectView(
+                                    email: "simondr@naver.com",
+                                  )));
                     },
                     child: Text('이메일 연결 해제', style: titleStyle),
                   ),

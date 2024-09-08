@@ -20,8 +20,8 @@ class AgreementScreen extends StatelessWidget {
   }
 
   Widget _agreementBody(BuildContext context) {
-    final double containerHeight = MediaQuery.of(context).size.height * 0.18;
-    const int itemCount = 3;
+    final double containerHeight = MediaQuery.of(context).size.height * 0.15;
+    const int itemCount = 2;
     const double paddingVertical = 1.0;
     const double dividerHeight = 1.0;
 
