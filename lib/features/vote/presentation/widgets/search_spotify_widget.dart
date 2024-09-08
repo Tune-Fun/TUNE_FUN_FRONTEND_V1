@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tunefun_front/constants/ui_constants.dart';
 import 'package:tunefun_front/features/vote/presentation/%08controller/vote_controller.dart';
-import 'package:tunefun_front/features/vote/presentation/widgets/gradient_container.dart';
 import 'package:tunefun_front/theme/pallete.dart';
 
 class SearchFromSpotifyWidget extends ConsumerWidget {
@@ -51,11 +50,13 @@ class SearchFromSpotifyWidget extends ConsumerWidget {
               ),
               const SizedBox(height: 20),
               if (songSearchState is SongSearchSuccess)
-                GradientContainer(
+                Container(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 0.7,
-                    borderRadius: BorderRadius.circular(12),
-                    type: "contentBox",
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: Pallete.bgSubColor,
+                    ),
                     child: ListView.separated(
                       itemCount: songSearchState.songs.length,
                       itemBuilder: ((context, index) {
