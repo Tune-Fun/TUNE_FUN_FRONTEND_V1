@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tunefun_front/features/vote/domain/model/upload_test_model.dart';
 import 'package:tunefun_front/features/vote/presentation/%08controller/vote_controller.dart';
-import 'package:tunefun_front/features/vote/presentation/widgets/gradient_container.dart';
 import 'package:tunefun_front/features/vote/presentation/widgets/search_spotify_widget.dart';
+import 'package:tunefun_front/theme/pallete.dart';
 
 class UploadSongWidget extends ConsumerWidget {
   const UploadSongWidget({super.key});
@@ -38,11 +38,13 @@ class UploadSongWidget extends ConsumerWidget {
                       },
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 8),
-                        child: GradientContainer(
-                          type: "contentBox",
+                        child: Container(
                           width: MediaQuery.of(context).size.width,
                           height: songs[i].artist_name.isEmpty ? 60 : 70,
-                          borderRadius: BorderRadius.circular(10),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Pallete.greyLineColor),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                           child: ListTile(
                             contentPadding: const EdgeInsets.only(left: 12),
                             leading: songs[i].music_image.isEmpty
