@@ -78,8 +78,8 @@ class ArticleCard extends ConsumerWidget {
                       ),
                     ),
                     GradientContainer(
-                        width: 100,
                         height: 30,
+                        width: 66,
                         borderRadius: BorderRadius.circular(12),
                         type: daysDifference == "투표 종료" ? "voteEndBox" : "fill",
                         child: Center(
@@ -118,9 +118,9 @@ class ArticleCard extends ConsumerWidget {
                         GestureDetector(
                           onTap: () {},
                           child: SvgPicture.asset(
-                            ImageConstants.pollIcon,
-                            height: 24,
-                            width: 24,
+                            ImageConstants.homeVoteGreyIcon,
+                            height: 13,
+                            width: 18,
                           ),
                         ),
                         const SizedBox(height: 5),
@@ -140,9 +140,9 @@ class ArticleCard extends ConsumerWidget {
                         GestureDetector(
                           onTap: () {},
                           child: SvgPicture.asset(
-                            ImageConstants.heartIcon,
-                            height: 24,
-                            width: 24,
+                            ImageConstants.homeLikeGreyIcon,
+                            height: 13,
+                            width: 18,
                           ),
                         ),
                         const SizedBox(height: 5),
@@ -159,7 +159,7 @@ class ArticleCard extends ConsumerWidget {
                       const GradientText(
                           text: "투표완료",
                           gradient: LinearGradient(colors: [
-                            Color.fromRGBO(251, 92, 192, 1),
+                            Color.fromRGBO(251, 92, 102, 1),
                             Color.fromRGBO(250, 35, 48, 1)
                           ])),
                       const SizedBox(
