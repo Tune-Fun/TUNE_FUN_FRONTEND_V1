@@ -17,6 +17,7 @@ class ArticleList extends ConsumerStatefulWidget {
 class _ArticleListState extends ConsumerState<ArticleList> {
   List<ArticleModel> articles = DummyData.articles;
   String iconState = '';
+  String selectedSortOption = '최신순'; // 기본 정렬 값
 
   @override
   void initState() {
@@ -30,56 +31,21 @@ class _ArticleListState extends ConsumerState<ArticleList> {
     });
   }
 
-  void onSortButtonClicked() {
-    showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Center(
-            child: Text('정렬 기준 선택'),
-          ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextButton(
-                onPressed: () {
-                  setState(() {
-                    articles.sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
-                  });
-                  Navigator.pop(context);
-                },
-                child: const Text(
-                  '최신순',
-                  style: TextStyle(
-                    color: Pallete.textMainColor,
-                  ),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  setState(() {
-                    articles.sort((a, b) => b.votes.compareTo(a.votes));
-                  });
-                  Navigator.pop(context);
-                },
-                child: const Text(
-                  '투표순',
-                  style: TextStyle(
-                    color: Pallete.textMainColor,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
+  void onSortOptionChanged(String? newValue) {
+    setState(() {
+      selectedSortOption = newValue!;
+      if (newValue == '최신순') {
+        articles.sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
+      } else if (newValue == '투표순') {
+        articles.sort((a, b) => b.votes.compareTo(a.votes));
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: UIConstants.appBar(),
+      appBar: UIConstants.homeAppBar(),
       body: Container(
         decoration: const BoxDecoration(color: Pallete.bgSubColor),
         child: Column(
@@ -91,16 +57,6 @@ class _ArticleListState extends ConsumerState<ArticleList> {
                 children: [
                   IconButton(
                     onPressed: () {
-                      onIconStateChanged('alarm');
-                    },
-                    icon: SvgPicture.asset(
-                      ImageConstants.notificationIcon,
-                      height: 25,
-                      width: 25,
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {
                       onIconStateChanged('search');
                     },
                     icon: SvgPicture.asset(
@@ -109,16 +65,68 @@ class _ArticleListState extends ConsumerState<ArticleList> {
                       width: 25,
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {
-                      onIconStateChanged('sort');
-                      onSortButtonClicked();
+                  PopupMenuButton<String>(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8)),
+                    color: Pallete.bgMainColor,
+                    icon: const Icon(Icons.sort),
+                    onSelected: (String value) {
+                      setState(() {
+                        onSortOptionChanged(value);
+                        selectedSortOption = value;
+                      });
                     },
-                    icon: SvgPicture.asset(
-                      ImageConstants.sortIcon,
-                      height: 18,
-                      width: 12,
-                    ),
+                    itemBuilder: (BuildContext context) {
+                      return <PopupMenuEntry<String>>[
+                        PopupMenuItem<String>(
+                          value: '최신순',
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                '최신순',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 14,
+                                    color: selectedSortOption == "최신순"
+                                        ? Pallete.textMainColor
+                                        : Pallete.textSubColor),
+                              ),
+                              selectedSortOption == "최신순"
+                                  ? const Icon(
+                                      Icons.check,
+                                      size: 20,
+                                      color: Pallete.textMainColor,
+                                    )
+                                  : const SizedBox.shrink()
+                            ],
+                          ),
+                        ),
+                        PopupMenuItem<String>(
+                          value: '투표순',
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                '투표순',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 14,
+                                    color: selectedSortOption == "투표순"
+                                        ? Pallete.textMainColor
+                                        : Pallete.textSubColor),
+                              ),
+                              selectedSortOption == "투표순"
+                                  ? const Icon(
+                                      Icons.check,
+                                      size: 20,
+                                    )
+                                  : const SizedBox.shrink()
+                            ],
+                          ),
+                        ),
+                      ];
+                    },
                   ),
                 ],
               ),
