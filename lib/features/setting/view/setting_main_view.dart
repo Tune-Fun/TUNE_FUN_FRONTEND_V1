@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:tunefun_front/constants/ui_constants.dart';
 import 'package:tunefun_front/features/setting/view/account_setting_view.dart';
 import 'package:tunefun_front/features/setting/view/agreement/agreement_view.dart';
 import 'package:tunefun_front/features/setting/view/customer_service/customer_service_view.dart';
 import 'package:tunefun_front/features/setting/view/inquiry/inquiry_view.dart';
 import 'package:tunefun_front/features/setting/view/notification/notification_view.dart';
 import 'package:tunefun_front/features/setting/view/report/report_view.dart';
+import 'package:tunefun_front/theme/pallete.dart';
 
 class SettingMainView extends StatelessWidget {
   const SettingMainView({super.key});
@@ -60,7 +63,7 @@ class SettingMainView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SectionHeader(title: '도움말'),
+                  const SectionHeader(title: '도움말'),
                   SettingsListTile(
                       title: '신고', onTap: () => onReportTap(context)),
                   SettingsListTile(
@@ -68,7 +71,8 @@ class SettingMainView extends StatelessWidget {
                       onTap: () => onCustomerServiceTap(context)),
                   SettingsListTile(
                       title: '이용문의', onTap: () => onInquiriesTap(context)),
-                  SettingsListTile(title: '웹 버전', onTap: _onWebVersionTap),
+                  const SettingsListTile(
+                      title: '웹 버전', onTap: _onWebVersionTap),
                 ],
               ),
             ),
@@ -76,17 +80,19 @@ class SettingMainView extends StatelessWidget {
               color: const Color.fromRGBO(255, 255, 255, 1),
               margin: const EdgeInsets.only(top: 20),
               width: MediaQuery.of(context).size.width,
-              child: const Padding(
-                padding: EdgeInsets.only(left: 10),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 10),
                 child: ListTile(
-                  title: Text(
+                  title: const Text(
                     '로그아웃',
                     style: TextStyle(
                       color: Color.fromRGBO(17, 17, 17, 1),
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  onTap: _onLogoutTap,
+                  onTap: () {
+                    _onLogoutTap(context);
+                  },
                 ),
               ),
             ),
@@ -136,8 +142,72 @@ class SettingMainView extends StatelessWidget {
     // 웹 버전 페이지로 이동하는 로직 추가
   }
 
-  static void _onLogoutTap() {
-    // 로그아웃 로직 추가
+  void _onLogoutTap(BuildContext context) {
+    showModalBottomSheet(
+        backgroundColor: Pallete.bgMainColor,
+        context: context,
+        builder: (context) {
+          return Wrap(
+            children: [
+              Column(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(top: 20),
+                    child: Text(
+                      "로그아웃 하시겠습니까?",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 18,
+                          color: Pallete.textMainColor),
+                    ),
+                  ),
+                  Container(
+                      height: 50,
+                      margin: const EdgeInsets.only(
+                          left: 20, right: 20, top: 10, bottom: 10),
+                      width: double.infinity,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                const Color.fromRGBO(243, 244, 246, 1),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                          ),
+                          onPressed: () {},
+                          child: const Text(
+                            "로그아웃",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 18,
+                                color: Pallete.redColor),
+                          ))),
+                  Container(
+                      height: 50,
+                      margin: const EdgeInsets.only(
+                          left: 20, right: 20, bottom: 50),
+                      width: double.infinity,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                const Color.fromRGBO(243, 244, 246, 1),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text(
+                            "취소",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 18,
+                                color: Color.fromRGBO(75, 85, 99, 1)),
+                          ))),
+                ],
+              ),
+            ],
+          );
+        });
   }
 }
 
