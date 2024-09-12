@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:tunefun_front/data/data_source/auth_data_source.dart';
 import 'package:tunefun_front/data/translator/auth_translator.dart';
 import 'package:tunefun_front/domain/model/account_model.dart';
@@ -12,6 +13,8 @@ final authRepositoryProvider = Provider<AuthRepositoryImpl>((ref) {
 class AuthRepositoryImpl implements AuthRepository {
   final Ref ref;
   AuthRepositoryImpl(this.ref);
+  final _secureStorage = const FlutterSecureStorage();
+
   @override
   Future<DataState<AccountModel>> signUp(dynamic data) async {
     try {
@@ -32,6 +35,11 @@ class AuthRepositoryImpl implements AuthRepository {
       if (response["code"] != "0000") {
         return DataState.error(Exception(), "계정을 찾을 수 없습니다");
       }
+
+      await _secureStorage.write(
+          key: "access_token", value: response["data"]["access_token"]);
+      await _secureStorage.write(
+          key: "refresh_token", value: response["data"]["refresh_token"]);
       return AuthTranslator().translateSignUp(response['data']);
     } catch (e) {
       return DataState.error(Exception(), e.toString());

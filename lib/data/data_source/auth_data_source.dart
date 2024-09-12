@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:tunefun_front/constants/constants.dart';
+import 'package:tunefun_front/data/common/token_refresh_api.dart';
 import 'package:tunefun_front/presentation/manager/auth_manager/user_manager.dart';
 import 'package:uuid/uuid.dart';
 
@@ -22,6 +23,7 @@ class AuthDataSource {
     'Charset': 'UTF-8',
     'Accept-Language': 'ko_KR',
   };
+  final _secureStorage = const FlutterSecureStorage();
 
   Future signUp(dynamic data) async {
     final url = Uri.parse("${UrlConstants.registerURL}?type=${data["type"]}");
@@ -86,7 +88,7 @@ class AuthDataSource {
 
   Future setNewPassword(String password) async {
     final url = Uri.parse(UrlConstants.userSetNewPasswordURL);
-    final accessToken = ref.read(userManagerProvider)!.accessToken;
+    final accessToken = await _secureStorage.read(key: "access_token");
     final Map<String, String> headers = {
       "Authorization": "Bearer ${accessToken!}",
       'Content-Type': 'application/json',
@@ -99,6 +101,14 @@ class AuthDataSource {
     };
     var response =
         await http.patch(url, headers: headers, body: jsonEncode(body));
+    if (response.statusCode == 401) {
+      await TokenRefreshApi().refresh();
+      final newAccessToken = await _secureStorage.read(key: 'access_token');
+      headers["Authorization"] = 'Bearer $newAccessToken';
+
+      response =
+          await http.patch(url, headers: headers, body: jsonEncode(body));
+    }
     var decodeResponse = utf8.decode(response.bodyBytes);
     var jsonResponse = json.decode(decodeResponse);
     return jsonResponse;
@@ -106,7 +116,7 @@ class AuthDataSource {
 
   Future sendPasswordOTP() async {
     final url = Uri.parse(UrlConstants.userForgotPasswordSendOtpURL);
-    final userName = ref.read(userManagerProvider)!.username;
+    final userName = ref.read(userManagerProvider).username;
     final body = {
       "username": userName,
     };
@@ -142,6 +152,14 @@ class AuthDataSource {
 
     var response =
         await http.patch(url, headers: headers, body: jsonEncode(body));
+    if (response.statusCode == 401) {
+      await TokenRefreshApi().refresh();
+      final newAccessToken = await _secureStorage.read(key: 'access_token');
+      headers["Authorization"] = 'Bearer $newAccessToken';
+
+      response =
+          await http.patch(url, headers: headers, body: jsonEncode(body));
+    }
     var decodeResponse = utf8.decode(response.bodyBytes);
     var jsonResponse = json.decode(decodeResponse);
     return jsonResponse;

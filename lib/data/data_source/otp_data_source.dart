@@ -23,7 +23,7 @@ class OtpDataSource {
   Future verifyOTP(String type, String otp) async {
     final url = Uri.parse(UrlConstants.userOtpVerifyURL);
     final body = {
-      "username": ref.read(userManagerProvider)!.username,
+      "username": ref.read(userManagerProvider).username,
       "otp_type": type,
       "otp": otp,
     };
@@ -38,7 +38,7 @@ class OtpDataSource {
   Future resendOTP(String type) async {
     final url = Uri.parse(UrlConstants.userOtpResendURL);
     final body = {
-      "username": ref.read(userManagerProvider)!.username,
+      "username": ref.read(userManagerProvider).username,
       "otp_type": type,
     };
 
