@@ -28,11 +28,7 @@ class ChoiceLoginTypeScreen extends StatelessWidget {
       ),
       LoginOption(
         label: "Instagram으로 로그인하기",
-        icon: ImageConstants.youtubeIcon,
-      ),
-      LoginOption(
-        label: "Spotify로 로그인하기",
-        icon: ImageConstants.twitterIcon,
+        icon: ImageConstants.instagramIcon,
       ),
     ];
 
@@ -100,11 +96,17 @@ class LoginOptionWidget extends StatelessWidget {
                 child: CircleAvatar(
                   backgroundColor: Colors.white,
                   radius: 13,
-                  child: SvgPicture.asset(
-                    option.icon!,
-                    height: 14,
-                    width: 14,
-                  ),
+                  child: option.icon == ImageConstants.instagramIcon
+                      ? Image.asset(
+                          option.icon!,
+                          height: 20,
+                          width: 20,
+                        )
+                      : SvgPicture.asset(
+                          option.icon!,
+                          height: 14,
+                          width: 14,
+                        ),
                 ),
               ),
               const SizedBox(width: 10),
