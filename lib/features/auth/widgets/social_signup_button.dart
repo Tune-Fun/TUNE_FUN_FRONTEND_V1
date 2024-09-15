@@ -46,31 +46,34 @@ class SocialSignupButton extends StatelessWidget {
         horizontal: 23,
       ),
       child: GestureDetector(
-        onTap: () {
-          logger.i('$text이 클릭됨!!!');
-          print(text);
-        },
+        onTap: () {},
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 13),
+          height: 50,
           decoration: BoxDecoration(
             border: Border.all(
               color: Pallete.borderColor, // 테두리 색상 설정
             ),
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(8),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SvgPicture.asset(
-                iconPath,
-                height: 24,
-                width: 24,
-              ),
+              iconPath == ImageConstants.instagramIcon
+                  ? Image.asset(
+                      iconPath,
+                      height: 20,
+                      width: 20,
+                    )
+                  : SvgPicture.asset(
+                      iconPath,
+                      height: 20,
+                      width: 20,
+                    ),
               const SizedBox(width: 14),
               Text(
                 buttonText,
                 style: const TextStyle(
-                    color: Color.fromRGBO(102, 102, 102, 1),
+                    color: Pallete.textSubColor,
                     fontWeight: FontWeight.w500,
                     fontSize: 18),
               ),
