@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tunefun_front/constants/constants.dart';
 import 'package:tunefun_front/features/vote/presentation/widgets/gradient_container.dart';
-import 'package:tunefun_front/presentation/views/auth/login_view.dart';
+import 'package:tunefun_front/presentation/views/auth/choice_login_type_view.dart';
 import 'package:tunefun_front/presentation/views/auth/signup_main_view.dart';
+import 'package:tunefun_front/theme/pallete.dart';
 
 class InduceAuthScreen extends StatelessWidget {
   const InduceAuthScreen({super.key});
@@ -18,11 +19,15 @@ class InduceAuthScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SvgPicture.asset(ImageConstants.induceAuthIcon),
+          SvgPicture.asset(
+            ImageConstants.induceAuthIcon,
+          ),
           GestureDetector(
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const LoginScreen()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ChoiceLoginTypeScreen()));
             },
             child: Padding(
               padding: const EdgeInsets.only(
