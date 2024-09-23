@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tunefun_front/constants/gradient_text.dart';
 import 'package:tunefun_front/constants/image_constants.dart';
 import 'package:tunefun_front/features/profile/views/update_nickname_view.dart';
@@ -117,7 +118,7 @@ class EditProfileView extends ConsumerWidget {
   Widget snsListTile(String platform, String iconString) {
     return ListTile(
       onTap: () {
-        print(iconString);
+        Fluttertoast.showToast(msg: "준비중인 기능입니다!");
       },
       contentPadding: EdgeInsets.zero,
       leading: Container(
