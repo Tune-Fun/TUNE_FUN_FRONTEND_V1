@@ -10,7 +10,7 @@ class Pallete {
   static const Color greenColor = Color.fromRGBO(102, 216, 97, 1);
   static const Color pointColor = Color.fromRGBO(251, 92, 102, 1);
   static const Color pinkColor = Color.fromRGBO(251, 92, 102, 1);
-  static const Color redColor = Color.fromRGBO(233, 20, 20, 1);
+  static const Color negativeColor = Color.fromRGBO(233, 20, 20, 1);
   static const Color borderColor = Color.fromRGBO(234, 234, 234, 1);
   static const Color bgCustomColor = Color.fromRGBO(255, 242, 242, 1);
   // static const Color color1 = Color.fromRGBO(250, 92, 102, 1);

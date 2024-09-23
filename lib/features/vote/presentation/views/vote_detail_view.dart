@@ -67,7 +67,7 @@ class _VoteDetailScreenState extends ConsumerState<VoteDetailScreen> {
     final songList = ref.watch(voteViewModelProvider).filteredSongs;
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: UIConstants.appBar(),
+      appBar: UIConstants.basicAppBar(),
       body: Column(
         children: [
           Expanded(

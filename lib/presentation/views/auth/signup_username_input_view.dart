@@ -93,7 +93,7 @@ class _SignupUsernameInputScreenState
                             borderRadius: BorderRadius.circular(8.0),
                             borderSide: BorderSide(
                               color: checkIdState is IdIsExist
-                                  ? Pallete.redColor
+                                  ? Pallete.negativeColor
                                   : Pallete.greyLineColor,
                               width: 1,
                             ),
@@ -102,7 +102,7 @@ class _SignupUsernameInputScreenState
                             borderRadius: BorderRadius.circular(8.0),
                             borderSide: BorderSide(
                               color: checkIdState is IdIsExist
-                                  ? Pallete.redColor
+                                  ? Pallete.negativeColor
                                   : Pallete.greyLineColor,
                               width: 1,
                             ),
@@ -111,7 +111,7 @@ class _SignupUsernameInputScreenState
                             borderRadius: BorderRadius.circular(8.0),
                             borderSide: BorderSide(
                               color: checkIdState is IdIsExist
-                                  ? Pallete.redColor
+                                  ? Pallete.negativeColor
                                   : Pallete.greyLineColor,
                               width: 1,
                             ),
@@ -120,7 +120,7 @@ class _SignupUsernameInputScreenState
                             borderRadius: BorderRadius.circular(8.0),
                             borderSide: BorderSide(
                               color: checkIdState is IdIsExist
-                                  ? Pallete.redColor
+                                  ? Pallete.negativeColor
                                   : Pallete.greyLineColor,
                               width: 1,
                             ),

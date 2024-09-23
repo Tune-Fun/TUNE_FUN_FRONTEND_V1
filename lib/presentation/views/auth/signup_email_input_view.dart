@@ -78,7 +78,7 @@ class _SignupEmailInputScreenState
                             borderRadius: BorderRadius.circular(8.0),
                             borderSide: BorderSide(
                               color: emailState is EmailIsExist
-                                  ? Pallete.redColor
+                                  ? Pallete.negativeColor
                                   : Pallete.greyLineColor,
                               width: 1,
                             ),
@@ -87,7 +87,7 @@ class _SignupEmailInputScreenState
                             borderRadius: BorderRadius.circular(8.0),
                             borderSide: BorderSide(
                               color: emailState is EmailIsExist
-                                  ? Pallete.redColor
+                                  ? Pallete.negativeColor
                                   : Pallete.greyLineColor,
                               width: 1,
                             ),
@@ -96,7 +96,7 @@ class _SignupEmailInputScreenState
                             borderRadius: BorderRadius.circular(8.0),
                             borderSide: BorderSide(
                               color: emailState is EmailIsExist
-                                  ? Pallete.redColor
+                                  ? Pallete.negativeColor
                                   : Pallete.greyLineColor,
                               width: 1,
                             ),
@@ -105,7 +105,7 @@ class _SignupEmailInputScreenState
                             borderRadius: BorderRadius.circular(8.0),
                             borderSide: BorderSide(
                               color: emailState is EmailIsExist
-                                  ? Pallete.redColor
+                                  ? Pallete.negativeColor
                                   : Pallete.greyLineColor,
                               width: 1,
                             ),

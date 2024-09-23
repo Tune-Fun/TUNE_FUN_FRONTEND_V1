@@ -32,7 +32,7 @@ class ArticleCard extends ConsumerWidget {
                 ? const LinearGradient(
                     colors: [
                       Pallete.pinkColor,
-                      Pallete.redColor,
+                      Pallete.negativeColor,
                     ],
                   )
                 : null,

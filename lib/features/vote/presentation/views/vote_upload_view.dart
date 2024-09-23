@@ -35,7 +35,7 @@ class _VoteUploadScreenState extends ConsumerState<VoteUploadScreen> {
     return GestureDetector(
       onTap: FocusScope.of(context).unfocus,
       child: Scaffold(
-        appBar: UIConstants.appBar(),
+        appBar: UIConstants.basicAppBar(),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(12.0),

@@ -13,7 +13,7 @@ class SearchFromSpotifyWidget extends ConsumerWidget {
     final songSearchState = ref.watch(songSearchProvider);
 
     return Scaffold(
-      appBar: UIConstants.appBar(),
+      appBar: UIConstants.basicAppBar(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),

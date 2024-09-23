@@ -10,7 +10,10 @@ class ImageConstants {
   static const String profileOutlinedIcon = '$_svgsPath/profile_outlined.svg';
   static const String googleIcon = '$_svgsPath/google-logo.svg';
   static const String appleIcon = '$_svgsPath/apple-logo.svg';
-  static const String instagramIcon = '$_svgsPath/instagram-logo.svg';
+  static const String instagramIcon = '$_svgsPath/instagram_icon.png';
+  static const String youtubeIcon = '$_svgsPath/youtube_icon.svg';
+  static const String ticktokIcon = '$_svgsPath/ticktok_icon.svg';
+  static const String twitterIcon = '$_svgsPath/twitter_x.svg';
   static const String backIcon = '$_svgsPath/back.svg';
   static const String doneIcon = '$_svgsPath/done.svg';
   static const String doneColorIcon = '$_svgsPath/done_color.svg';
@@ -20,6 +23,8 @@ class ImageConstants {
   static const String alarmIcon = '$_svgsPath/alarm.svg';
   static const String alertIcon = '$_svgsPath/alert.svg';
   static const String uploadIcon = '$_svgsPath/upload.svg';
+  static const String unactiveUploadIcon =
+      '$_svgsPath/unactive_upload_icon.svg';
   static const String followIcon = '$_svgsPath/follow.svg';
   static const String profileIcon = '$_svgsPath/profile.svg';
   static const String homeActiveIcon = '$_svgsPath/home_active.svg';
@@ -28,4 +33,7 @@ class ImageConstants {
   static const String followActiveIcon = '$_svgsPath/follow_active.svg';
   static const String induceAuthIcon = '$_svgsPath/induce_auth.svg';
   static const String xIcon = '$_svgsPath/x.svg';
+  static const String homeLikeGreyIcon = '$_svgsPath/home_like_grey.svg';
+  static const String homeVoteGreyIcon = '$_svgsPath/home_vote_grey.svg';
+  static const String personSampleIcon = '$_svgsPath/person_sample.svg';
 }

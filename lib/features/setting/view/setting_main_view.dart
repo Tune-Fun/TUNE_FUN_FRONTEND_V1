@@ -179,7 +179,7 @@ class SettingMainView extends StatelessWidget {
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 18,
-                                color: Pallete.redColor),
+                                color: Pallete.negativeColor),
                           ))),
                   Container(
                       height: 50,

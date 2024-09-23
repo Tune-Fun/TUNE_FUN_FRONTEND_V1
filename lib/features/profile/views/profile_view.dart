@@ -104,11 +104,10 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
               ),
               IconButton(
                   onPressed: () {
-                    print(userInfo.emailverify);
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => const SettingMainView()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SettingMainView()));
                   },
                   icon: const Icon(
                     Icons.settings,
@@ -170,7 +169,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
                         child: SvgPicture.asset(
                           width: 20,
                           height: 20,
-                          ImageConstants.ticktokIcon,
+                          ImageConstants.youtubeIcon,
                         ),
                       ),
                     ),

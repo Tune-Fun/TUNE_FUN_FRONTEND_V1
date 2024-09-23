@@ -20,7 +20,7 @@ class LoginScreen extends ConsumerStatefulWidget {
 }
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
-  final appbar = UIConstants.appBar();
+  final appbar = UIConstants.basicAppBar();
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
   bool buttonState = false;
@@ -201,25 +201,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     ),
                   ),
                   const SizedBox(
-                    height: 100,
-                  ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("------------------   ",
-                          style: TextStyle(
-                              color: Color.fromRGBO(153, 153, 153, 1))),
-                      Text("또는",
-                          style: TextStyle(
-                              fontSize: 14,
-                              color: Color.fromRGBO(153, 153, 153, 1))),
-                      Text("   ------------------",
-                          style: TextStyle(
-                              color: Color.fromRGBO(153, 153, 153, 1))),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 30,
+                    height: 50,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

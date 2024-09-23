@@ -25,12 +25,12 @@ class EmailSignupButton extends StatelessWidget {
           Navigator.push(context, SignupEmailInputScreen.route());
         },
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 13),
+          height: 50,
           decoration: BoxDecoration(
             border: Border.all(
               color: Pallete.borderColor, // 테두리 색상 설정
             ),
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(8),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
