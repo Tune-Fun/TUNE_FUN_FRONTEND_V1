@@ -89,7 +89,7 @@ class _UpdateNicknameViewState extends ConsumerState<UpdateNicknameView> {
           TextFormField(
             controller: nicknameController,
             decoration: InputDecoration(
-              hintText: "20자 이내의 닉네임을 입력해주세요.",
+              hintText: "2자 이상 20자 이내의 닉네임을 입력해주세요.",
               hintStyle: const TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 12,
@@ -147,7 +147,7 @@ class _UpdateNicknameViewState extends ConsumerState<UpdateNicknameView> {
                         SvgPicture.asset(ImageConstants.alertIcon),
                         const SizedBox(width: 5),
                         const Text(
-                          "{입력조건}에 맞는 닉네임을 입력해주세요.",
+                          "2자 이상 20자 이하로 입력해주세요.",
                           style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
@@ -158,11 +158,15 @@ class _UpdateNicknameViewState extends ConsumerState<UpdateNicknameView> {
               : const SizedBox(),
           const SizedBox(height: 30),
           RadiusSquareButton(
-              buttonState: true,
+              buttonState: nicknameController.text.length > 1 &&
+                  nicknameController.text.length <= 20,
               onTap: () async {
-                await ref
-                    .read(authManagerProvider.notifier)
-                    .updateNickname(nicknameController.text);
+                if (nicknameController.text.length > 1 &&
+                    nicknameController.text.length <= 20) {
+                  await ref
+                      .read(authManagerProvider.notifier)
+                      .updateNickname(nicknameController.text);
+                }
               },
               buttonText: "변경 완료")
         ],
