@@ -3,12 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tunefun_front/domain/model/account_model.dart';
 import 'package:tunefun_front/presentation/common/timer_manager.dart';
 import 'package:tunefun_front/presentation/manager/auth_manager/auth_manager.dart';
+import 'package:tunefun_front/presentation/manager/auth_manager/email_manager.dart';
 import 'package:tunefun_front/presentation/manager/auth_manager/user_manager.dart';
 import 'package:tunefun_front/presentation/views/account/delete/check_password_view.dart';
 import 'package:tunefun_front/presentation/views/account/email/email_disconnect_view.dart';
 import 'package:tunefun_front/presentation/views/account/email/email_update_view.dart';
 import 'package:tunefun_front/presentation/views/account/update_password/password_otp_screen.dart';
-import 'package:tunefun_front/presentation/views/auth/email_verify_view.dart';
+import 'package:tunefun_front/presentation/views/auth/email_verify_first_view.dart';
+import 'package:tunefun_front/presentation/views/auth/email_verify_second_view.dart';
 
 class AccountSettingScreen extends ConsumerWidget {
   static MaterialPageRoute route() => MaterialPageRoute(
@@ -61,7 +63,7 @@ class AccountSettingScreen extends ConsumerWidget {
       margin: const EdgeInsets.symmetric(vertical: 20),
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height * 0.38,
+      height: MediaQuery.of(context).size.height * 0.32,
       color: const Color.fromRGBO(255, 255, 255, 1),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,7 +103,8 @@ class AccountSettingScreen extends ConsumerWidget {
           const SizedBox(height: 18),
           GestureDetector(
             behavior: HitTestBehavior.translucent,
-            onTap: () => emailDialog(context, "simondr@naver.com"),
+            onTap: () => emailDialog(
+                context, accountModel.email!, accountModel.emailverify!),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -186,7 +189,7 @@ class AccountSettingScreen extends ConsumerWidget {
     );
   }
 
-  void emailDialog(BuildContext context, String email) {
+  void emailDialog(BuildContext context, String email, bool emailVerify) {
     showDialog(
       context: context,
       builder: (context) => Center(
@@ -208,15 +211,20 @@ class AccountSettingScreen extends ConsumerWidget {
             Center(
               child: Column(
                 children: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const EmailVerifyScreen()));
-                    },
-                    child: Text('이메일 인증', style: titleStyle),
-                  ),
+                  emailVerify
+                      ? const SizedBox.shrink()
+                      : TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        EmailVerifyFirstScreen(
+                                          email: email,
+                                        )));
+                          },
+                          child: Text('이메일 인증', style: titleStyle),
+                        ),
                   const Divider(
                     color: Color.fromRGBO(234, 234, 234, 1),
                   ),
@@ -237,8 +245,8 @@ class AccountSettingScreen extends ConsumerWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const EmailDisconnectView(
-                                    email: "simondr@naver.com",
+                              builder: (context) => EmailDisconnectView(
+                                    email: email,
                                   )));
                     },
                     child: Text('이메일 연결 해제', style: titleStyle),
