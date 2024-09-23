@@ -84,7 +84,7 @@ class EditProfileView extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(userInfo!.roles![0] == "ARTIST" ? "아티스트 사용자" : "일반 사용자",
+                Text(userInfo.roles![0] == "ARTIST" ? "아티스트 사용자" : "일반 사용자",
                     style: mainStyle),
                 GestureDetector(
                   child: GradientText(
@@ -104,8 +104,8 @@ class EditProfileView extends ConsumerWidget {
             const SizedBox(height: 10),
             Text("SNS 계정 연동하기", style: subStyle),
             const SizedBox(height: 10),
-            snsListTile("인스타그램", ImageConstants.youtubeIcon),
-            snsListTile("유튜브", ImageConstants.ticktokIcon),
+            snsListTile("인스타그램", ImageConstants.instagramIcon),
+            snsListTile("유튜브", ImageConstants.youtubeIcon),
             snsListTile("틱톡", ImageConstants.ticktokIcon),
             snsListTile("X", ImageConstants.twitterIcon),
           ],
@@ -128,11 +128,17 @@ class EditProfileView extends ConsumerWidget {
             borderRadius: BorderRadius.circular(100)),
         child: CircleAvatar(
           backgroundColor: Colors.white,
-          child: SvgPicture.asset(
-            width: 20,
-            height: 20,
-            iconString,
-          ),
+          child: platform == "instagram"
+              ? Image.asset(
+                  iconString,
+                  width: 20,
+                  height: 20,
+                )
+              : SvgPicture.asset(
+                  width: 20,
+                  height: 20,
+                  iconString,
+                ),
         ),
       ),
       title: Text(platform,
