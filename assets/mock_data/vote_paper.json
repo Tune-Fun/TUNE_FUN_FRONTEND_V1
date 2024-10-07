@@ -1,0 +1,109 @@
+{
+    "message" : "요청이 성공적으로 처리되었습니다.",
+    "code" : "0000",
+    "data" : {
+      "empty" : false,
+      "content" : [ {
+        "id" : 999,
+        "uuid" : "2a256f9c-a323-46a7-851a-993029452edb",
+        "title" : "First Vote Paper",
+        "author_username" : "GArwKmzidPP",
+        "author_profile_image_url" : null,
+        "author_nickname" : "10cm",
+        "remain_days" : 2,
+        "total_vote_count" : "0",
+        "total_like_count" : null
+      }, {
+        "id" : 998,
+        "uuid" : "3c12f7f8-b426-48cc-9add-49e2a8ec9690",
+        "title" : "First Vote Paper",
+        "author_username" : "GArwKmzidPP",
+        "author_profile_image_url" : null,
+        "author_nickname" : "수퍼비",
+        "remain_days" : 2,
+        "total_vote_count" : "0",
+        "total_like_count" : null
+      }, {
+        "id" : 997,
+        "uuid" : "269241e3-22ce-48e0-a590-d8ff592e5bfc",
+        "title" : "First Vote Paper",
+        "author_username" : "GArwKmzidPP",
+        "author_profile_image_url" : null,
+        "author_nickname" : "데이식스",
+        "remain_days" : 2,
+        "total_vote_count" : "0",
+        "total_like_count" : null
+      }, {
+        "id" : 996,
+        "uuid" : "0775890c-47ad-47d1-9135-cc215551f478",
+        "title" : "First Vote Paper",
+        "author_username" : "GArwKmzidPP",
+        "author_profile_image_url" : null,
+        "author_nickname" : "에스파",
+        "remain_days" : 2,
+        "total_vote_count" : "0",
+        "total_like_count" : null
+      }, {
+        "id" : 995,
+        "uuid" : "6f30c1f8-3cd7-4f50-bbca-0f7a735aacdb",
+        "title" : "First Vote Paper",
+        "author_username" : "GArwKmzidPP",
+        "author_profile_image_url" : null,
+        "author_nickname" : "로이킴",
+        "remain_days" : 2,
+        "total_vote_count" : "0",
+        "total_like_count" : null
+      }, {
+        "id" : 994,
+        "uuid" : "382f5107-5510-4010-897e-d307f253e8bb",
+        "title" : "First Vote Paper",
+        "author_username" : "GArwKmzidPP",
+        "author_profile_image_url" : null,
+        "author_nickname" : "ColdPlay",
+        "remain_days" : 2,
+        "total_vote_count" : "0",
+        "total_like_count" : null
+      }, {
+        "id" : 993,
+        "uuid" : "58b796cc-ffb9-4e43-874f-8bb4bf50f186",
+        "title" : "First Vote Paper",
+        "author_username" : "GArwKmzidPP",
+        "author_profile_image_url" : null,
+        "author_nickname" : "greenday",
+        "remain_days" : 2,
+        "total_vote_count" : "0",
+        "total_like_count" : null
+      }, {
+        "id" : 992,
+        "uuid" : "f2bd09ad-194c-4de9-a322-499530f1af2e",
+        "title" : "First Vote Paper",
+        "author_username" : "GArwKmzidPP",
+        "author_profile_image_url" : null,
+        "author_nickname" : "크러쉬",
+        "remain_days" : 2,
+        "total_vote_count" : "0",
+        "total_like_count" : null
+      }, {
+        "id" : 991,
+        "uuid" : "e57c2e23-4d78-450c-8eae-fe7c3f38378d",
+        "title" : "First Vote Paper",
+        "author_username" : "GArwKmzidPP",
+        "author_profile_image_url" : null,
+        "author_nickname" : "백예린",
+        "remain_days" : 2,
+        "total_vote_count" : "0",
+        "total_like_count" : null
+      }, {
+        "id" : 990,
+        "uuid" : "f0aeb2bb-2310-4306-b9c1-f62acc383df8",
+        "title" : "First Vote Paper",
+        "author_username" : "GArwKmzidPP",
+        "author_profile_image_url" : null,
+        "author_nickname" : "박효신",
+        "remain_days" : 2,
+        "total_vote_count" : "0",
+        "total_like_count" : null
+      } ],
+      "last" : false
+    }
+  }
