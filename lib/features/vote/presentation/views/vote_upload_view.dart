@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:tunefun_front/constants/ui_constants.dart';
 import 'package:tunefun_front/features/vote/domain/model/upload_test_model.dart';
-import 'package:tunefun_front/features/vote/presentation/%08controller/vote_controller.dart';
+import 'package:tunefun_front/features/vote/presentation/manager/vote_upload_manager.dart';
 import 'package:tunefun_front/features/vote/presentation/widgets/gradient_container.dart';
 import 'package:tunefun_front/features/vote/presentation/widgets/upload_add_song.dart';
 

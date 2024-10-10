@@ -6,6 +6,7 @@ import 'package:tunefun_front/constants/image_constants.dart';
 import 'package:tunefun_front/features/article/widgets/article_card.dart';
 import 'package:tunefun_front/features/profile/views/edit_profile_view.dart';
 import 'package:tunefun_front/features/setting/view/setting_main_view.dart';
+import 'package:tunefun_front/features/vote/domain/model/vote_paper_model.dart';
 import 'package:tunefun_front/models/article_model.dart';
 import 'package:tunefun_front/presentation/manager/auth_manager/user_manager.dart';
 
@@ -69,8 +70,15 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
                   ListView.builder(
                     itemCount: 6,
                     itemBuilder: (context, index) {
-                      List<ArticleModel> articles = DummyData.articles;
-                      return ArticleCard(article: articles[index]);
+                      VotePaperModel articles = VotePaperModel(
+                          id: 30,
+                          uuid: 'uuid',
+                          title: 'title',
+                          authorUsername: 'authorUsername',
+                          authorNickname: 'authorNickname',
+                          remainDays: 1,
+                          totalVoteCount: 'totalVoteCount');
+                      return ArticleCard(article: articles);
                     },
                   ),
                   Container(),

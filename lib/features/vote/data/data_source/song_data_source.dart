@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:tunefun_front/constants/url_constants.dart';
 import 'package:tunefun_front/features/vote/data/dto/song_dto.dart';
-import 'package:tunefun_front/features/vote/presentation/%08controller/token_controller.dart';
+import 'package:tunefun_front/features/vote/presentation/manager/token_controller.dart';
 
 final songDataSourceProvider = Provider<SongDataSource>((ref) {
   return SongDataSource(ref);

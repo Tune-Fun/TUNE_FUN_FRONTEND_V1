@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tunefun_front/constants/constants.dart';
+import 'package:tunefun_front/features/vote/domain/model/vote_paper_model.dart';
 import 'package:tunefun_front/features/vote/presentation/widgets/gradient_container.dart';
-import 'package:tunefun_front/models/models.dart';
 import 'package:tunefun_front/theme/theme.dart';
 
 class ArticleCard extends ConsumerWidget {
-  final ArticleModel article;
+  final VotePaperModel article;
 
   const ArticleCard({
     Key? key,
@@ -16,9 +16,7 @@ class ArticleCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Duration difference = article.endedAt.difference(DateTime.now());
-    String daysDifference =
-        difference.inDays < 0 ? "투표 종료" : "${difference.inDays}일 남음";
+    int remainsDay = article.remainDays;
     return GestureDetector(
       onTap: () {},
       child: Padding(
@@ -27,8 +25,9 @@ class ArticleCard extends ConsumerWidget {
           // 외곽 여백 설정
           padding: const EdgeInsets.all(1),
           // 외곽을 그라데이션으로 채우기
+          // 투표 여부 필요
           decoration: BoxDecoration(
-            gradient: daysDifference != "투표 종료" && !article.isVoted
+            gradient: remainsDay != 0
                 ? const LinearGradient(
                     colors: [
                       Pallete.pinkColor,
@@ -45,7 +44,7 @@ class ArticleCard extends ConsumerWidget {
             decoration: BoxDecoration(
               border: Border.all(
                 width: 1,
-                color: article.isVoted && daysDifference != "투표 종료"
+                color: remainsDay != 0
                     ? const Color.fromRGBO(153, 153, 153, 1)
                     : const Color.fromRGBO(234, 234, 234, 1),
               ),
@@ -81,12 +80,12 @@ class ArticleCard extends ConsumerWidget {
                         height: 30,
                         width: 66,
                         borderRadius: BorderRadius.circular(12),
-                        type: daysDifference == "투표 종료" ? "voteEndBox" : "fill",
+                        type: remainsDay == 0 ? "voteEndBox" : "fill",
                         child: Center(
                           child: Text(
-                            daysDifference,
+                            "$remainsDay",
                             style: TextStyle(
-                              color: daysDifference == "투표 종료"
+                              color: remainsDay == 0
                                   ? const Color.fromRGBO(102, 102, 102, 1)
                                   : Pallete.bgMainColor,
                               fontWeight: FontWeight.w500,
@@ -99,7 +98,7 @@ class ArticleCard extends ConsumerWidget {
                 const SizedBox(height: 10),
                 // 내용
                 Text(
-                  article.content,
+                  article.title,
                   style: const TextStyle(
                     color: Pallete.textMainColor,
                     fontSize: 22,
@@ -125,7 +124,7 @@ class ArticleCard extends ConsumerWidget {
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          article.votes.toString(),
+                          article.totalVoteCount.toString(),
                           style: const TextStyle(
                             color: Pallete.textMainColor,
                           ),
@@ -147,7 +146,7 @@ class ArticleCard extends ConsumerWidget {
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          article.likes.toString(),
+                          "${article.totalLikeCount}",
                           style: const TextStyle(
                             color: Pallete.textMainColor,
                           ),
@@ -155,18 +154,18 @@ class ArticleCard extends ConsumerWidget {
                       ],
                     ),
                     const Spacer(),
-                    if (article.isVoted) ...[
-                      const GradientText(
-                          text: "투표완료",
-                          gradient: LinearGradient(colors: [
-                            Color.fromRGBO(251, 92, 102, 1),
-                            Color.fromRGBO(250, 35, 48, 1)
-                          ])),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      SvgPicture.asset(ImageConstants.doneColorIcon)
-                    ]
+                    // if (article.isVoted) ...[
+                    //   const GradientText(
+                    //       text: "투표완료",
+                    //       gradient: LinearGradient(colors: [
+                    //         Color.fromRGBO(251, 92, 102, 1),
+                    //         Color.fromRGBO(250, 35, 48, 1)
+                    //       ])),
+                    //   const SizedBox(
+                    //     width: 5,
+                    //   ),
+                    //   SvgPicture.asset(ImageConstants.doneColorIcon)
+                    // ]
                   ],
                 ),
               ],

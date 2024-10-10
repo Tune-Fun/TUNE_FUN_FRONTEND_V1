@@ -1,4 +1,4 @@
-part of 'vote_controller.dart';
+part of 'vote_upload_manager.dart';
 
 abstract class SongSearchState {
   final List<SongInfo>? songs;
